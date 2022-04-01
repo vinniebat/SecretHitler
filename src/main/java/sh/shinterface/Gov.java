@@ -10,19 +10,19 @@ import java.util.stream.Collectors;
 public record Gov(Player president, Player chancellor, int played, int[] claim1, int[] claim2) {
 
     private static final Map<Integer, String> CONVERT= new HashMap<>() {{
-        put(1, "Lib");
-        put(2, "Fasc");
+        put(1, "B");
+        put(2, "R");
     }};
 
     public SimpleStringProperty displayClaims() {
         String claimText = claimText(claim1);
         if (claim2 != null) {
-            claimText += " - " + claimText(claim2);
+            claimText += " \uD83D\uDDF2 " + claimText(claim2);
         }
         return new SimpleStringProperty(claimText);
     }
 
     private String claimText(int[] claim) {
-        return Arrays.stream(claim).mapToObj(CONVERT::get).collect(Collectors.joining(", "));
+        return Arrays.stream(claim).mapToObj(CONVERT::get).collect(Collectors.joining());
     }
 }
