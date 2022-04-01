@@ -11,4 +11,20 @@ public class Player {
         this.id = id;
         this.name = name;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSuspectedFaction() {
+        return suspectedFaction;
+    }
+
+    public void setSuspectedFaction(int suspectedFaction) {
+        this.suspectedFaction = suspectedFaction;
+    }
 }
