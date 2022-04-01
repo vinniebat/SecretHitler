@@ -35,7 +35,7 @@ public class ConfigScreen {
         ConfigScreen.stage = stage;
         VBox vBox = new VBox();
         ChoiceBox<Integer> choiceBox = new ChoiceBox<>();
-        for (int i = minPlayers; i < maxPlayers; i++) {
+        for (int i = minPlayers; i <= maxPlayers; i++) {
             choiceBox.getItems().add(i);
         }
         choiceBox.setValue(minPlayers);
