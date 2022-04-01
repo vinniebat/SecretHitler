@@ -1,0 +1,15 @@
+Scene {
+    -fx-pref-height: 200px;
+}
+
+HBox {
+    -fx-padding: 20px;
+}
+
+Label {
+    -fx-padding: 10px;
+}
+
+.leegLabel {
+    -fx-border-color: red;
+}
