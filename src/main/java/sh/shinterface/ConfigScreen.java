@@ -87,7 +87,7 @@ public class ConfigScreen {
         if (valid) {
             //later factory
             stage.close();
-            Game game = new fivePlayerGame(players);
+            Game game = new FivePlayerGame(players);
             game.start();
         }
     }
