@@ -1,15 +1,91 @@
-Scene {
+@font-face {
+    src: url("Eskapade-Fraktur-W04-Black.ttf");
+}
+
+.root {
+    -fx-fascist-dark: #990200;
+    -fx-fascist-light: #E66443;
+    -fx-fascist-white: #FEFFAC;
+
+    -fx-liberal-dark: #004E6E;
+    -fx-liberal-light: #61C8D9;
+    -fx-liberal-white: white;
+}
+
+.selection-screen HBox {
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+
+.selection-screen Label {
+    -fx-padding: 5, 10, 5, 10;
+    -fx-min-width: 90;
+    -fx-border-radius: 5;
+    -fx-text-fill: -fx-liberal-dark;
+}
+
+.selection-screen .text {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-font-size: 20;
+}
+
+.selection-screen .title {
+    -fx-translate-y: -40;
+    -fx-background-color: -fx-liberal-light;
+}
+
+.selection-screen .title .text {
+    -fx-font-size: 28;
+}
+
+.selection-screen {
     -fx-pref-height: 200px;
+    -fx-padding: 10;
+    -fx-border-color: -fx-liberal-dark;
+    -fx-background-color: -fx-liberal-light;
+    -fx-border-width: 14;
+    -fx-border-insets: 10;
+    -fx-alignment: top-center;
 }
 
-HBox {
-    -fx-padding: 20px;
+.selection-screen MenuButton {
+    -fx-background-color: -fx-liberal-dark;
+    -fx-fill: -fx-liberal-light;
+
+}
+.selection-screen MenuButton .label {
+    -fx-text-fill: -fx-liberal-light;
 }
 
-Label {
-    -fx-padding: 10px;
+.selection-screen MenuButton .context-menu {
+    -fx-background-color: -fx-liberal-dark;
 }
 
-.leegLabel {
-    -fx-border-color: red;
+.selection-screen MenuButton .arrow-button .arrow {
+    -fx-background-color: -fx-liberal-light;
+}
+
+.selection-screen TextField {
+    -fx-background-color: -fx-liberal-dark;
+    -fx-border-color: -fx-liberal-white;
+    -fx-border-width: 4;
+    -fx-text-fill: -fx-liberal-light;
+    -fx-font-weight: bold;
+}
+
+.selection-screen Button {
+    -fx-background-color: -fx-liberal-dark;
+    -fx-fill: -fx-liberal-light;
+    -fx-text-fill: -fx-liberal-light;
+}
+
+.selection-screen .emptyField TextField {
+    -fx-border-color: -fx-fascist-white;
+    -fx-background-color: -fx-fascist-dark;
+    -fx-text-fill: -fx-fascist-light;
+}
+
+.selection-screen .emptyField Label {
+    -fx-text-fill: -fx-fascist-dark;
 }

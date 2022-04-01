@@ -3,6 +3,7 @@ package sh.shinterface;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -10,20 +11,23 @@ import java.util.ArrayList;
 
 public class ConfigScreen {
 
-    private static ArrayList<TextField> playerNames = new ArrayList<>();
+    private static final ArrayList<HBox> playerFields = new ArrayList<>();
     private static int aantalSpelers = 5;
+    private static Stage stage;
 
     public static void display() {
         Stage stage = new Stage();
-        VBox vBox = new VBox();
-        createContent(vBox, stage);
-        Scene scene = new Scene(vBox);
+        StackPane stackPane = new StackPane();
+        createContent(stackPane, stage);
+        Scene scene = new Scene(stackPane);
         scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
         stage.show();
     }
 
-    private static void createContent(VBox vBox, Stage stage) {
+    private static void createContent(StackPane stackPane, Stage stage) {
+        ConfigScreen.stage = stage;
+        VBox vBox = new VBox();
         MenuButton menuButton = new MenuButton("5");
         VBox inhoudContainer = new VBox();
         for (int i = 5; i <= 10; i++) {
@@ -37,6 +41,10 @@ public class ConfigScreen {
         createGameButton.setOnAction(e -> create(stage));
 
         vBox.getChildren().addAll(menuButton, inhoudContainer, createGameButton);
+        stackPane.getStyleClass().add("selection-screen");
+        Label title = new Label("SECRET HITLER");
+        title.getStyleClass().add("title");
+        stackPane.getChildren().addAll(vBox, title);
     }
 
     private static void setInhoud(MenuButton menuButton, MenuItem menuItem, VBox vBox) {
@@ -45,34 +53,35 @@ public class ConfigScreen {
         aantalSpelers = Integer.parseInt(menuItem.getText());
         System.out.println(aantalSpelers);
         vBox.getChildren().clear();
-        playerNames.clear();
+        playerFields.clear();
         for (int i = 1; i <= aantalSpelers; i++) {
             HBox spelerRegistratie = new HBox();
             Label spelerlabel = new Label("Speler " + i + ":");
             TextField spelerTextField = new TextField();
-            playerNames.add(spelerTextField);
+            playerFields.add(spelerRegistratie);
             spelerRegistratie.getChildren().addAll(spelerlabel, spelerTextField);
             vBox.getChildren().add(spelerRegistratie);
 
             System.out.println("Biep wouter biep gay");
-
         }
+        stage.sizeToScene();
     }
 
     private static void create(Stage stage) {
         boolean valid = true;
         ArrayList<Player> players = new ArrayList<>();
 
-
-        for (int i = 0; i < playerNames.size(); i++) {
-            TextField currentTextField = playerNames.get(i);
+        int i;
+        for (i = 0; i < playerFields.size(); i++) {
+            HBox PlayerField = playerFields.get(i);
+            TextField currentTextField = (TextField) PlayerField.getChildren().get(1);
             String name = currentTextField.getText().trim();
-            if (name.equals("")) {
+            if (name.isBlank()) {
                 valid = false;
-                currentTextField.getStyleClass().add("leegLabel");
+                PlayerField.getStyleClass().add("emptyField");
             } else {
                 players.add(new Player(i + 1, name));
-                currentTextField.getStyleClass().remove("leegLabel");
+                PlayerField.getStyleClass().removeAll("emptyField");
             }
         }
         if (valid) {
