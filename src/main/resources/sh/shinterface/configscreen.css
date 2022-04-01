@@ -49,20 +49,26 @@
     -fx-alignment: top-center;
 }
 
-.selection-screen MenuButton {
+.selection-screen ChoiceBox {
     -fx-background-color: -fx-liberal-dark;
-    -fx-fill: -fx-liberal-light;
+    -fx-mark-color: -fx-liberal-light;
+    -fx-min-width: 0;
+    -fx-pref-width: 50;
 
 }
-.selection-screen MenuButton .label {
+.selection-screen ChoiceBox .label {
     -fx-text-fill: -fx-liberal-light;
 }
 
-.selection-screen MenuButton .context-menu {
+.selection-screen ChoiceBox .context-menu {
     -fx-background-color: -fx-liberal-dark;
 }
 
-.selection-screen MenuButton .arrow-button .arrow {
+.selection-screen ChoiceBox .menu-item {
+    -fx-mark-color: -fx-liberal-light;
+}
+
+.selection-screen ChoiceBox .arrow-button .arrow {
     -fx-background-color: -fx-liberal-light;
 }
 
