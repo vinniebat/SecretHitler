@@ -1,4 +1,4 @@
-package vincent.prive.sh.shinterface;
+package sh.shinterface;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,7 +18,7 @@ public class ConfigScreen {
         VBox vBox = new VBox();
         createContent(vBox, stage);
         Scene scene = new Scene(vBox);
-        scene.getStylesheets().add("vincent/prive/sh/shinterface/configscreen.css");
+        scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
         stage.show();
     }

@@ -1,4 +1,4 @@
-package vincent.prive.sh.shinterface;
+package sh.shinterface;
 
 public interface Game {
 

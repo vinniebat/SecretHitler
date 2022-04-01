@@ -1,4 +1,4 @@
-package vincent.prive.sh.shinterface;
+package sh.shinterface;
 
 import java.util.ArrayList;
 

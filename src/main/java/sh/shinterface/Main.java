@@ -1,4 +1,4 @@
-package vincent.prive.sh.shinterface;
+package sh.shinterface;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
