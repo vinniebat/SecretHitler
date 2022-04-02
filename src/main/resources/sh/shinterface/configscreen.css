@@ -29,7 +29,7 @@
     -fx-border-color: -fx-liberal-white;
 }
 
-.config-screen HBox {
+.config-screen PlayerField {
     -fx-alignment: center;
     -fx-spacing: 10;
     -fx-padding: 10;
