@@ -73,6 +73,7 @@
 
 .config-screen ChoiceBox .menu-item {
     -fx-mark-color: -fx-liberal-light;
+    -fx-pref-width: 46;
 }
 
 .config-screen ChoiceBox .arrow-button .arrow {
