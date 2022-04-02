@@ -51,22 +51,24 @@ public class ConfigScreen extends StackPane {
      * creates the content of the ConfigScreen
      */
     private void createContent() {
-        VBox vBox = new VBox();
-        ChoiceBox<Integer> choiceBox = new ChoiceBox<>();
+        ChoiceBox<Integer> choiceBox = new ChoiceBox<>(); // Selectie voor aantal spelers
+        // Add the options
         for (int i = minPlayers; i <= maxPlayers; i++) {
             choiceBox.getItems().add(i);
         }
-        choiceBox.setValue(minPlayers);
-        choiceBox.setOnAction(this::updatePlayers);
+        choiceBox.setValue(minPlayers); // Standaard-waarde is het minimum
+        choiceBox.setOnAction(this::updatePlayers); // Na selectie wordt het aantal spelers ge-update
         choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
 
         Button createGameButton = new Button("Create Game");
-        createGameButton.setOnAction(this::create);
+        createGameButton.setOnAction(Main::confirmSelection);
 
+        VBox vBox = new VBox(); // Container van de controls
         vBox.getChildren().addAll(choiceBox, playersContainer, createGameButton);
-        this.getStyleClass().add("selection-screen");
-        Label title = new Label("SECRET HITLER");
+        Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
         title.getStyleClass().add("title");
+        vBox.getStyleClass().add("inner-box");
+        this.getStyleClass().add("config-screen");
         this.getChildren().addAll(vBox, title);
     }
 
@@ -83,7 +85,7 @@ public class ConfigScreen extends StackPane {
             playerField.getStyleClass().removeAll("emptyField"); // Reset de error
         }
         int amount = ((ChoiceBox<Integer>) e.getSource()).getValue();
-        if (amount > playerFields.size()) {
+        if (amount > playerFields.size()) { // Voeg spelers toe als er te weinig zijn
             for (int i =  1 + playerFields.size(); i <= amount; i++) {
                 playerFields.add(
                         new HBox(
@@ -93,21 +95,22 @@ public class ConfigScreen extends StackPane {
                 );
             }
         }
-        List<Node> list = new ArrayList<>(playerFields.subList(amount, playerFields.size()));
-        playersContainer.getChildren().removeAll(list);
-        stage.sizeToScene();
+        // We kopiëren de lijst omdat anders java begint te huilen
+        List<Node> list = new ArrayList<>(playerFields.subList(0, amount));
+        playersContainer.getChildren().retainAll(list); // Hou enkel het juiste aantal spelers over
+        stage.sizeToScene(); // Resize het scherm zodat de player fields zichtbaar zijn
     }
 
     /**
-     * Checks if all fields where filled in and starts the game.
+     * Checks if all fields where filled in and returns a list of players.
+     * @return If the input is valid, returns a list of players. Otherwise, this returns an empty list.
      */
-    private void create(ActionEvent e) {
+    public List<Player> getPlayers() {
         boolean valid = true;
-        ArrayList<Player> players = new ArrayList<>();
+        List<Player> players = new ArrayList<>();
 
         List<Node> playerFields = playersContainer.getChildren();
-        int i;
-        for (i = 0; i < playerFields.size(); i++) {
+        for (int i = 0; i < playerFields.size(); i++) {
             Pane playerField = (Pane) playerFields.get(i);
             TextInputControl currentTextField = (TextInputControl) playerField.getChildren().get(1);
             String name = currentTextField.getText().trim();
@@ -119,11 +122,6 @@ public class ConfigScreen extends StackPane {
                 playerField.getStyleClass().removeAll("emptyField");
             }
         }
-        if (valid) {
-            //later factory
-            stage.close();
-            Game game = new fivePlayerGame(players);
-            game.start();
-        }
+        return (valid) ? players : List.of();
     }
 }
