@@ -35,25 +35,30 @@
     -fx-padding: 10;
 }
 
-.config-screen Label {
+.config-screen PlayerField Label {
     -fx-padding: 5, 10, 5, 10;
     -fx-min-width: 90;
     -fx-border-radius: 5;
     -fx-text-fill: -fx-liberal-dark;
+    -fx-font-family: "Times New Roman";
 }
 
 .config-screen .text {
-    -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-font-size: 20;
 }
 
 .config-screen .title {
+    -fx-alignment: center;
+    -fx-padding: 5;
+    -fx-border-radius: 5;
+    -fx-text-fill: -fx-liberal-dark;
     -fx-translate-y: -45;
     -fx-background-color: -fx-liberal-light;
 }
 
 .config-screen .title .text {
     -fx-font-size: 28;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
 .config-screen ChoiceBox {
@@ -65,6 +70,7 @@
 }
 .config-screen ChoiceBox .label {
     -fx-text-fill: -fx-liberal-light;
+    -fx-font-family: "Times New Roman";
 }
 
 .config-screen ChoiceBox .context-menu {
@@ -92,6 +98,7 @@
     -fx-background-color: -fx-liberal-dark;
     -fx-fill: -fx-liberal-light;
     -fx-text-fill: -fx-liberal-light;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
 .config-screen .emptyField TextField {
