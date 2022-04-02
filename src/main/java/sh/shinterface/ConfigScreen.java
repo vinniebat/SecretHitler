@@ -2,6 +2,7 @@ package sh.shinterface;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,8 @@ public class ConfigScreen {
         Scene scene = new Scene(stackPane);
         scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("secret-hitler-icon.png")));
+        stage.setTitle("Secret Hitler");
         stage.show();
     }
 
