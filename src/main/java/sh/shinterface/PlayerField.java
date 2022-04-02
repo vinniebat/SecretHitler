@@ -43,7 +43,6 @@ public class PlayerField extends HBox {
      * Clear the name field and remove the error appearance
      */
     public void reset() {
-        nameField.clear(); // Wipe het tekstveld
         getStyleClass().removeAll("emptyField"); // Reset de error
     }
 
