@@ -3,7 +3,6 @@ package sh.shinterface;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Configuration screen that handles the selection of amount of players and inputting the player names.
  */
-public class ConfigScreen {
+public class ConfigScreen extends StackPane {
 
     /**
      * Minimum amount of players
@@ -32,57 +31,50 @@ public class ConfigScreen {
     /**
      * Stage where the ConfigScreen is present
      */
-    private static Stage stage;
+    private final Stage stage;
 
     /**
      * Container that holds all the player fields. A player field consists of a Label (index 0) and TextField (index 1).
      */
-    private static final Pane playersContainer = new VBox();
+    private final Pane playersContainer = new VBox();
 
     /**
-     * Displays the ConfigScreen
+     * Creates a new ConfigurationScreen that is shown on the given stage
+     * @param stage Stage that displays the ConfigScreen
      */
-    public static void display() {
-        Stage stage = new Stage();
-        StackPane stackPane = new StackPane();
-        createContent(stackPane, stage);
-        Scene scene = new Scene(stackPane);
-        scene.getStylesheets().add("sh/shinterface/configscreen.css");
-        stage.setScene(scene);
-        stage.show();
+    public ConfigScreen(Stage stage) {
+        this.stage = stage;
+        createContent();
     }
 
     /**
      * creates the content of the ConfigScreen
-     * @param stackPane Pane that should hold the content
-     * @param stage Stage that the holds the ConfigScreen
      */
-    private static void createContent(StackPane stackPane, Stage stage) {
-        ConfigScreen.stage = stage;
+    private void createContent() {
         VBox vBox = new VBox();
         ChoiceBox<Integer> choiceBox = new ChoiceBox<>();
         for (int i = minPlayers; i <= maxPlayers; i++) {
             choiceBox.getItems().add(i);
         }
         choiceBox.setValue(minPlayers);
-        choiceBox.setOnAction(ConfigScreen::updatePlayers);
+        choiceBox.setOnAction(this::updatePlayers);
         choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
 
         Button createGameButton = new Button("Create Game");
-        createGameButton.setOnAction(e -> create(stage));
+        createGameButton.setOnAction(this::create);
 
         vBox.getChildren().addAll(choiceBox, playersContainer, createGameButton);
-        stackPane.getStyleClass().add("selection-screen");
+        this.getStyleClass().add("selection-screen");
         Label title = new Label("SECRET HITLER");
         title.getStyleClass().add("title");
-        stackPane.getChildren().addAll(vBox, title);
+        this.getChildren().addAll(vBox, title);
     }
 
     /**
      * Updates the display to reflect the change in amount of players.
      * @param e event coming from the ChoiceBox
      */
-    private static void updatePlayers(ActionEvent e) {
+    private void updatePlayers(ActionEvent e) {
         ObservableList<Node> playerFields = playersContainer.getChildren();
         for (Node playerField : playerFields) {
             // fk u kris ik doe casting zoveel ik wil
@@ -108,9 +100,8 @@ public class ConfigScreen {
 
     /**
      * Checks if all fields where filled in and starts the game.
-     * @param stage Stage that holds the ConfigScreen
      */
-    private static void create(Stage stage) {
+    private void create(ActionEvent e) {
         boolean valid = true;
         ArrayList<Player> players = new ArrayList<>();
 
