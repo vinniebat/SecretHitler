@@ -1,12 +1,12 @@
 package sh.shinterface;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class fivePlayerGame extends Bord1Game{
 
-    ArrayList<Player> players;
+    List<Player> players;
 
-    public fivePlayerGame(ArrayList<Player> players) {
+    public fivePlayerGame(List<Player> players) {
         this.players = players;
     }
 
