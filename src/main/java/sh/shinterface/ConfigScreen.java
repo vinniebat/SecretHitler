@@ -1,97 +1,111 @@
 package sh.shinterface;
 
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ConfigScreen {
+/**
+ * Configuration screen that handles the selection of amount of players and inputting the player names.
+ */
+public class ConfigScreen extends StackPane {
 
-    private static final ArrayList<HBox> playerFields = new ArrayList<>();
-    private static int aantalSpelers = 5;
-    private static Stage stage;
+    /**
+     * Minimum amount of players
+     */
+    private static final int minPlayers = 5;
 
-    public static void display() {
-        Stage stage = new Stage();
-        StackPane stackPane = new StackPane();
-        createContent(stackPane, stage);
-        Scene scene = new Scene(stackPane);
-        scene.getStylesheets().add("sh/shinterface/configscreen.css");
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(Main.class.getResourceAsStream("secret-hitler-icon.png")));
-        stage.setTitle("Secret Hitler");
-        stage.show();
-    }
+    /**
+     * Max amount of players
+     */
+    private static final int maxPlayers = 10;
 
-    private static void createContent(StackPane stackPane, Stage stage) {
-        ConfigScreen.stage = stage;
-        VBox vBox = new VBox();
-        MenuButton menuButton = new MenuButton("5");
-        VBox inhoudContainer = new VBox();
-        for (int i = 5; i <= 10; i++) {
-            MenuItem menuItem = new MenuItem(i + "");
-            menuButton.getItems().add(menuItem);
-            menuItem.setOnAction(e -> setInhoud(menuButton, menuItem, inhoudContainer));
+    /**
+     * Stage where the ConfigScreen is present
+     */
+    private final Stage stage;
+
+    /**
+     * The PlayerFields that hold the input fields
+     */
+    private final ObservableList<Node> playerFields;
+
+    /**
+     * Creates a new ConfigurationScreen that is shown on the given stage
+     * @param stage Stage that displays the ConfigScreen
+     */
+    public ConfigScreen(Stage stage) {
+        this.stage = stage;
+        ChoiceBox<Integer> choiceBox = new ChoiceBox<>(); // Selectie voor aantal spelers
+        // Add the options
+        for (int i = minPlayers; i <= maxPlayers; i++) {
+            choiceBox.getItems().add(i);
         }
-        setInhoud(menuButton, new MenuItem(aantalSpelers + ""), inhoudContainer);
+        choiceBox.setValue(minPlayers); // Standaard-waarde is het minimum
+        choiceBox.setOnAction(this::updatePlayers); // Na selectie wordt het aantal spelers ge-update
 
         Button createGameButton = new Button("Create Game");
-        createGameButton.setOnAction(e -> create(stage));
+        createGameButton.setOnAction(Main::confirmSelection);
 
-        vBox.getChildren().addAll(menuButton, inhoudContainer, createGameButton);
-        stackPane.getStyleClass().add("selection-screen");
-        Label title = new Label("SECRET HITLER");
+        VBox controlsBox = new VBox(); // Container van de controls
+        VBox playerContainer = new VBox();
+        playerFields = playerContainer.getChildren();
+        controlsBox.getChildren().addAll(choiceBox, playerContainer, createGameButton);
+        Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
         title.getStyleClass().add("title");
-        stackPane.getChildren().addAll(vBox, title);
+        controlsBox.getStyleClass().add("inner-box");
+        this.getStyleClass().add("config-screen");
+        this.getChildren().addAll(controlsBox, title);
+
+        choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
     }
 
-    private static void setInhoud(MenuButton menuButton, MenuItem menuItem, VBox vBox) {
-        menuButton.setText(menuItem.getText());
-
-        aantalSpelers = Integer.parseInt(menuItem.getText());
-        System.out.println(aantalSpelers);
-        vBox.getChildren().clear();
-        playerFields.clear();
-        for (int i = 1; i <= aantalSpelers; i++) {
-            HBox spelerRegistratie = new HBox();
-            Label spelerlabel = new Label("Speler " + i + ":");
-            TextField spelerTextField = new TextField();
-            playerFields.add(spelerRegistratie);
-            spelerRegistratie.getChildren().addAll(spelerlabel, spelerTextField);
-            vBox.getChildren().add(spelerRegistratie);
-
-            System.out.println("Biep wouter biep gay");
+    /**
+     * Updates the display to reflect the change in amount of players.
+     * @param e event coming from the ChoiceBox
+     */
+    private void updatePlayers(ActionEvent e) {
+        for (Node node : playerFields) {
+            PlayerField playerField = (PlayerField) node;
+            // fk u kris ik doe casting zoveel ik wil
+            // We weten da de elementen in de playersContainer HBoxen zijn met daarin éérst een Label en dan een TextField
+            playerField.reset(); // We vegen dus gewoon het textField uit
         }
-        stage.sizeToScene();
-    }
-
-    private static void create(Stage stage) {
-        boolean valid = true;
-        ArrayList<Player> players = new ArrayList<>();
-
-        int i;
-        for (i = 0; i < playerFields.size(); i++) {
-            HBox PlayerField = playerFields.get(i);
-            TextField currentTextField = (TextField) PlayerField.getChildren().get(1);
-            String name = currentTextField.getText().trim();
-            if (name.isBlank()) {
-                valid = false;
-                PlayerField.getStyleClass().add("emptyField");
-            } else {
-                players.add(new Player(i + 1, name));
-                PlayerField.getStyleClass().removeAll("emptyField");
+        int amount = ((ChoiceBox<Integer>) e.getSource()).getValue();
+        if (amount > playerFields.size()) { // Voeg spelers toe als er te weinig zijn
+            for (int i =  1 + playerFields.size(); i <= amount; i++) {
+                playerFields.add(new PlayerField(i));
             }
         }
-        if (valid) {
-            //later factory
-            stage.close();
-            Game game = new fivePlayerGame(players);
-            game.start();
+        playerFields.remove(amount, playerFields.size()); // Hou enkel het juiste aantal spelers over
+        stage.sizeToScene(); // Resize het scherm zodat de player fields zichtbaar zijn
+    }
+
+    /**
+     * Checks if all fields where filled in and returns a list of players.
+     * @return If the input is valid, returns a list of players. Otherwise, this returns an empty list.
+     */
+    public List<Player> getPlayers() {
+        boolean valid = true;
+        List<Player> players = new ArrayList<>();
+        for (Node node : playerFields) {
+            PlayerField playerField = (PlayerField) node;
+            valid &= playerField.isValid();
+            if (playerField.isValid()) {
+                players.add(new Player(
+                        playerField.getPlayerId(),
+                        playerField.getName()
+                ));
+            }
         }
+        return (valid) ? players : List.of();
     }
 }

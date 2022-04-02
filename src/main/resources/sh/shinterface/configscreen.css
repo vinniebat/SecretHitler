@@ -12,80 +12,101 @@
     -fx-liberal-white: white;
 }
 
-.selection-screen HBox {
+.inner-box {
+    -fx-border-color: -fx-liberal-dark;
+    -fx-border-width: 16;
+    -fx-border-insets: -28;
+}
+
+.config-screen {
+    -fx-pref-height: 200px;
+    -fx-padding: 10;
+    -fx-background-color: -fx-liberal-light;
+    -fx-alignment: top-center;
+
+    -fx-border-width: 20;
+    -fx-border-insets: 10;
+    -fx-border-color: -fx-liberal-white;
+}
+
+.config-screen PlayerField {
     -fx-alignment: center;
     -fx-spacing: 10;
     -fx-padding: 10;
 }
 
-.selection-screen Label {
+.config-screen PlayerField Label {
     -fx-padding: 5, 10, 5, 10;
     -fx-min-width: 90;
     -fx-border-radius: 5;
     -fx-text-fill: -fx-liberal-dark;
+    -fx-font-family: "Times New Roman";
 }
 
-.selection-screen .text {
-    -fx-font-family: "Eskapade Fraktur W04 Black";
+.config-screen .text {
     -fx-font-size: 20;
 }
 
-.selection-screen .title {
-    -fx-translate-y: -40;
+.config-screen .title {
+    -fx-alignment: center;
+    -fx-padding: 5;
+    -fx-border-radius: 5;
+    -fx-text-fill: -fx-liberal-dark;
+    -fx-translate-y: -45;
     -fx-background-color: -fx-liberal-light;
 }
 
-.selection-screen .title .text {
+.config-screen .title .text {
     -fx-font-size: 28;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
-.selection-screen {
-    -fx-pref-height: 200px;
-    -fx-padding: 10;
-    -fx-border-color: -fx-liberal-dark;
-    -fx-background-color: -fx-liberal-light;
-    -fx-border-width: 14;
-    -fx-border-insets: 10;
-    -fx-alignment: top-center;
-}
-
-.selection-screen MenuButton {
+.config-screen ChoiceBox {
     -fx-background-color: -fx-liberal-dark;
-    -fx-fill: -fx-liberal-light;
+    -fx-mark-color: -fx-liberal-light;
+    -fx-min-width: 0;
+    -fx-pref-width: 50;
 
 }
-.selection-screen MenuButton .label {
+.config-screen ChoiceBox .label {
     -fx-text-fill: -fx-liberal-light;
+    -fx-font-family: "Times New Roman";
 }
 
-.selection-screen MenuButton .context-menu {
+.config-screen ChoiceBox .context-menu {
     -fx-background-color: -fx-liberal-dark;
 }
 
-.selection-screen MenuButton .arrow-button .arrow {
+.config-screen ChoiceBox .menu-item {
+    -fx-mark-color: -fx-liberal-light;
+    -fx-pref-width: 46;
+}
+
+.config-screen ChoiceBox .arrow-button .arrow {
     -fx-background-color: -fx-liberal-light;
 }
 
-.selection-screen TextField {
+.config-screen TextField {
     -fx-background-color: -fx-liberal-dark;
     -fx-border-color: -fx-liberal-white;
-    -fx-border-width: 4;
+    -fx-border-width: 2;
     -fx-text-fill: -fx-liberal-light;
     -fx-font-weight: bold;
 }
 
-.selection-screen Button {
+.config-screen Button {
     -fx-background-color: -fx-liberal-dark;
     -fx-fill: -fx-liberal-light;
     -fx-text-fill: -fx-liberal-light;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
-.selection-screen .emptyField TextField {
+.config-screen .emptyField TextField {
     -fx-border-color: -fx-fascist-white;
     -fx-background-color: -fx-fascist-dark;
     -fx-text-fill: -fx-fascist-light;
 }
 
-.selection-screen .emptyField Label {
+.config-screen .emptyField Label {
     -fx-text-fill: -fx-fascist-dark;
 }
