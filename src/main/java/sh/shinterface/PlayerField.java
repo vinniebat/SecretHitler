@@ -2,6 +2,7 @@ package sh.shinterface;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 
 /**
@@ -19,6 +20,8 @@ public class PlayerField extends HBox {
      */
     private final int playerId;
 
+    private final ToggleButton button = new ToggleButton("ME!");
+
     /**
      * Create a player with given player id
      * @param playerId Number of the player
@@ -26,7 +29,8 @@ public class PlayerField extends HBox {
     public PlayerField(int playerId) {
         getChildren().addAll(
                 new Label("Player " + playerId + ":"),
-                nameField
+                nameField,
+                button
         );
         this.playerId = playerId;
     }
@@ -43,7 +47,6 @@ public class PlayerField extends HBox {
      * Clear the name field and remove the error appearance
      */
     public void reset() {
-        nameField.clear(); // Wipe het tekstveld
         getStyleClass().removeAll("emptyField"); // Reset de error
     }
 
@@ -62,5 +65,12 @@ public class PlayerField extends HBox {
             getStyleClass().add("emptyField");
             return false;
         }
+    }
+
+    /**
+     * @return The active player ToggleButton
+     */
+    public ToggleButton getButton() {
+        return button;
     }
 }
