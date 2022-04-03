@@ -51,8 +51,8 @@ public class ConfigScreen extends StackPane {
     /**
      * Box that holds the role selection
      */
-    private final ChoiceBox<String> roleBox = new ChoiceBox<>(
-            FXCollections.observableArrayList("Liberal", "Fascist", "Hitler")
+    private final ChoiceBox<Role> roleBox = new ChoiceBox<>(
+            FXCollections.observableArrayList(Role.LIBERAL, Role.FASCIST, Role.HITLER)
     );
 
     /**
@@ -87,6 +87,7 @@ public class ConfigScreen extends StackPane {
           hBox.setVisible(false); // Eerst niet zichtbaar
           HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
           hBox.getStyleClass().add("role-box");
+          roleBox.setOnAction(this::updateStyling);
          // END ROLE SELECTION
 
          // INIT Create Game Button
@@ -151,8 +152,29 @@ public class ConfigScreen extends StackPane {
         return (valid) ? players : List.of();
     }
 
+    /**
+     * Shows/Hides the role selection box according to the selected active player
+     * @param observable Unused
+     */
     public void updateRoleChoice(Observable observable) {
         roleBox.getParent().setVisible(activePlayerGroup.getSelectedToggle() != null);
-        roleBox.setValue("");
+        roleBox.setValue(Role.NONE);
+    }
+
+    /**
+     * Get the value of the role selection box
+     * @return Role of the active player
+     */
+    public Role getRole() {
+        return roleBox.getValue();
+    }
+
+    /**
+     * Updates the styling according to the selected role
+     * @param e Unused
+     */
+    public void updateStyling(ActionEvent e) {
+        this.getStyleClass().removeAll("liberal", "fascist");
+        this.getStyleClass().add(roleBox.getValue().getStyle());
     }
 }
