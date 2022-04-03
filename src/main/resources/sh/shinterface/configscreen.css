@@ -37,8 +37,7 @@
 
 .config-screen PlayerField Label {
     -fx-padding: 5, 10, 5, 10;
-    -fx-min-width: 90;
-    -fx-border-radius: 5;
+    -fx-min-width: 70;
     -fx-text-fill: -fx-liberal-dark;
     -fx-font-family: "Times New Roman";
 }
@@ -99,6 +98,28 @@
     -fx-fill: -fx-liberal-light;
     -fx-text-fill: -fx-liberal-light;
     -fx-font-family: "Eskapade Fraktur W04 Black";
+}
+
+.config-screen ToggleButton {
+    -fx-background-color: -fx-liberal-dark;
+    -fx-fill: -fx-liberal-light;
+    -fx-text-fill: -fx-liberal-light;
+    -fx-border-width: 2;
+    -fx-font-family: "Times New Roman";
+    -fx-pref-width: 54;
+}
+
+.config-screen ToggleButton:selected {
+    -fx-background-color: -fx-liberal-dark;
+    -fx-fill: -fx-liberal-light;
+    -fx-text-fill: -fx-liberal-light;
+    -fx-border-color: -fx-liberal-white;
+    -fx-border-width: 2;
+    -fx-font-family: "Times New Roman";
+}
+
+.config-screen ToggleButton .text {
+    -fx-font-size: 14;
 }
 
 .config-screen .emptyField TextField {
