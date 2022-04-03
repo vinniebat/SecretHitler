@@ -2,11 +2,11 @@ package sh.shinterface;
 
 import java.util.List;
 
-public class fivePlayerGame extends Bord1Game{
+public class FivePlayerGame extends Bord1Game{
 
     List<Player> players;
 
-    public fivePlayerGame(List<Player> players) {
+    public FivePlayerGame(List<Player> players) {
         this.players = players;
     }
 
