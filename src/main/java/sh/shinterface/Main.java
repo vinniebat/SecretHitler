@@ -3,6 +3,7 @@ package sh.shinterface;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class Main extends Application {
         Scene scene = new Scene(configScreen);
         scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
+        stage.setTitle("Secret Hitler Interface");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("secret-hitler-icon.png")));
         stage.show();
     }
 
