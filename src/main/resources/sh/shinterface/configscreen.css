@@ -39,7 +39,52 @@
     -fx-border-color: -fx-main-white;
 }
 
+.config-screen ChoiceBox {
+    -fx-background-color: -fx-main-dark;
+    -fx-mark-color: -fx-main-light;
+}
+.config-screen ChoiceBox .label {
+    -fx-text-fill: -fx-main-light;
+    -fx-font-family: "Times New Roman";
+}
+
+.config-screen ChoiceBox .context-menu {
+    -fx-background-color: -fx-main-dark;
+}
+
+.config-screen ChoiceBox .menu-item {
+    -fx-mark-color: -fx-main-light;
+}
+
+.config-screen ChoiceBox .arrow-button .arrow {
+    -fx-background-color: -fx-main-light;
+}
+
+.config-screen HBox {
+    -fx-alignment: center-right;
+    -fx-spacing: 10;
+}
+
+.config-screen .role-box {
+    -fx-alignment: center-left;
+}
+
+.config-screen .role-box Label {
+    -fx-text-fill: -fx-main-dark;
+    -fx-font-family: "Times New Roman";
+}
+
+.config-screen .role-box ChoiceBox {
+    -fx-pref-width: 100;
+}
+
+.config-screen .role-box ChoiceBox .label {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-text-fill: -fx-main-light;
+}
+
 .config-screen PlayerField {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-alignment: center;
     -fx-spacing: 10;
     -fx-padding: 10;
@@ -68,31 +113,6 @@
 .config-screen .title .text {
     -fx-font-size: 28;
     -fx-font-family: "Eskapade Fraktur W04 Black";
-}
-
-.config-screen ChoiceBox {
-    -fx-background-color: -fx-main-dark;
-    -fx-mark-color: -fx-main-light;
-    -fx-min-width: 0;
-    -fx-pref-width: 50;
-
-}
-.config-screen ChoiceBox .label {
-    -fx-text-fill: -fx-main-light;
-    -fx-font-family: "Times New Roman";
-}
-
-.config-screen ChoiceBox .context-menu {
-    -fx-background-color: -fx-main-dark;
-}
-
-.config-screen ChoiceBox .menu-item {
-    -fx-mark-color: -fx-main-light;
-    -fx-pref-width: 46;
-}
-
-.config-screen ChoiceBox .arrow-button .arrow {
-    -fx-background-color: -fx-main-light;
 }
 
 .config-screen TextField {
