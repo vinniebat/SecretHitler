@@ -4,7 +4,7 @@ import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//TODO check for different names before starting game + strip() stuff
 public class PlayerStringConverter extends StringConverter<Player> {
 
     private final Game game;
