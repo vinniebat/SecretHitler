@@ -1,8 +1,5 @@
 package sh.shinterface;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -27,6 +24,8 @@ public class NewGovPane extends VBox {
         put("NEIN", "JA");
     }};
 
+    private static final List<String> STRINGPOLICIES = Arrays.asList("R", "B");
+
     public NewGovPane(Game game) {
 
         govPlayers = new GridPane();
@@ -50,6 +49,8 @@ public class NewGovPane extends VBox {
         claim2 = new TextField();
         claim1.setPromptText("Claim of president");
         claim2.setPromptText("Claim of chancellor");
+        textFieldRestrict(claim1, 3);
+        textFieldRestrict(claim2, 2);
 
         conf = new CheckBox("No conflict!");
         conf.selectedProperty().addListener(obs -> checkBoxAction(conf));
@@ -78,31 +79,32 @@ public class NewGovPane extends VBox {
     }
 
     private void createGov(Game game) {
-        boolean valid = true;
         Player president = presidentChoiceBox.getSelectionModel().getSelectedItem();
         Player chancellor = chancellorChoiceBox.getSelectionModel().getSelectedItem();
-        int[] claim1 = null;
-        int[] claim2 = null;
+        int[] claim1 = PolicyConverter.fromString(this.claim1.getText());
+        int[] claim2 = PolicyConverter.fromString(this.claim2.getText());
         int played = 0;
-        boolean conf = this.conf.isSelected();
         List<Boolean> voteList = this.voteList.stream().map(toggle -> !toggle.isSelected()).toList();
-        //TODO check for empty claim2 and autofill
-        try {
-            claim1 = PolicyConverter.fromString(this.claim1.getText());
-            claim2 = PolicyConverter.fromString(this.claim2.getText());
-            if (claim1.length != 3 || claim2.length != 2 || checkConf(claim1, claim2, conf) || president == null || chancellor == null) {
-                valid = false;
-            } else {
-                if (Arrays.stream(claim2).anyMatch(i -> i == 1)) {
-                    played = 1;
-                } else {
-                    played = 2;
-                }
-            }
-        } catch (NullPointerException e) {
-            valid = false;
-        }
 
+        boolean valid = !(choiceBoxCheck(presidentChoiceBox) || choiceBoxCheck(chancellorChoiceBox));
+
+        if (claim1.length<3) {
+            valid=false;
+            if (!this.claim1.getStyleClass().contains("textFieldError")) {
+                this.claim1.getStyleClass().add("textFieldError");
+            }
+        } else {
+            this.claim1.getStyleClass().remove("textFieldError");
+            if (claim2.length<2) {
+                claim2 = autoGenerate(claim1);
+            }
+            if (Arrays.stream(claim2).anyMatch(i -> i == 1)) {
+                played = 1;
+            } else {
+                played = 2;
+            }
+        }
+        boolean conf = checkConf(claim1, claim2, this.conf.isSelected());
         if (valid) {
             resetPane();
             game.getGovTable().getItems().add(new Gov(president, chancellor, played, claim1, claim2, conf, voteList));
@@ -141,6 +143,42 @@ public class NewGovPane extends VBox {
     public boolean checkConf(int[] claim1, int[] claim2, boolean conf) {
         boolean lib1 = IntStream.of(claim1).anyMatch(x -> x == 1);
         boolean lib2 = IntStream.of(claim2).anyMatch(x -> x == 1);
-        return (lib1 ^ lib2) && !conf;
+        return (lib1 ^ lib2) || conf;
+    }
+
+    private boolean choiceBoxCheck(ChoiceBox<Player> choiceBox) {
+        if (choiceBox.getSelectionModel().getSelectedItem() == null) {
+            if (!choiceBox.getStyleClass().contains("choiceBoxError")) {
+                choiceBox.getStyleClass().add("choiceBoxError");
+            }
+            return true;
+        } else {
+            choiceBox.getStyleClass().remove("choiceBoxError");
+            return false;
+        }
+    }
+
+    private void textFieldRestrict(TextField textField, int numberOfClaims) {
+        textField.textProperty().addListener((observableValue, oldString, newString) -> {
+            if (newString.length() > numberOfClaims) {
+                textField.setText(oldString);
+            } else if (!newString.equals("") && Arrays.stream(newString.split("")).filter(string -> !STRINGPOLICIES.contains(string.toUpperCase())).toList().size() != 0) {
+                textField.setText(oldString);
+            }
+        });
+    }
+
+    private int[] autoGenerate(int[] claim1) {
+        int blauw = (int) Arrays.stream(claim1).filter(policy -> policy==1).count();
+        int[] result= new int[2];
+        for (int i = 0; i < 2; i++) {
+            if (blauw==0) {
+                result[i] = 2;
+            } else {
+                result[i] = 1;
+                blauw--;
+            }
+        }
+        return result;
     }
 }
