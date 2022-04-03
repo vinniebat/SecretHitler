@@ -15,7 +15,7 @@ public class PolicyConverter {
         put("R", 2);
     }};
 
-    public static String toString(int[] policies) throws NullPointerException {
+    public static String toString(int[] policies) {
         StringBuilder result = new StringBuilder();
         for (int policy :
                 policies) {
@@ -24,7 +24,10 @@ public class PolicyConverter {
         return result.toString();
     }
 
-    public static int[] fromString(String policies) throws NullPointerException {
+    public static int[] fromString(String policies) {
+        if (policies.equals("")) {
+            return new int[0];
+        }
         return Arrays.stream(policies.toUpperCase().split("")).mapToInt(FROMSTRING::get).toArray();
     }
 }
