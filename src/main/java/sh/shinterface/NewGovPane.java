@@ -120,6 +120,7 @@ public class NewGovPane extends VBox {
         for (ToggleButton button :
                 voteList) {
             button.setSelected(false);
+            button.setText("JA");
         }
     }
 
