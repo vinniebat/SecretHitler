@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -39,6 +40,11 @@ public class ConfigScreen extends StackPane {
     private final ObservableList<Node> playerFields;
 
     /**
+     * ToggleGroup for choosing the active player
+     */
+    private final ToggleGroup activePlayerGroup = new ToggleGroup();
+
+    /**
      * Creates a new ConfigurationScreen that is shown on the given stage
      * @param stage Stage that displays the ConfigScreen
      */
@@ -62,7 +68,7 @@ public class ConfigScreen extends StackPane {
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
         title.getStyleClass().add("title");
         controlsBox.getStyleClass().add("inner-box");
-        this.getStyleClass().add("config-screen");
+        this.getStyleClass().addAll("config-screen", "liberal");
         this.getChildren().addAll(controlsBox, title);
 
         choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
@@ -76,16 +82,19 @@ public class ConfigScreen extends StackPane {
         for (Node node : playerFields) {
             PlayerField playerField = (PlayerField) node;
             // fk u kris ik doe casting zoveel ik wil
-            // We weten da de elementen in de playersContainer HBoxen zijn met daarin éérst een Label en dan een TextField
-            playerField.reset(); // We vegen dus gewoon het textField uit
+            // We weten da de elementen in de playersContainer PlayerFields
+            playerField.reset(); // We resetten dus gewoon het tekstveld
         }
         int amount = ((ChoiceBox<Integer>) e.getSource()).getValue();
         if (amount > playerFields.size()) { // Voeg spelers toe als er te weinig zijn
             for (int i =  1 + playerFields.size(); i <= amount; i++) {
-                playerFields.add(new PlayerField(i));
+                PlayerField playerField = new PlayerField(i);
+                playerFields.add(playerField);
+                activePlayerGroup.getToggles().add(playerField.getButton());
             }
         }
         playerFields.remove(amount, playerFields.size()); // Hou enkel het juiste aantal spelers over
+        activePlayerGroup.getToggles().remove(amount, playerFields.size());
         stage.sizeToScene(); // Resize het scherm zodat de player fields zichtbaar zijn
     }
 
