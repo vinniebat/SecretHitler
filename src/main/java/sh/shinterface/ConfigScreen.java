@@ -137,11 +137,9 @@ public class ConfigScreen extends StackPane {
      * @return If the input is valid, returns a list of players. Otherwise, this returns an empty list.
      */
     public List<Player> getPlayers() {
-        boolean valid = true;
         List<Player> players = new ArrayList<>();
         for (Node node : playerFields) {
             PlayerField playerField = (PlayerField) node;
-            valid &= playerField.isValid();
             if (playerField.isValid()) {
                 players.add(new Player(
                         playerField.getPlayerId(),
@@ -149,7 +147,7 @@ public class ConfigScreen extends StackPane {
                 ));
             }
         }
-        return (valid) ? players : List.of();
+        return (players.size() == playerFields.size()) ? players : List.of();
     }
 
     /**
