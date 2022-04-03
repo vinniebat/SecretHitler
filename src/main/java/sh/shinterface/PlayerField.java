@@ -27,8 +27,9 @@ public class PlayerField extends HBox {
      * @param playerId Number of the player
      */
     public PlayerField(int playerId) {
+        String idString = (playerId < 10) ? "0" + playerId : "" + playerId;
         getChildren().addAll(
-                new Label("Player " + playerId + ":"),
+                new Label("Player " + idString + ":"),
                 nameField,
                 button
         );
