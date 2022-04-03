@@ -20,6 +20,9 @@ public class PlayerField extends HBox {
      */
     private final int playerId;
 
+    /**
+     * Button to indicate the active player
+     */
     private final ToggleButton button = new ToggleButton("ME!");
 
     /**
@@ -33,6 +36,7 @@ public class PlayerField extends HBox {
                 button
         );
         this.playerId = playerId;
+        nameField.setOnAction(Main::confirmSelection);
     }
 
     /**
