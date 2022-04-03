@@ -8,12 +8,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FivePlayerGame extends Bord1Game{
+public class FivePlayerGame extends Bord1Game {
 
-    List<Player> players;
+    private final List<Player> players;
+    private TableView<Gov> govTable;
 
     public FivePlayerGame(List<Player> players) {
         this.players = players;
@@ -26,7 +26,7 @@ public class FivePlayerGame extends Bord1Game{
         Scene scene = new Scene(gameVenster);
 
         VBox leftSide = new VBox();
-        TableView<Gov> govTable = new TableView<>();
+        govTable = new TableView<>();
 
         TableColumn<Gov, String> president = new TableColumn<>("President");
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
@@ -39,8 +39,8 @@ public class FivePlayerGame extends Bord1Game{
         govTable.getColumns().setAll(president, chancellor, claim);
 
         //test
-        govTable.getItems().add(new Gov(new Player(1, "Vincent"), new Player(2, "Wouter"), 1, new int[]{1,2,2}, null));
-        govTable.getItems().add(new Gov(new Player(2, "Wouter"), new Player(1, "Vincent"), 1, new int[]{1,2,2}, new int[]{2,2}));
+        govTable.getItems().add(new Gov(new Player(1, "Vincent"), new Player(2, "Wouter"), 1, new int[]{1, 2, 2}, null, false, null));
+        govTable.getItems().add(new Gov(new Player(2, "Wouter"), new Player(1, "Vincent"), 1, new int[]{1, 2, 2}, new int[]{2, 2}, true, null));
 
         leftSide.getChildren().add(govTable);
         leftSide.getChildren().add(new NewGovPane(this));
@@ -53,5 +53,9 @@ public class FivePlayerGame extends Bord1Game{
     @Override
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public TableView<Gov> getGovTable() {
+        return govTable;
     }
 }

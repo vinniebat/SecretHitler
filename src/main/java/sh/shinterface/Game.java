@@ -1,6 +1,7 @@
 package sh.shinterface;
 
-import java.util.ArrayList;
+import javafx.scene.control.TableView;
+
 import java.util.List;
 
 public interface Game {
@@ -8,4 +9,6 @@ public interface Game {
     void start();
 
     List<Player> getPlayers();
+
+    TableView<Gov> getGovTable();
 }
