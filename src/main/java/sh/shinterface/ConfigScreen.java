@@ -101,8 +101,8 @@ public class ConfigScreen extends StackPane {
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
         title.getStyleClass().add("title");
 
-        this.getStyleClass().addAll("config-screen", "liberal");
         this.getChildren().addAll(controlsBox, title);
+        this.getStyleClass().addAll("config-screen", "liberal");
     }
 
     /**
@@ -110,12 +110,6 @@ public class ConfigScreen extends StackPane {
      * @param e event coming from the ChoiceBox
      */
     private void updatePlayers(ActionEvent e) {
-        for (Node node : playerFields) {
-            PlayerField playerField = (PlayerField) node;
-            // fk u kris ik doe casting zoveel ik wil
-            // We weten da de elementen in de playersContainer PlayerFields
-            playerField.reset(); // We resetten dus gewoon het tekstveld
-        }
         int amount = ((ChoiceBox<Integer>) e.getSource()).getValue();
         if (amount > playerFields.size()) { // Voeg spelers toe als er te weinig zijn
             for (int i =  1 + playerFields.size(); i <= amount; i++) {
@@ -127,6 +121,12 @@ public class ConfigScreen extends StackPane {
             activePlayerGroup.getToggles().remove(amount, playerFields.size());
             playerFields.remove(amount, playerFields.size()); // Hou enkel het juiste aantal spelers over
             updateRoleChoice(null);
+        }
+        for (Node node : playerFields) {
+            PlayerField playerField = (PlayerField) node;
+            // fk u kris ik doe casting zoveel ik wil
+            // We weten da de elementen in de playersContainer PlayerFields
+            playerField.reset(); // We resetten dus gewoon het tekstveld
         }
         stage.sizeToScene(); // Resize het scherm zodat de player fields zichtbaar zijn
     }
