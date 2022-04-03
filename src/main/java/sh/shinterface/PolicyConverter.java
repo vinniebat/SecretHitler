@@ -25,6 +25,6 @@ public class PolicyConverter {
     }
 
     public static int[] fromString(String policies) throws NullPointerException {
-        return Arrays.stream(policies.split("")).mapToInt(FROMSTRING::get).toArray();
+        return Arrays.stream(policies.toUpperCase().split("")).mapToInt(FROMSTRING::get).toArray();
     }
 }

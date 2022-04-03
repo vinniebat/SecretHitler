@@ -1,5 +1,7 @@
 package sh.shinterface;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -27,6 +29,8 @@ public class NewGovPane extends VBox {
         put("NEIN", "JA");
     }};
 
+    private static final List<String> STRINGPOLICIES = Arrays.asList("R", "B");
+
     public NewGovPane(Game game) {
 
         govPlayers = new GridPane();
@@ -50,6 +54,8 @@ public class NewGovPane extends VBox {
         claim2 = new TextField();
         claim1.setPromptText("Claim of president");
         claim2.setPromptText("Claim of chancellor");
+        textFieldRestrict(claim1, 3);
+        textFieldRestrict(claim2, 2);
 
         conf = new CheckBox("No conflict!");
         conf.selectedProperty().addListener(obs -> checkBoxAction(conf));
@@ -86,7 +92,8 @@ public class NewGovPane extends VBox {
         int played = 0;
         boolean conf = this.conf.isSelected();
         List<Boolean> voteList = this.voteList.stream().map(toggle -> !toggle.isSelected()).toList();
-        //TODO check for empty claim2 and autofill
+
+
         try {
             claim1 = PolicyConverter.fromString(this.claim1.getText());
             claim2 = PolicyConverter.fromString(this.claim2.getText());
@@ -142,5 +149,25 @@ public class NewGovPane extends VBox {
         boolean lib1 = IntStream.of(claim1).anyMatch(x -> x == 1);
         boolean lib2 = IntStream.of(claim2).anyMatch(x -> x == 1);
         return (lib1 ^ lib2) && !conf;
+    }
+
+    private void onChoiceBoxError(ChoiceBox choiceBox) {
+        //TODO css (wss overbodig)
+    }
+
+    private void onCheckBoxError(CheckBox checkBox) {
+        //TODO css
+    }
+    //TODO smart conflict
+    //TODO empty chancellorclaim autogenerate
+
+    private void textFieldRestrict(TextField textField, int numberOfClaims) {
+        textField.textProperty().addListener((observableValue, oldString, newString) -> {
+            if (newString.length() > numberOfClaims) {
+                textField.setText(oldString);
+            } else if (!newString.equals("") && Arrays.stream(newString.split("")).filter(string -> !STRINGPOLICIES.contains(string.toUpperCase())).toList().size() != 0) {
+                textField.setText(oldString);
+            }
+        });
     }
 }
