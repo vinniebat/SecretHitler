@@ -45,7 +45,7 @@ public class PlayerField extends HBox {
      * @return Trimmed name that was entered
      */
     public String getName() {
-        return nameField.getText().trim();
+        return PlayerStringConverter.formatName(nameField.getText());
     }
 
     /**

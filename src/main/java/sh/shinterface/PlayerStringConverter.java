@@ -3,7 +3,11 @@ package sh.shinterface;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static java.util.stream.Collectors.joining;
+
 //TODO check for different names before starting game + strip() stuff
 public class PlayerStringConverter extends StringConverter<Player> {
 
@@ -11,6 +15,10 @@ public class PlayerStringConverter extends StringConverter<Player> {
 
     public PlayerStringConverter(Game game) {
         this.game = game;
+    }
+
+    public static String formatName(String name) {
+        return Arrays.stream(name.split("\\s")).filter(str -> !str.isBlank()).map(String::strip).map(String::toLowerCase).map(str -> str.substring(0,1).toUpperCase() + str.substring(1)).collect(joining(" "));
     }
 
     @Override
