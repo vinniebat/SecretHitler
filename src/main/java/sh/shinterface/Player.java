@@ -5,11 +5,12 @@ public class Player {
     private final int id;
     private final String name;
     //0 = ?, 1 = lib, 2 = fasc
-    private int suspectedFaction = 0;
+    private Role suspectedFaction;
 
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
+        suspectedFaction = Role.NONE;
     }
 
     public int getId() {
@@ -20,11 +21,11 @@ public class Player {
         return name;
     }
 
-    public int getSuspectedFaction() {
+    public Role getSuspectedFaction() {
         return suspectedFaction;
     }
 
-    public void setSuspectedFaction(int suspectedFaction) {
+    public void setSuspectedFaction(Role suspectedFaction) {
         this.suspectedFaction = suspectedFaction;
     }
 }
