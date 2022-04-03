@@ -1,5 +1,9 @@
 package sh.shinterface;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -37,13 +41,30 @@ public class NewGovPane extends VBox {
 
         presidentChoiceBox = new ChoiceBox<>();
         chancellorChoiceBox = new ChoiceBox<>();
-        presidentChoiceBox.setOnAction(e -> choiceBoxAction(presidentChoiceBox, 0));
-        chancellorChoiceBox.setOnAction(e -> choiceBoxAction(chancellorChoiceBox, 1));
+        presidentChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> choiceBoxAction(newPlayer, 0));
+        chancellorChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> choiceBoxAction(newPlayer, 1));
         presidentChoiceBox.setConverter(playerStringConverter);
         chancellorChoiceBox.setConverter(playerStringConverter);
         List<Player> players = game.getPlayers();
         presidentChoiceBox.getItems().setAll(players);
         chancellorChoiceBox.getItems().setAll(players);
+
+        presidentChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> {
+            ObservableList<Player> items = chancellorChoiceBox.getItems();
+            items.removeIf(player -> player.equals(newPlayer));
+            if (oldPlayer != null) {
+                items.add(insertIndex(oldPlayer, items), oldPlayer);
+            }
+        });
+
+        chancellorChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> {
+            ObservableList<Player> items = presidentChoiceBox.getItems();
+            items.removeIf(player -> player.equals(newPlayer));
+            if (oldPlayer != null) {
+                items.add(insertIndex(oldPlayer, items), oldPlayer);
+            }
+        });
+
 
         claim1 = new TextField();
         claim2 = new TextField();
@@ -88,14 +109,14 @@ public class NewGovPane extends VBox {
 
         boolean valid = !(choiceBoxCheck(presidentChoiceBox) || choiceBoxCheck(chancellorChoiceBox));
 
-        if (claim1.length<3) {
-            valid=false;
+        if (claim1.length < 3) {
+            valid = false;
             if (!this.claim1.getStyleClass().contains("textFieldError")) {
                 this.claim1.getStyleClass().add("textFieldError");
             }
         } else {
             this.claim1.getStyleClass().remove("textFieldError");
-            if (claim2.length<2) {
+            if (claim2.length < 2) {
                 claim2 = autoGenerate(claim1);
             }
             if (Arrays.stream(claim2).anyMatch(i -> i == 1)) {
@@ -126,10 +147,12 @@ public class NewGovPane extends VBox {
         }
     }
 
-    private void choiceBoxAction(ChoiceBox<Player> box, int rij) {
-        TextField textField = (TextField) govPlayers.getChildren().get(3 * rij + 2);
-        String startText = Stream.of(textField.getPromptText().split(" ")).limit(2).collect(Collectors.joining(" "));
-        textField.setPromptText(startText + " " + box.getSelectionModel().getSelectedItem().getName());
+    private void choiceBoxAction(Player player, int rij) {
+        if (player != null) {
+            TextField textField = (TextField) govPlayers.getChildren().get(3 * rij + 2);
+            String startText = Stream.of(textField.getPromptText().split(" ")).limit(2).collect(Collectors.joining(" "));
+            textField.setPromptText(startText + " " + player.getName());
+        }
     }
 
     private void checkBoxAction(CheckBox box) {
@@ -169,10 +192,10 @@ public class NewGovPane extends VBox {
     }
 
     private int[] autoGenerate(int[] claim1) {
-        int blauw = (int) Arrays.stream(claim1).filter(policy -> policy==1).count();
-        int[] result= new int[2];
+        int blauw = (int) Arrays.stream(claim1).filter(policy -> policy == 1).count();
+        int[] result = new int[2];
         for (int i = 0; i < 2; i++) {
-            if (blauw==0) {
+            if (blauw == 0) {
                 result[i] = 2;
             } else {
                 result[i] = 1;
@@ -180,5 +203,14 @@ public class NewGovPane extends VBox {
             }
         }
         return result;
+    }
+
+    private int insertIndex(Player player, List<Player> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() > player.getId()) {
+                return i;
+            }
+        }
+        return list.size();
     }
 }
