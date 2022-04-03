@@ -2,18 +2,28 @@
     src: url("Eskapade-Fraktur-W04-Black.ttf");
 }
 
-.root {
-    -fx-fascist-dark: #990200;
-    -fx-fascist-light: #E66443;
-    -fx-fascist-white: #FEFFAC;
+.liberal {
+    -fx-main-dark: #004E6E;
+    -fx-main-light: #61C8D9;
+    -fx-main-white: white;
 
-    -fx-liberal-dark: #004E6E;
-    -fx-liberal-light: #61C8D9;
-    -fx-liberal-white: white;
+    -fx-alt-dark: #990200;
+    -fx-alt-light: #E66443;
+    -fx-alt-white: #FEFFAC;
+}
+
+.fascist {
+    -fx-main-dark: #990200;
+    -fx-main-light: #E66443;
+    -fx-main-white: #FEFFAC;
+
+    -fx-alt-dark: #004E6E;
+    -fx-alt-light: #61C8D9;
+    -fx-alt-white: white;
 }
 
 .inner-box {
-    -fx-border-color: -fx-liberal-dark;
+    -fx-border-color: -fx-main-dark;
     -fx-border-width: 16;
     -fx-border-insets: -28;
 }
@@ -21,12 +31,12 @@
 .config-screen {
     -fx-pref-height: 200px;
     -fx-padding: 10;
-    -fx-background-color: -fx-liberal-light;
+    -fx-background-color: -fx-main-light;
     -fx-alignment: top-center;
 
     -fx-border-width: 20;
     -fx-border-insets: 10;
-    -fx-border-color: -fx-liberal-white;
+    -fx-border-color: -fx-main-white;
 }
 
 .config-screen PlayerField {
@@ -39,7 +49,7 @@
     -fx-padding: 5, 10, 5, 10;
     -fx-min-width: 90;
     -fx-border-radius: 5;
-    -fx-text-fill: -fx-liberal-dark;
+    -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Times New Roman";
 }
 
@@ -51,9 +61,9 @@
     -fx-alignment: center;
     -fx-padding: 5;
     -fx-border-radius: 5;
-    -fx-text-fill: -fx-liberal-dark;
+    -fx-text-fill: -fx-main-dark;
     -fx-translate-y: -45;
-    -fx-background-color: -fx-liberal-light;
+    -fx-background-color: -fx-main-light;
 }
 
 .config-screen .title .text {
@@ -62,51 +72,58 @@
 }
 
 .config-screen ChoiceBox {
-    -fx-background-color: -fx-liberal-dark;
-    -fx-mark-color: -fx-liberal-light;
+    -fx-background-color: -fx-main-dark;
+    -fx-mark-color: -fx-main-light;
     -fx-min-width: 0;
     -fx-pref-width: 50;
 
 }
 .config-screen ChoiceBox .label {
-    -fx-text-fill: -fx-liberal-light;
+    -fx-text-fill: -fx-main-light;
     -fx-font-family: "Times New Roman";
 }
 
 .config-screen ChoiceBox .context-menu {
-    -fx-background-color: -fx-liberal-dark;
+    -fx-background-color: -fx-main-dark;
 }
 
 .config-screen ChoiceBox .menu-item {
-    -fx-mark-color: -fx-liberal-light;
+    -fx-mark-color: -fx-main-light;
     -fx-pref-width: 46;
 }
 
 .config-screen ChoiceBox .arrow-button .arrow {
-    -fx-background-color: -fx-liberal-light;
+    -fx-background-color: -fx-main-light;
 }
 
 .config-screen TextField {
-    -fx-background-color: -fx-liberal-dark;
-    -fx-border-color: -fx-liberal-white;
+    -fx-background-color: -fx-main-dark;
+    -fx-border-color: -fx-main-white;
     -fx-border-width: 2;
-    -fx-text-fill: -fx-liberal-light;
+    -fx-text-fill: -fx-main-light;
     -fx-font-weight: bold;
 }
 
 .config-screen Button {
-    -fx-background-color: -fx-liberal-dark;
-    -fx-fill: -fx-liberal-light;
-    -fx-text-fill: -fx-liberal-light;
+    -fx-background-color: -fx-main-dark;
+    -fx-fill: -fx-main-light;
+    -fx-text-fill: -fx-main-light;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+}
+
+.config-screen ToggleButton {
+    -fx-background-color: -fx-alt-dark;
+    -fx-fill: -fx-alt-light;
+    -fx-text-fill: -fx-alt-light;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
 .config-screen .emptyField TextField {
-    -fx-border-color: -fx-fascist-white;
-    -fx-background-color: -fx-fascist-dark;
-    -fx-text-fill: -fx-fascist-light;
+    -fx-border-color: -fx-alt-white;
+    -fx-background-color: -fx-alt-dark;
+    -fx-text-fill: -fx-alt-light;
 }
 
 .config-screen .emptyField Label {
-    -fx-text-fill: -fx-fascist-dark;
+    -fx-text-fill: -fx-alt-dark;
 }

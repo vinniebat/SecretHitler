@@ -62,7 +62,7 @@ public class ConfigScreen extends StackPane {
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
         title.getStyleClass().add("title");
         controlsBox.getStyleClass().add("inner-box");
-        this.getStyleClass().add("config-screen");
+        this.getStyleClass().addAll("config-screen", "liberal");
         this.getChildren().addAll(controlsBox, title);
 
         choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
