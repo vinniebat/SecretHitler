@@ -38,10 +38,6 @@ public class FivePlayerGame extends Bord1Game {
 
         govTable.getColumns().setAll(president, chancellor, claim);
 
-        //test
-        govTable.getItems().add(new Gov(new Player(1, "Vincent"), new Player(2, "Wouter"), 1, new int[]{1, 2, 2}, null, false, null));
-        govTable.getItems().add(new Gov(new Player(2, "Wouter"), new Player(1, "Vincent"), 1, new int[]{1, 2, 2}, new int[]{2, 2}, true, null));
-
         leftSide.getChildren().add(govTable);
         leftSide.getChildren().add(new NewGovPane(this));
         gameVenster.getItems().add(leftSide);
