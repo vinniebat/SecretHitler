@@ -102,16 +102,23 @@
 }
 
 .config-screen .title {
-    -fx-alignment: center;
-    -fx-padding: 5;
-    -fx-border-radius: 5;
     -fx-text-fill: -fx-main-dark;
-    -fx-translate-y: -45;
-    -fx-background-color: -fx-main-light;
+    -fx-alignment: center;
+    -fx-border-radius: 5;
+    -fx-translate-y: -50;
+    -fx-padding: 5;
+}
+
+.liberal .title  {
+    -fx-background-color: #61C8D9;
+}
+
+.fascist .title {
+    -fx-background-color: #E66443;
 }
 
 .config-screen .title .text {
-    -fx-font-size: 28;
+    -fx-font-size: 35;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
