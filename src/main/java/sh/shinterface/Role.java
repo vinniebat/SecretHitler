@@ -4,7 +4,7 @@ package sh.shinterface;
  * Available roles in the game
  */
 public enum Role {
-    NONE("", "liberal"), LIBERAL("Liberal", "liberal"), FASCIST("Fascist", "fascist"), HITLER("Hitler", "fascist");
+    NONE("", "liberal"),UNKNOWN("Unknown", "liberal"), LIBERAL("Liberal", "liberal"), FASCIST("Fascist", "fascist"), HITLER("Hitler", "fascist");
 
     /**
      * String representation

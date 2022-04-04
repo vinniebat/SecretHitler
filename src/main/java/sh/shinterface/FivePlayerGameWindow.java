@@ -29,7 +29,7 @@ public class FivePlayerGameWindow extends SplitPane {
 
         VBox rightSide = new VBox();
 
-        rightSide.getChildren().add(new RightUpperWindow());
+        rightSide.getChildren().add(new RightUpperWindow(game));
 
         this.getItems().addAll(leftSide, rightSide);
     }

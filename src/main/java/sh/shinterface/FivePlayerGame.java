@@ -14,9 +14,11 @@ public class FivePlayerGame extends Bord1Game {
 
     private final List<Player> players;
     private FivePlayerGameWindow gameVenster;
+    private Player activePlayer;
 
-    public FivePlayerGame(List<Player> players) {
+    public FivePlayerGame(List<Player> players, Player activePlayer) {
         this.players = players;
+        this.activePlayer=activePlayer;
     }
 
     @Override
@@ -35,5 +37,10 @@ public class FivePlayerGame extends Bord1Game {
 
     public TableView<Gov> getGovTable() {
         return gameVenster.getGovTable();
+    }
+
+    @Override
+    public Player getActivePlayer() {
+        return activePlayer;
     }
 }

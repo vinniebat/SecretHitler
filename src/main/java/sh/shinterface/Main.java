@@ -34,7 +34,8 @@ public class Main extends Application {
         if (!players.isEmpty()) {
             //later factory
             stage.close();
-            Game game = new FivePlayerGame(players);
+            //TODO add activePlayer
+            Game game = new FivePlayerGame(players, null);
             game.start();
         }
     }

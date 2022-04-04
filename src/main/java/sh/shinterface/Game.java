@@ -11,4 +11,6 @@ public interface Game {
     List<Player> getPlayers();
 
     TableView<Gov> getGovTable();
+
+    Player getActivePlayer();
 }
