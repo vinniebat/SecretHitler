@@ -52,8 +52,8 @@
     -fx-background-color: -fx-main-dark;
 }
 
-.config-screen ChoiceBox .menu-item {
-    -fx-mark-color: -fx-main-light;
+.config-screen ChoiceBox .menu-item:focused {
+    -fx-background-color: derive(-fx-main-dark, 30%);
 }
 
 .config-screen ChoiceBox .arrow-button .arrow {
