@@ -56,6 +56,11 @@ public class ConfigScreen extends StackPane {
     );
 
     /**
+     * Button to create a game with the given players
+     */
+    private final Button createGameButton = new Button("Create Game");
+
+    /**
      * Creates a new ConfigurationScreen that is shown on the given stage
      * @param stage Stage that displays the ConfigScreen
      */
@@ -87,11 +92,11 @@ public class ConfigScreen extends StackPane {
           hBox.setVisible(false); // Eerst niet zichtbaar
           HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
           hBox.getStyleClass().add("role-box");
-          roleBox.setOnAction(this::updateStyling);
+          roleBox.valueProperty().addListener(this::updateRoleChoice);
+          roleBox.setValue(Role.NONE);
          // END ROLE SELECTION
 
          // INIT Create Game Button
-          Button createGameButton = new Button("Create Game");
           createGameButton.setOnAction(Main::confirmSelection);
          // END BUTTON
 
@@ -137,11 +142,9 @@ public class ConfigScreen extends StackPane {
      * @return If the input is valid, returns a list of players. Otherwise, this returns an empty list.
      */
     public List<Player> getPlayers() {
-        boolean valid = true;
         List<Player> players = new ArrayList<>();
         for (Node node : playerFields) {
             PlayerField playerField = (PlayerField) node;
-            valid &= playerField.isValid();
             if (playerField.isValid()) {
                 players.add(new Player(
                         playerField.getPlayerId(),
@@ -149,7 +152,7 @@ public class ConfigScreen extends StackPane {
                 ));
             }
         }
-        return (valid) ? players : List.of();
+        return (players.size() == playerFields.size()) ? players : List.of();
     }
 
     /**
@@ -157,8 +160,15 @@ public class ConfigScreen extends StackPane {
      * @param observable Unused
      */
     public void updateRoleChoice(Observable observable) {
-        roleBox.getParent().setVisible(activePlayerGroup.getSelectedToggle() != null);
-        roleBox.setValue(Role.NONE);
+        if (activePlayerGroup.getSelectedToggle() == null) {
+            roleBox.getParent().setVisible(false);
+            roleBox.setValue(Role.NONE);
+            createGameButton.setDisable(false);
+        } else {
+            roleBox.getParent().setVisible(true);
+            createGameButton.setDisable(roleBox.getValue() == Role.NONE);
+        }
+        updateStyling();
     }
 
     /**
@@ -171,9 +181,8 @@ public class ConfigScreen extends StackPane {
 
     /**
      * Updates the styling according to the selected role
-     * @param e Unused
      */
-    public void updateStyling(ActionEvent e) {
+    private void updateStyling() {
         this.getStyleClass().removeAll("liberal", "fascist");
         this.getStyleClass().add(roleBox.getValue().getStyle());
     }

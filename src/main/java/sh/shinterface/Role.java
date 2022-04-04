@@ -1,5 +1,8 @@
 package sh.shinterface;
 
+/**
+ * Available roles in the game
+ */
 public enum Role {
     NONE("", "liberal"), LIBERAL("Liberal", "liberal"), FASCIST("Fascist", "fascist"), HITLER("Hitler", "fascist");
 
@@ -9,10 +12,14 @@ public enum Role {
     private final String str;
 
     /**
-     * style class
+     * css style class name
      */
     private final String style;
 
+    /**
+     * @param str String representation of the role
+     * @param style css style class name
+     */
     Role(String str, String style) {
         this.str = str;
         this.style = style;
@@ -23,6 +30,10 @@ public enum Role {
         return str;
     }
 
+    /**
+     * Get corresponding style class
+     * @return a css style class name
+     */
     public String getStyle() {
         return style;
     }
