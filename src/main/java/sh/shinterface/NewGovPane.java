@@ -1,14 +1,14 @@
 package sh.shinterface;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -23,12 +23,9 @@ public class NewGovPane extends VBox {
     private final List<ToggleButton> voteList = new ArrayList<>();
     private final GridPane govPlayers;
 
-    private static final Map<String, String> SWITCH = new HashMap<>() {{
-        put("JA", "NEIN");
-        put("NEIN", "JA");
-    }};
+    private static final Map<String, String> SWITCH = Map.of("JA", "NEIN", "NEIN", "JA");
 
-    private static final List<String> STRINGPOLICIES = Arrays.asList("R", "B");
+    private static final List<String> STRINGPOLICIES = List.of("R", "B");
 
     public NewGovPane(Game game) {
 

@@ -13,6 +13,7 @@ public class Main extends Application {
     private static Stage stage;
 
     private static ConfigScreen configScreen;
+
     @Override
     public void start(Stage stage) {
         Main.stage = stage;
@@ -27,6 +28,7 @@ public class Main extends Application {
 
     /**
      * Checks if the configuration input is valid and makes a new game if it is.
+     *
      * @param e Unused
      */
     public static void confirmSelection(ActionEvent e) {

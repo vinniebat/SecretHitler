@@ -9,13 +9,13 @@ public class RightUpperWindow extends HBox {
     private int fascists;
     private Game game;
     private int hitler;
-    boolean rollback=false;
+    boolean rollback = false;
 
     public RightUpperWindow(Game game) {
-        fascists=0;
-        hitler=0;
+        fascists = 0;
+        hitler = 0;
 
-        this.game=game;
+        this.game = game;
         //contains playerOverview and deck info
         //TODO deck info
         HBox hBox = new HBox();
@@ -30,19 +30,18 @@ public class RightUpperWindow extends HBox {
     }
 
 
-
-    public boolean updateFasc(int fasc, int hitler, ImageView imageView, Image image){
+    public boolean updateFasc(int fasc, int hitler, ImageView imageView, Image image) {
         if (rollback) {
-            rollback=false;
+            rollback = false;
             return true;
         }
-        if ((game.getPlayers().size()+1) / 2 > fascists+fasc && this.hitler+hitler < 2 && !rollback) {
-            fascists+=fasc;
-            this.hitler+=hitler;
+        if ((game.getPlayers().size() + 1) / 2 > fascists + fasc && this.hitler + hitler < 2 && !rollback) {
+            fascists += fasc;
+            this.hitler += hitler;
             imageView.setImage(image);
             return true;
         }
-        rollback=true;
+        rollback = true;
         return false;
     }
 }

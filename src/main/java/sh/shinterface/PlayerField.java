@@ -27,6 +27,7 @@ public class PlayerField extends HBox {
 
     /**
      * Create a player with given player id
+     *
      * @param playerId Number of the player
      */
     public PlayerField(int playerId) {
@@ -42,6 +43,7 @@ public class PlayerField extends HBox {
 
     /**
      * Return the name entered into the TextField, trimmed.
+     *
      * @return Trimmed name that was entered
      */
     public String getName() {
@@ -66,7 +68,7 @@ public class PlayerField extends HBox {
         if (!nameField.getText().isBlank()) {
             getStyleClass().removeAll("emptyField");
             return true;
-        } else  {
+        } else {
             getStyleClass().add("emptyField");
             return false;
         }

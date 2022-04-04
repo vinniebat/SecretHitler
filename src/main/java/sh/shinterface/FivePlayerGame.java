@@ -1,11 +1,7 @@
 package sh.shinterface;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -18,7 +14,7 @@ public class FivePlayerGame extends Bord1Game {
 
     public FivePlayerGame(List<Player> players, Player activePlayer) {
         this.players = players;
-        this.activePlayer=activePlayer;
+        this.activePlayer = activePlayer;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package sh.shinterface;
 
-public abstract class Bord1Game implements Game{
+public abstract class Bord1Game implements Game {
 
 
 }

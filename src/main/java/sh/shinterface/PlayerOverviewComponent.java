@@ -6,15 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class PlayerOverviewComponent extends VBox {
 
-    private static final Set<Role> FASCROLES = new HashSet<>() {{
-        add(Role.HITLER);
-        add(Role.FASCIST);
-    }};
+    private static final Set<Role> FASCROLES = Set.of(Role.HITLER, Role.FASCIST);
 
     public PlayerOverviewComponent(Player player, Game game, RightUpperWindow parent) {
         ImageView susImage = new ImageView(ImagePicker.pick(player.getSuspectedFaction()));
@@ -47,7 +43,6 @@ public class PlayerOverviewComponent extends VBox {
             if (!parent.updateFasc(fasc, hitler, susImage, ImagePicker.pick(newRole))) {
                 roleChoiceBox.setValue(oldRole);
             }
-
         });
 
         try {
