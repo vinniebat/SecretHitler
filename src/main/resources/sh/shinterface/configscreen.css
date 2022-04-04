@@ -53,7 +53,7 @@
 }
 
 .config-screen ChoiceBox .menu-item:focused {
-    -fx-background-color: derive(-fx-main-dark, 30%);
+    -fx-background-color: derive(-fx-main-dark, 40%);
 }
 
 .config-screen ChoiceBox .arrow-button .arrow {
