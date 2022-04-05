@@ -280,3 +280,8 @@ CheckBox:selected .mark {
 .interface PlayerView ChoiceBox {
     -fx-pref-width: 150;
 }
+
+.interface PlayerView ChoiceBox .label {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-alignment: center;
+}
