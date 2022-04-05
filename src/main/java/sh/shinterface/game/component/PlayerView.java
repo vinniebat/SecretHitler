@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
@@ -55,6 +56,7 @@ public class PlayerView extends VBox {
         } catch (NullPointerException e) {
             System.err.println("No active player");
         }
+        VBox.setVgrow(roleImage, Priority.ALWAYS);
         this.getChildren().addAll(roleImage, playerLabel, roleBox);
     }
 

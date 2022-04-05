@@ -43,7 +43,23 @@
 }
 
 .interface {
-    -fx-pref-width: 1200;
+    -fx-pref-width: 1400;
+}
+
+.interface ChoiceBox {
+    -fx-pref-width: 100;
+}
+
+.interface TextField {
+    -fx-pref-width: 130;
+}
+
+.interface PlayerView Label {
+    -fx-text-fill: -fx-main-dark;
+}
+
+.interface PlayerView {
+    -fx-alignment: top-center;
 }
 
 ChoiceBox {
@@ -227,6 +243,8 @@ TableView .table-column {
 
 .split-pane-divider {
     -fx-background-color: -fx-main-dark;
+    -fx-border-width: 10;
+    -fx-border-color: -fx-main-light;
 }
 
 FivePlayerGameWindow {
@@ -259,10 +277,6 @@ CheckBox:selected .mark {
     -fx-background-color: -fx-main-light;
 }
 
-.interface ChoiceBox {
-    -fx-pref-width: 100;
-}
-
-.interface TextField {
-    -fx-pref-width: 130;
+.interface PlayerView ChoiceBox {
+    -fx-pref-width: 150;
 }
