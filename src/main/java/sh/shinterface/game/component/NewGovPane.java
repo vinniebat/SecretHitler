@@ -103,22 +103,22 @@ public class NewGovPane extends VBox {
     private void createGov(Game game) {
         Player president = presidentChoiceBox.getValue();
         Player chancellor = chancellorChoiceBox.getValue();
-        Policy[] claim1 = PolicyConverter.fromString(this.claim1.getText());
-        Policy[] claim2 = PolicyConverter.fromString(this.claim2.getText());
+        List<Policy> claim1 = PolicyConverter.fromString(this.claim1.getText());
+        List<Policy> claim2 = PolicyConverter.fromString(this.claim2.getText());
         int played = 0;
         List<Boolean> voteList = this.voteList.stream().map(toggle -> !toggle.isSelected()).toList();
 
         boolean valid = !(choiceBoxCheck(presidentChoiceBox) || choiceBoxCheck(chancellorChoiceBox));
 
-        if (claim1.length < 3) {
+        if (claim1.size() < 3) {
             valid = false;
             this.claim1.getStyleClass().add("textFieldError");
         } else {
             this.claim1.getStyleClass().removeAll("textFieldError");
-            if (claim2.length < 2) {
+            if (claim2.size() < 2) {
                 claim2 = autoGenerate(claim1);
             }
-            if (Arrays.stream(claim2).anyMatch(i -> i == Policy.LIBERAL)) {
+            if (claim2.stream().anyMatch(i -> i == Policy.LIBERAL)) {
                 played = 1;
             } else {
                 played = 2;
@@ -162,9 +162,9 @@ public class NewGovPane extends VBox {
         }
     }
 
-    public boolean checkConf(Policy[] claim1, Policy[] claim2, boolean conf) {
-        boolean lib1 = Arrays.stream(claim1).anyMatch(p -> p == Policy.LIBERAL);
-        boolean lib2 = Arrays.stream(claim2).anyMatch(p -> p == Policy.LIBERAL);
+    public boolean checkConf(List<Policy> claim1, List<Policy> claim2, boolean conf) {
+        boolean lib1 = claim1.stream().anyMatch(p -> p == Policy.LIBERAL);
+        boolean lib2 = claim2.stream().anyMatch(p -> p == Policy.LIBERAL);
         return (lib1 ^ lib2) || conf;
     }
 
@@ -190,14 +190,14 @@ public class NewGovPane extends VBox {
         });
     }
 
-    private Policy[] autoGenerate(Policy[] claim1) {
-        int blauw = (int) Arrays.stream(claim1).filter(policy -> policy == Policy.LIBERAL).count();
-        Policy[] result = new Policy[2];
+    private List<Policy> autoGenerate(List<Policy> claim1) {
+        int blauw = (int) claim1.stream().filter(policy -> policy == Policy.LIBERAL).count();
+        List<Policy> result = new ArrayList<>(2);
         for (int i = 0; i < 2; i++) {
             if (blauw == 0) {
-                result[i] = Policy.FASCIST;
+                result.set(i, Policy.FASCIST);
             } else {
-                result[i] = Policy.LIBERAL;
+                result.set(i, Policy.LIBERAL);
                 blauw--;
             }
         }
