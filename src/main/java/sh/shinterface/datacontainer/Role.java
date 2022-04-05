@@ -38,4 +38,13 @@ public enum Role {
     public String getStyle() {
         return style;
     }
+
+    /**
+     * Check if the role is fascist
+     *
+     * @return TRUE if role is FASCIST or HITLER
+     */
+    public boolean isFascist() {
+        return this == Role.FASCIST || this == Role.HITLER;
+    }
 }

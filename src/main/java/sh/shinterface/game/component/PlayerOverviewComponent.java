@@ -1,62 +1,114 @@
 package sh.shinterface.game.component;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import sh.shinterface.datacontainer.Player;
+import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
 import sh.shinterface.util.ImagePicker;
-import sh.shinterface.datacontainer.Player;
 import sh.shinterface.util.PlayerStringConverter;
-import sh.shinterface.datacontainer.Role;
-
-import java.util.Set;
 
 public class PlayerOverviewComponent extends VBox {
 
-    private static final Set<Role> FASCROLES = Set.of(Role.HITLER, Role.FASCIST);
+    /**
+     * ChoiceBox to choose a role
+     */
+    private final ChoiceBox<Role> roleBox = new ChoiceBox<>(
+            FXCollections.observableArrayList(Role.UNKNOWN, Role.LIBERAL, Role.FASCIST, Role.HITLER)
+    );
+    /**
+     * Image representing the chosen role (currentRole)
+     */
+    private final ImageView roleImage;
+    /**
+     * Current role of this player. Does not equal the chosen in role in roleBox
+     */
+    private Role currentRole = Role.UNKNOWN;
 
+    /**
+     * Makes an overview of a player, consisting of a role-card (image), a label and a ChoiceBox to choose the role
+     *
+     * @param player the player for which this overview is made
+     * @param game   game that this player is a part of
+     * @param parent the parent that holds this component
+     */
     public PlayerOverviewComponent(Player player, Game game, RightUpperWindow parent) {
-        ImageView susImage = new ImageView(ImagePicker.pick(player.getSuspectedFaction()));
+        roleImage = new ImageView(ImagePicker.pick(player.getSuspectedFaction()));
         Label playerLabel = new Label(new PlayerStringConverter(game).toString(player));
-        ChoiceBox<Role> roleChoiceBox = new ChoiceBox<>(
-                FXCollections.observableArrayList(Role.UNKNOWN, Role.LIBERAL, Role.FASCIST, Role.HITLER)
-        );
-        roleChoiceBox.setValue(Role.UNKNOWN);
-
-        roleChoiceBox.valueProperty().addListener((observableValue, oldRole, newRole) -> {
-            int hitler = 0;
-            int fasc = 0;
-
-            if (oldRole.equals(Role.HITLER) ^ newRole.equals(Role.HITLER)) {
-                if (oldRole.equals(Role.HITLER)) {
-                    hitler = -1;
-                } else {
-                    hitler = 1;
-                }
-            }
-
-            if (FASCROLES.contains(oldRole) ^ FASCROLES.contains(newRole)) {
-                if (FASCROLES.contains(oldRole)) {
-                    fasc = -1;
-                } else {
-                    fasc = 1;
-                }
-            }
-
-            if (!parent.updateFasc(fasc, hitler, susImage, ImagePicker.pick(newRole))) {
-                roleChoiceBox.setValue(oldRole);
-            }
-        });
+        roleBox.setValue(Role.UNKNOWN);
+        roleBox.setOnAction(parent::updateRoles);
 
         try {
             if (game.getActivePlayer().equals(player)) {
-                roleChoiceBox.setDisable(true);
+                roleBox.setDisable(true);
             }
         } catch (NullPointerException e) {
             System.err.println("No active player");
         }
-        this.getChildren().addAll(susImage, playerLabel, roleChoiceBox);
+        this.getChildren().addAll(roleImage, playerLabel, roleBox);
+    }
+
+    /**
+     * Current role of the player
+     *
+     * @return Current role showing
+     */
+    public Role getCurrentRole() {
+        return currentRole;
+    }
+
+    /**
+     * Sets the image representing the role and selects that role in the ChoiceBox
+     *
+     * @param role new Role
+     */
+    public void setRole(Role role) {
+        if (currentRole != role) {
+            this.currentRole = role;
+            roleBox.getSelectionModel().select(role);
+            roleImage.setImage(ImagePicker.pick(role));
+        }
+    }
+
+    /**
+     * Is the current role fascist
+     *
+     * @return True if Role is Hitler or Fascist
+     */
+    public boolean isFascist() {
+        return currentRole.isFascist();
+    }
+
+    /**
+     * Is the current role Hitler
+     *
+     * @return True if Role is Hitler
+     */
+    public boolean isHitler() {
+        return currentRole == Role.HITLER;
+    }
+
+    /**
+     * Updates the ChoiceBox items according to available roles in the window
+     *
+     * @param window window that controls this player
+     */
+    public void updateBox(RightUpperWindow window) {
+        ObservableList<Role> roles = roleBox.getItems();
+        if (!roles.contains(Role.HITLER)) {
+            roles.add(Role.HITLER);
+        }
+        if (!roles.contains(Role.FASCIST)) {
+            roles.add(Role.FASCIST);
+        }
+        if (window.maxFascists() && !currentRole.isFascist()) {
+            roles.removeAll(Role.HITLER, Role.FASCIST);
+        } else if (window.hasHitler() && currentRole != Role.HITLER) {
+            roles.removeAll(Role.HITLER);
+        }
     }
 }
