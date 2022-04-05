@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,19 +14,22 @@ import java.util.List;
 public class FivePlayerGame extends Bord1Game {
 
     private final List<Player> players;
-    private FivePlayerGameWindow gameVenster;
+    private final FivePlayerGameWindow gameVenster;
+    private final Pane pane;
 
-    public FivePlayerGame(List<Player> players) {
+    public FivePlayerGame(List<Player> players, Role role) {
         this.players = players;
+        gameVenster = new FivePlayerGameWindow(this);
+        pane = new VBox(gameVenster);
+        pane.getStyleClass().addAll(role.getStyle(), "interface");
     }
 
     @Override
-    public void start() {
-        Stage stage = new Stage();
-        gameVenster = new FivePlayerGameWindow(this);
-        Scene scene = new Scene(gameVenster);
+    public void start(Stage stage) {
+        Scene scene = new Scene(pane);
+        scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
-        stage.show();
+        stage.sizeToScene();
     }
 
     @Override

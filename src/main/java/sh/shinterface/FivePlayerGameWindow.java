@@ -33,6 +33,7 @@ public class FivePlayerGameWindow extends SplitPane {
 
 
         this.getItems().addAll(leftSide, rightSide);
+        this.getStyleClass().add("inner-box");
     }
 
     public TableView<Gov> getGovTable() {

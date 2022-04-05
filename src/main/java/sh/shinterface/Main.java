@@ -33,9 +33,8 @@ public class Main extends Application {
         List<Player> players = configScreen.getPlayers();
         if (!players.isEmpty()) {
             //later factory
-            stage.close();
-            Game game = new FivePlayerGame(players);
-            game.start();
+            Game game = new FivePlayerGame(players, configScreen.getRole());
+            game.start(stage);
         }
     }
 

@@ -28,57 +28,65 @@
     -fx-border-insets: -28;
 }
 
-.config-screen {
-    -fx-pref-height: 200px;
+.config-screen, .interface {
     -fx-padding: 10;
     -fx-background-color: -fx-main-light;
-    -fx-alignment: top-center;
 
     -fx-border-width: 20;
     -fx-border-insets: 10;
     -fx-border-color: -fx-main-white;
 }
 
-.config-screen ChoiceBox {
+.config-screen {
+    -fx-pref-height: 200;
+    -fx-alignment: top-center;
+}
+
+.interface {
+    -fx-pref-width: 1200;
+}
+
+ChoiceBox {
     -fx-background-color: -fx-main-dark;
     -fx-mark-color: -fx-main-light;
 }
-.config-screen ChoiceBox .label {
+
+ChoiceBox .label {
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Times New Roman";
 }
 
-.config-screen ChoiceBox .context-menu {
+ChoiceBox .context-menu {
     -fx-background-color: -fx-main-dark;
 }
 
-.config-screen ChoiceBox .menu-item:focused {
+ChoiceBox .menu-item:focused {
     -fx-background-color: derive(-fx-main-dark, 40%);
 }
 
-.config-screen ChoiceBox .arrow-button .arrow {
+ChoiceBox .arrow-button .arrow {
     -fx-background-color: -fx-main-light;
 }
 
-.config-screen HBox {
+HBox {
     -fx-alignment: center-right;
     -fx-spacing: 10;
 }
 
-.config-screen .role-box {
+.role-box {
     -fx-alignment: center-left;
 }
 
-.config-screen .role-box Label {
+.role-box Label {
     -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Times New Roman";
 }
 
-.config-screen .role-box ChoiceBox {
+.role-box ChoiceBox {
     -fx-pref-width: 100;
 }
 
-.config-screen .role-box ChoiceBox .label {
+.role-box ChoiceBox .label {
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-text-fill: -fx-main-light;
 }
@@ -97,11 +105,11 @@
     -fx-font-family: "Times New Roman";
 }
 
-.config-screen .text {
+.text {
     -fx-font-size: 20;
 }
 
-.config-screen .title {
+.title {
     -fx-text-fill: -fx-main-dark;
     -fx-alignment: center;
     -fx-border-radius: 5;
@@ -122,7 +130,7 @@
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
-.config-screen TextField {
+TextField {
     -fx-background-color: -fx-main-dark;
     -fx-border-color: -fx-main-white;
     -fx-border-width: 2;
@@ -130,41 +138,128 @@
     -fx-font-weight: bold;
 }
 
-.config-screen Button {
+Button {
     -fx-background-color: -fx-main-dark;
     -fx-fill: -fx-main-light;
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
-.config-screen ToggleButton {
+ToggleButton {
     -fx-background-color: -fx-main-dark;
     -fx-fill: -fx-main-light;
     -fx-text-fill: -fx-main-light;
     -fx-border-width: 2;
+    -fx-border-color: transparent;
+}
+
+.config-screen ToggleButton {
     -fx-font-family: "Times New Roman";
     -fx-pref-width: 54;
 }
 
-.config-screen ToggleButton:selected {
-    -fx-background-color: -fx-main-dark;
-    -fx-fill: -fx-main-light;
-    -fx-text-fill: -fx-main-light;
-    -fx-border-color: -fx-main-white;
-    -fx-border-width: 2;
-    -fx-font-family: "Times New Roman";
+.interface ToggleButton {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-pref-width: 60;
 }
 
-.config-screen ToggleButton .text {
+.interface ToggleButton .text {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+}
+
+ToggleButton:selected {
+    -fx-border-color: -fx-main-white;
+}
+
+ToggleButton .text {
     -fx-font-size: 14;
 }
 
-.config-screen .emptyField TextField {
+.emptyField TextField {
     -fx-border-color: -fx-alt-white;
     -fx-background-color: -fx-alt-dark;
     -fx-text-fill: -fx-alt-light;
 }
 
-.config-screen .emptyField Label {
+.emptyField Label {
     -fx-text-fill: -fx-alt-dark;
+}
+
+TableView {
+    -fx-background-color: transparent;
+}
+
+TableView .column-header {
+    -fx-background-color: transparent;
+}
+
+TableView .filler {
+    -fx-background-color: transparent;
+}
+
+TableView .column-header-background {
+    -fx-background-color: -fx-main-dark;
+}
+
+TableView .column-header-background .label {
+    -fx-text-fill: -fx-main-light;
+    -fx-background-color: transparent;
+}
+
+TableView .table-cell {
+    -fx-text-fill: -fx-main-dark;
+}
+
+TableView .table-row-cell {
+    -fx-background-color: -fx-main-light;
+}
+
+TableView .table-row-cell:odd {
+    -fx-background-color: derive(-fx-main-light, -10%);
+}
+
+TableView .table-column {
+    -fx-pref-width: 120;
+}
+
+.split-pane-divider {
+    -fx-background-color: -fx-main-dark;
+}
+
+FivePlayerGameWindow {
+    -fx-background-color: transparent;
+}
+
+NewGovPane {
+    -fx-spacing: 10;
+}
+
+NewGovPane Label {
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: -fx-main-dark;
+}
+
+GridPane {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+CheckBox {
+    -fx-text-fill: -fx-main-dark;
+}
+
+CheckBox .box {
+    -fx-background-color: -fx-main-dark;
+}
+
+CheckBox:selected .mark {
+    -fx-background-color: -fx-main-light;
+}
+
+.interface ChoiceBox {
+    -fx-pref-width: 100;
+}
+
+.interface TextField {
+    -fx-pref-width: 130;
 }
