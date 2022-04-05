@@ -1,6 +1,8 @@
-package sh.shinterface;
+package sh.shinterface.util;
 
 import javafx.util.StringConverter;
+import sh.shinterface.game.Game;
+import sh.shinterface.datacontainer.Player;
 
 import java.util.Arrays;
 import java.util.List;

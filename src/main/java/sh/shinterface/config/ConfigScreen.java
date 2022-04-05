@@ -1,4 +1,4 @@
-package sh.shinterface;
+package sh.shinterface.config;
 
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -14,6 +14,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sh.shinterface.Main;
+import sh.shinterface.datacontainer.Player;
+import sh.shinterface.datacontainer.Role;
 
 import java.util.ArrayList;
 import java.util.List;

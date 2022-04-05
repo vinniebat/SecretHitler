@@ -1,6 +1,7 @@
-package sh.shinterface;
+package sh.shinterface.util;
 
 import javafx.scene.image.Image;
+import sh.shinterface.datacontainer.Role;
 
 import java.util.List;
 import java.util.Random;

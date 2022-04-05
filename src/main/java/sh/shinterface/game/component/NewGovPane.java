@@ -1,9 +1,14 @@
-package sh.shinterface;
+package sh.shinterface.game.component;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import sh.shinterface.datacontainer.Gov;
+import sh.shinterface.datacontainer.Player;
+import sh.shinterface.game.Game;
+import sh.shinterface.util.PlayerStringConverter;
+import sh.shinterface.util.PolicyConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

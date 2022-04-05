@@ -1,6 +1,7 @@
-package sh.shinterface;
+package sh.shinterface.datacontainer;
 
 import javafx.beans.property.SimpleStringProperty;
+import sh.shinterface.util.PolicyConverter;
 
 import java.util.List;
 

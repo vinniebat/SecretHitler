@@ -1,7 +1,9 @@
-package sh.shinterface;
+package sh.shinterface.game;
 
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import sh.shinterface.datacontainer.Gov;
+import sh.shinterface.datacontainer.Player;
 
 import java.util.List;
 

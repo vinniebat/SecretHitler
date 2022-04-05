@@ -1,4 +1,4 @@
-package sh.shinterface;
+package sh.shinterface.datacontainer;
 
 public class Player {
 

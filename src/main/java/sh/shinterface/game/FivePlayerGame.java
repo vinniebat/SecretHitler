@@ -1,4 +1,4 @@
-package sh.shinterface;
+package sh.shinterface.game;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
@@ -6,6 +6,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sh.shinterface.game.component.FivePlayerGameWindow;
+import sh.shinterface.datacontainer.Gov;
+import sh.shinterface.datacontainer.Player;
+import sh.shinterface.datacontainer.Role;
 
 import java.util.List;
 

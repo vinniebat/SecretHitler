@@ -1,10 +1,15 @@
-package sh.shinterface;
+package sh.shinterface.game.component;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import sh.shinterface.game.Game;
+import sh.shinterface.util.ImagePicker;
+import sh.shinterface.datacontainer.Player;
+import sh.shinterface.util.PlayerStringConverter;
+import sh.shinterface.datacontainer.Role;
 
 import java.util.Set;
 

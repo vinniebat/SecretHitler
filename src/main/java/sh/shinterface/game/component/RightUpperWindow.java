@@ -1,8 +1,10 @@
-package sh.shinterface;
+package sh.shinterface.game.component;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import sh.shinterface.game.Game;
+import sh.shinterface.datacontainer.Player;
 
 public class RightUpperWindow extends HBox {
 

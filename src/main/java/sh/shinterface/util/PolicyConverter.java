@@ -1,4 +1,4 @@
-package sh.shinterface;
+package sh.shinterface.util;
 
 import java.util.Arrays;
 import java.util.Map;

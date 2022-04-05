@@ -1,9 +1,11 @@
-package sh.shinterface;
+package sh.shinterface.config;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
+import sh.shinterface.Main;
+import sh.shinterface.util.PlayerStringConverter;
 
 /**
  * Component that contains the player label and the TextField to input the player name
