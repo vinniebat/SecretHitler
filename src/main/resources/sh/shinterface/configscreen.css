@@ -212,6 +212,7 @@ TableView .table-cell {
 
 TableView .table-row-cell {
     -fx-background-color: -fx-main-light;
+    -fx-border-color: -fx-main-dark;
 }
 
 TableView .table-row-cell:odd {
@@ -220,6 +221,8 @@ TableView .table-row-cell:odd {
 
 TableView .table-column {
     -fx-pref-width: 120;
+    -fx-border-color: -fx-main-dark;
+    -fx-border-insets: -1;
 }
 
 .split-pane-divider {
