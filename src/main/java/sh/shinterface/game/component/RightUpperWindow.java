@@ -16,7 +16,7 @@ public class RightUpperWindow extends HBox {
     /**
      * All PlayerComponents controlled by this window
      */
-    private final Set<PlayerOverviewComponent> players = new HashSet<>();
+    private final Set<PlayerView> players = new HashSet<>();
 
     public RightUpperWindow(Game game) {
         this.game = game;
@@ -26,7 +26,7 @@ public class RightUpperWindow extends HBox {
 
         HBox playerOverview = new HBox();
         for (Player player : game.getPlayers()) {
-            PlayerOverviewComponent component = new PlayerOverviewComponent(player, game, this);
+            PlayerView component = new PlayerView(player, game, this);
             playerOverview.getChildren().add(component);
             players.add(component);
         }
@@ -42,9 +42,9 @@ public class RightUpperWindow extends HBox {
     public void updateRoles(ActionEvent event) {
         ChoiceBox<Role> roleBox = (ChoiceBox<Role>) event.getSource();
         Role role = roleBox.getValue();
-        PlayerOverviewComponent parent = (PlayerOverviewComponent) roleBox.getParent();
+        PlayerView parent = (PlayerView) roleBox.getParent();
         parent.setRole(role);
-        for (PlayerOverviewComponent comp : players) {
+        for (PlayerView comp : players) {
             comp.updateBox(this);
         }
     }
@@ -55,7 +55,7 @@ public class RightUpperWindow extends HBox {
      * @return True if the max amount of fascist roles has been reached
      */
     public boolean maxFascists() {
-        return players.parallelStream().filter(PlayerOverviewComponent::isFascist).count() >= (game.getPlayers().size() - 1) / 2;
+        return players.parallelStream().filter(PlayerView::isFascist).count() >= (game.getPlayers().size() - 1) / 2;
     }
 
     /**
@@ -64,6 +64,6 @@ public class RightUpperWindow extends HBox {
      * @return True if a player has the Hitler role
      */
     public boolean hasHitler() {
-        return players.parallelStream().anyMatch(PlayerOverviewComponent::isHitler);
+        return players.parallelStream().anyMatch(PlayerView::isHitler);
     }
 }

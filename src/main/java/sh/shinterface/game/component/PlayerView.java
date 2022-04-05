@@ -12,7 +12,7 @@ import sh.shinterface.game.Game;
 import sh.shinterface.util.ImagePicker;
 import sh.shinterface.util.PlayerStringConverter;
 
-public class PlayerOverviewComponent extends VBox {
+public class PlayerView extends VBox {
 
     /**
      * ChoiceBox to choose a role
@@ -36,7 +36,7 @@ public class PlayerOverviewComponent extends VBox {
      * @param game   game that this player is a part of
      * @param parent the parent that holds this component
      */
-    public PlayerOverviewComponent(Player player, Game game, RightUpperWindow parent) {
+    public PlayerView(Player player, Game game, RightUpperWindow parent) {
         roleImage = new ImageView(ImagePicker.pick(player.getSuspectedFaction()));
         Label playerLabel = new Label(new PlayerStringConverter(game).toString(player));
         roleBox.setValue(Role.UNKNOWN);
