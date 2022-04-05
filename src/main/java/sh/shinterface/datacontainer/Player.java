@@ -4,13 +4,12 @@ public class Player {
 
     private final int id;
     private final String name;
-    //0 = ?, 1 = lib, 2 = fasc
-    private Role suspectedFaction;
+    private final Role role;
 
-    public Player(int id, String name) {
+    public Player(int id, String name, Role role) {
         this.id = id;
         this.name = name;
-        suspectedFaction = Role.UNKNOWN;
+        this.role = role;
     }
 
     public int getId() {
@@ -21,11 +20,7 @@ public class Player {
         return name;
     }
 
-    public Role getSuspectedFaction() {
-        return suspectedFaction;
-    }
-
-    public void setSuspectedFaction(Role suspectedFaction) {
-        this.suspectedFaction = suspectedFaction;
+    public Role getRole() {
+        return role;
     }
 }

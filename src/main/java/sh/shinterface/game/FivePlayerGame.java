@@ -17,12 +17,14 @@ public class FivePlayerGame extends Bord1Game {
 
     private final List<Player> players;
     private final Pane pane;
-    private FivePlayerGameWindow gameVenster;
-    private Player activePlayer;
+    private final FivePlayerGameWindow gameVenster;
 
-    public FivePlayerGame(List<Player> players, Role role, Player activePlayer) {
+    public FivePlayerGame(List<Player> players, Role role) {
         this.players = players;
-        this.activePlayer = activePlayer;
+        int i = 0;
+        while (i < players.size() && players.get(i).getRole() == Role.UNKNOWN) {
+            i++;
+        }
         gameVenster = new FivePlayerGameWindow(this);
         pane = new VBox(gameVenster);
         VBox.setVgrow(gameVenster, Priority.ALWAYS);
@@ -45,10 +47,5 @@ public class FivePlayerGame extends Bord1Game {
 
     public TableView<Gov> getGovTable() {
         return gameVenster.getGovTable();
-    }
-
-    @Override
-    public Player getActivePlayer() {
-        return activePlayer;
     }
 }
