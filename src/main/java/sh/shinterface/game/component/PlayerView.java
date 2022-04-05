@@ -2,6 +2,7 @@ package sh.shinterface.game.component;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,10 @@ public class PlayerView extends VBox {
      */
     private final ImageView roleImage;
     /**
+     * Window that controls this View
+     */
+    private final RightUpperWindow window;
+    /**
      * Current role of this player. Does not equal the chosen in role in roleBox
      */
     private Role currentRole = Role.UNKNOWN;
@@ -34,13 +39,14 @@ public class PlayerView extends VBox {
      *
      * @param player the player for which this overview is made
      * @param game   game that this player is a part of
-     * @param parent the parent that holds this component
+     * @param window the window that holds this component
      */
-    public PlayerView(Player player, Game game, RightUpperWindow parent) {
+    public PlayerView(Player player, Game game, RightUpperWindow window) {
+        this.window = window;
         roleImage = new ImageView(ImagePicker.pick(player.getSuspectedFaction()));
         Label playerLabel = new Label(new PlayerStringConverter(game).toString(player));
         roleBox.setValue(Role.UNKNOWN);
-        roleBox.setOnAction(parent::updateRoles);
+        roleBox.setOnAction(this::updateRole);
 
         try {
             if (game.getActivePlayer().equals(player)) {
@@ -53,25 +59,17 @@ public class PlayerView extends VBox {
     }
 
     /**
-     * Current role of the player
-     *
-     * @return Current role showing
-     */
-    public Role getCurrentRole() {
-        return currentRole;
-    }
-
-    /**
      * Sets the image representing the role and selects that role in the ChoiceBox
      *
-     * @param role new Role
+     * @param event Unused
      */
-    public void setRole(Role role) {
+    public void updateRole(ActionEvent event) {
+        Role role = roleBox.getValue();
         if (currentRole != role) {
             this.currentRole = role;
-            roleBox.getSelectionModel().select(role);
             roleImage.setImage(ImagePicker.pick(role));
         }
+        window.updateChoices();
     }
 
     /**
@@ -94,10 +92,8 @@ public class PlayerView extends VBox {
 
     /**
      * Updates the ChoiceBox items according to available roles in the window
-     *
-     * @param window window that controls this player
      */
-    public void updateBox(RightUpperWindow window) {
+    public void updateBox() {
         ObservableList<Role> roles = roleBox.getItems();
         if (!roles.contains(Role.HITLER)) {
             roles.add(Role.HITLER);

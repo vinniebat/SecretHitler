@@ -1,10 +1,7 @@
 package sh.shinterface.game.component;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
 import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
 
 import java.util.HashSet;
@@ -35,17 +32,11 @@ public class RightUpperWindow extends HBox {
     }
 
     /**
-     * Updates the player to reflect the chosen role
-     *
-     * @param event Event coming from a role being chosen for a player
+     * Updates the players to match available roles
      */
-    public void updateRoles(ActionEvent event) {
-        ChoiceBox<Role> roleBox = (ChoiceBox<Role>) event.getSource();
-        Role role = roleBox.getValue();
-        PlayerView parent = (PlayerView) roleBox.getParent();
-        parent.setRole(role);
+    public void updateChoices() {
         for (PlayerView comp : players) {
-            comp.updateBox(this);
+            comp.updateBox();
         }
     }
 
