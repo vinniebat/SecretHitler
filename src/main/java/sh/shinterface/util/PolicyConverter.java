@@ -3,11 +3,7 @@ package sh.shinterface.util;
 import sh.shinterface.datacontainer.Policy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.joining;
 
 public class PolicyConverter {
     public static String toString(Policy[] policies) {
