@@ -6,19 +6,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sh.shinterface.game.component.FivePlayerGameWindow;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
+import sh.shinterface.game.component.FivePlayerGameWindow;
 
 import java.util.List;
 
 public class FivePlayerGame extends Bord1Game {
 
     private final List<Player> players;
+    private final Pane pane;
     private FivePlayerGameWindow gameVenster;
     private Player activePlayer;
-    private final Pane pane;
 
     public FivePlayerGame(List<Player> players, Role role, Player activePlayer) {
         this.players = players;

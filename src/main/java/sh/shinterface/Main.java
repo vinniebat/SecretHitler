@@ -18,18 +18,6 @@ public class Main extends Application {
 
     private static ConfigScreen configScreen;
 
-    @Override
-    public void start(Stage stage) {
-        Main.stage = stage;
-        configScreen = new ConfigScreen(stage);
-        Scene scene = new Scene(configScreen);
-        scene.getStylesheets().add("sh/shinterface/configscreen.css");
-        stage.setScene(scene);
-        stage.setTitle("Secret Hitler Interface");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("secret-hitler-icon.png")));
-        stage.show();
-    }
-
     /**
      * Checks if the configuration input is valid and makes a new game if it is.
      *
@@ -48,5 +36,17 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        Main.stage = stage;
+        configScreen = new ConfigScreen(stage);
+        Scene scene = new Scene(configScreen);
+        scene.getStylesheets().add("sh/shinterface/configscreen.css");
+        stage.setScene(scene);
+        stage.setTitle("Secret Hitler Interface");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("secret-hitler-icon.png")));
+        stage.show();
     }
 }

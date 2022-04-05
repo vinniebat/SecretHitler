@@ -20,6 +20,8 @@ import java.util.stream.Stream;
 
 public class NewGovPane extends VBox {
 
+    private static final Map<String, String> SWITCH = Map.of("JA", "NEIN", "NEIN", "JA");
+    private static final List<String> STRINGPOLICIES = List.of("R", "B");
     private final ChoiceBox<Player> presidentChoiceBox;
     private final ChoiceBox<Player> chancellorChoiceBox;
     private final TextField claim1;
@@ -27,10 +29,6 @@ public class NewGovPane extends VBox {
     private final CheckBox conf;
     private final List<ToggleButton> voteList = new ArrayList<>();
     private final GridPane govPlayers;
-
-    private static final Map<String, String> SWITCH = Map.of("JA", "NEIN", "NEIN", "JA");
-
-    private static final List<String> STRINGPOLICIES = List.of("R", "B");
 
     public NewGovPane(Game game) {
 
@@ -81,7 +79,7 @@ public class NewGovPane extends VBox {
         govPlayers.addRow(0, presLabel, presidentChoiceBox, claim1);
         govPlayers.addRow(1, chancLabel, chancellorChoiceBox, claim2);
         govPlayers.add(new Label("Conflict?"), 0, 2);
-        govPlayers.add(conf, 1,2, 2, 1);
+        govPlayers.add(conf, 1, 2, 2, 1);
 
         GridPane votes = new GridPane();
         for (int i = 0; i < players.size(); i++) {

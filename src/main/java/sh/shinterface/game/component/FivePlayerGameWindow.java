@@ -5,8 +5,8 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
-import sh.shinterface.game.Game;
 import sh.shinterface.datacontainer.Gov;
+import sh.shinterface.game.Game;
 
 public class FivePlayerGameWindow extends SplitPane {
 
