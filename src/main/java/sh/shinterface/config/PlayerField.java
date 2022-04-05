@@ -41,6 +41,7 @@ public class PlayerField extends HBox {
         );
         this.playerId = playerId;
         nameField.setOnAction(Main::confirmSelection);
+        nameField.setPromptText("Enter Player Name");
     }
 
     /**
