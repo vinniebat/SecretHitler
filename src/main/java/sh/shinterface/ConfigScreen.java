@@ -62,6 +62,7 @@ public class ConfigScreen extends StackPane {
 
     /**
      * Creates a new ConfigurationScreen that is shown on the given stage
+     *
      * @param stage Stage that displays the ConfigScreen
      */
     public ConfigScreen(Stage stage) {
@@ -69,39 +70,39 @@ public class ConfigScreen extends StackPane {
 
         // INIT Controls
 
-         // INIT ChoiceBox to select the amount of players
-          ChoiceBox<Integer> choiceBox = new ChoiceBox<>(); // Selectie voor aantal spelers
-          // Add the options
-          for (int i = minPlayers; i <= maxPlayers; i++) {
-          choiceBox.getItems().add(i);
-          }
-          choiceBox.setValue(minPlayers); // Standaard-waarde is het minimum
-          choiceBox.setOnAction(this::updatePlayers); // Na selectie wordt het aantal spelers ge-update
-         // END CHOICE BOX
+        // INIT ChoiceBox to select the amount of players
+        ChoiceBox<Integer> choiceBox = new ChoiceBox<>(); // Selectie voor aantal spelers
+        // Add the options
+        for (int i = minPlayers; i <= maxPlayers; i++) {
+            choiceBox.getItems().add(i);
+        }
+        choiceBox.setValue(minPlayers); // Standaard-waarde is het minimum
+        choiceBox.setOnAction(this::updatePlayers); // Na selectie wordt het aantal spelers ge-update
+        // END CHOICE BOX
 
-         // INIT Player fields
-          VBox playerContainer = new VBox();
-          playerFields = playerContainer.getChildren(); // Sla de fields op voor makkelijk aan te passen
-          choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
-          activePlayerGroup.selectedToggleProperty().addListener(this::updateRoleChoice);
-          // Zorgt dat de role choice wordt getoond na selecteren van actieve speler
-         //END PLAYER FIELDS
+        // INIT Player fields
+        VBox playerContainer = new VBox();
+        playerFields = playerContainer.getChildren(); // Sla de fields op voor makkelijk aan te passen
+        choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
+        activePlayerGroup.selectedToggleProperty().addListener(this::updateRoleChoice);
+        // Zorgt dat de role choice wordt getoond na selecteren van actieve speler
+        //END PLAYER FIELDS
 
-         // INIT Role Selection
-          HBox hBox = new HBox(new Label("Role:"), roleBox);
-          hBox.setVisible(false); // Eerst niet zichtbaar
-          HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
-          hBox.getStyleClass().add("role-box");
-          roleBox.valueProperty().addListener(this::updateRoleChoice);
-          roleBox.setValue(Role.NONE);
-         // END ROLE SELECTION
+        // INIT Role Selection
+        HBox hBox = new HBox(new Label("Role:"), roleBox);
+        hBox.setVisible(false); // Eerst niet zichtbaar
+        HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
+        hBox.getStyleClass().add("role-box");
+        roleBox.valueProperty().addListener(this::updateRoleChoice);
+        roleBox.setValue(Role.NONE);
+        // END ROLE SELECTION
 
-         // INIT Create Game Button
-          createGameButton.setOnAction(Main::confirmSelection);
-         // END BUTTON
+        // INIT Create Game Button
+        createGameButton.setOnAction(Main::confirmSelection);
+        // END BUTTON
 
-         VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(hBox, createGameButton));
-         controlsBox.getStyleClass().add("inner-box");
+        VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(hBox, createGameButton));
+        controlsBox.getStyleClass().add("inner-box");
         // END CONTROLS
 
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
@@ -113,12 +114,13 @@ public class ConfigScreen extends StackPane {
 
     /**
      * Updates the display to reflect the change in amount of players.
+     *
      * @param e event coming from the ChoiceBox
      */
     private void updatePlayers(ActionEvent e) {
         int amount = ((ChoiceBox<Integer>) e.getSource()).getValue();
         if (amount > playerFields.size()) { // Voeg spelers toe als er te weinig zijn
-            for (int i =  1 + playerFields.size(); i <= amount; i++) {
+            for (int i = 1 + playerFields.size(); i <= amount; i++) {
                 PlayerField playerField = new PlayerField(i);
                 playerFields.add(playerField);
                 activePlayerGroup.getToggles().add(playerField.getButton());
@@ -139,6 +141,7 @@ public class ConfigScreen extends StackPane {
 
     /**
      * Checks if all fields where filled in and returns a list of players.
+     *
      * @return If the input is valid, returns a list of players. Otherwise, this returns an empty list.
      */
     public List<Player> getPlayers() {
@@ -157,6 +160,7 @@ public class ConfigScreen extends StackPane {
 
     /**
      * Shows/Hides the role selection box according to the selected active player
+     *
      * @param observable Unused
      */
     public void updateRoleChoice(Observable observable) {
@@ -173,6 +177,7 @@ public class ConfigScreen extends StackPane {
 
     /**
      * Get the value of the role selection box
+     *
      * @return Role of the active player
      */
     public Role getRole() {

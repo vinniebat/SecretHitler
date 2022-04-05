@@ -1,9 +1,6 @@
 package sh.shinterface;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -14,11 +11,13 @@ import java.util.List;
 public class FivePlayerGame extends Bord1Game {
 
     private final List<Player> players;
-    private final FivePlayerGameWindow gameVenster;
+    private FivePlayerGameWindow gameVenster;
+    private Player activePlayer;
     private final Pane pane;
 
-    public FivePlayerGame(List<Player> players, Role role) {
+    public FivePlayerGame(List<Player> players, Role role, Player activePlayer) {
         this.players = players;
+        this.activePlayer = activePlayer;
         gameVenster = new FivePlayerGameWindow(this);
         pane = new VBox(gameVenster);
         pane.getStyleClass().addAll(role.getStyle(), "interface");
@@ -30,6 +29,7 @@ public class FivePlayerGame extends Bord1Game {
         scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
         stage.sizeToScene();
+        stage.show();
     }
 
     @Override
@@ -39,5 +39,10 @@ public class FivePlayerGame extends Bord1Game {
 
     public TableView<Gov> getGovTable() {
         return gameVenster.getGovTable();
+    }
+
+    @Override
+    public Player getActivePlayer() {
+        return activePlayer;
     }
 }

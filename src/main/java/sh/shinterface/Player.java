@@ -10,7 +10,7 @@ public class Player {
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
-        suspectedFaction = Role.NONE;
+        suspectedFaction = Role.UNKNOWN;
     }
 
     public int getId() {

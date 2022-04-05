@@ -13,6 +13,7 @@ public class Main extends Application {
     private static Stage stage;
 
     private static ConfigScreen configScreen;
+
     @Override
     public void start(Stage stage) {
         Main.stage = stage;
@@ -27,13 +28,16 @@ public class Main extends Application {
 
     /**
      * Checks if the configuration input is valid and makes a new game if it is.
+     *
      * @param e Unused
      */
     public static void confirmSelection(ActionEvent e) {
         List<Player> players = configScreen.getPlayers();
         if (!players.isEmpty()) {
             //later factory
-            Game game = new FivePlayerGame(players, configScreen.getRole());
+            //TODO add activePlayer
+            stage.close();
+            Game game = new FivePlayerGame(players, configScreen.getRole(), null);
             game.start(stage);
         }
     }
