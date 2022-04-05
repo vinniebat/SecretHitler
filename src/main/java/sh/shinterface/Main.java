@@ -29,7 +29,7 @@ public class Main extends Application {
             //later factory
             //TODO add activePlayer
             stage.close();
-            Game game = new FivePlayerGame(players, configScreen.getRole(), null);
+            Game game = new FivePlayerGame(players, configScreen.getRole());
             game.start(stage);
         }
     }

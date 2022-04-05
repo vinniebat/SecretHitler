@@ -5,7 +5,7 @@ import sh.shinterface.util.PolicyConverter;
 
 import java.util.List;
 
-public record Gov(Player president, Player chancellor, int played, int[] claim1, int[] claim2, boolean conf,
+public record Gov(Player president, Player chancellor, int played, Policy[] claim1, Policy[] claim2, boolean conf,
                   List<Boolean> votes) {
 
     public SimpleStringProperty displayClaims() {

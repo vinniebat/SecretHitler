@@ -82,4 +82,8 @@ public class PlayerField extends HBox {
     public ToggleButton getButton() {
         return button;
     }
+
+    public boolean isActive() {
+        return button.isSelected();
+    }
 }

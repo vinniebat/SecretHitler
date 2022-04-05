@@ -152,9 +152,14 @@ public class ConfigScreen extends StackPane {
         for (Node node : playerFields) {
             PlayerField playerField = (PlayerField) node;
             if (playerField.isValid()) {
+                Role role = Role.UNKNOWN;
+                if (playerField.isActive()) {
+                    role = roleBox.getValue();
+                }
                 players.add(new Player(
                         playerField.getPlayerId(),
-                        playerField.getName()
+                        playerField.getName(),
+                        role
                 ));
             }
         }

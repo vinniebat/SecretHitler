@@ -44,18 +44,11 @@ public class PlayerView extends VBox {
      */
     public PlayerView(Player player, Game game, RightUpperWindow window) {
         this.window = window;
-        roleImage = new ImageView(ImagePicker.pick(player.getSuspectedFaction()));
+        roleImage = new ImageView(ImagePicker.pick(player.getRole()));
         Label playerLabel = new Label(new PlayerStringConverter(game).toString(player));
-        roleBox.setValue(Role.UNKNOWN);
+        roleBox.setValue(player.getRole());
         roleBox.setOnAction(this::updateRole);
-
-        try {
-            if (game.getActivePlayer().equals(player)) {
-                roleBox.setDisable(true);
-            }
-        } catch (NullPointerException e) {
-            System.err.println("No active player");
-        }
+        roleBox.setDisable(player.getRole() != Role.UNKNOWN);
         VBox.setVgrow(roleImage, Priority.ALWAYS);
         this.getChildren().addAll(roleImage, playerLabel, roleBox);
     }
