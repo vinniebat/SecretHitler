@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Player;
+import sh.shinterface.datacontainer.Policy;
 import sh.shinterface.game.Game;
 import sh.shinterface.util.PlayerStringConverter;
 import sh.shinterface.util.PolicyConverter;
@@ -101,10 +102,10 @@ public class NewGovPane extends VBox {
     }
 
     private void createGov(Game game) {
-        Player president = presidentChoiceBox.getSelectionModel().getSelectedItem();
-        Player chancellor = chancellorChoiceBox.getSelectionModel().getSelectedItem();
-        int[] claim1 = PolicyConverter.fromString(this.claim1.getText());
-        int[] claim2 = PolicyConverter.fromString(this.claim2.getText());
+        Player president = presidentChoiceBox.getValue();
+        Player chancellor = chancellorChoiceBox.getValue();
+        Policy[] claim1 = PolicyConverter.fromString(this.claim1.getText());
+        Policy[] claim2 = PolicyConverter.fromString(this.claim2.getText());
         int played = 0;
         List<Boolean> voteList = this.voteList.stream().map(toggle -> !toggle.isSelected()).toList();
 
@@ -112,15 +113,13 @@ public class NewGovPane extends VBox {
 
         if (claim1.length < 3) {
             valid = false;
-            if (!this.claim1.getStyleClass().contains("textFieldError")) {
-                this.claim1.getStyleClass().add("textFieldError");
-            }
+            this.claim1.getStyleClass().add("textFieldError");
         } else {
-            this.claim1.getStyleClass().remove("textFieldError");
+            this.claim1.getStyleClass().removeAll("textFieldError");
             if (claim2.length < 2) {
                 claim2 = autoGenerate(claim1);
             }
-            if (Arrays.stream(claim2).anyMatch(i -> i == 1)) {
+            if (Arrays.stream(claim2).anyMatch(i -> i == Policy.LIBERAL)) {
                 played = 1;
             } else {
                 played = 2;
@@ -164,9 +163,9 @@ public class NewGovPane extends VBox {
         }
     }
 
-    public boolean checkConf(int[] claim1, int[] claim2, boolean conf) {
-        boolean lib1 = IntStream.of(claim1).anyMatch(x -> x == 1);
-        boolean lib2 = IntStream.of(claim2).anyMatch(x -> x == 1);
+    public boolean checkConf(Policy[] claim1, Policy[] claim2, boolean conf) {
+        boolean lib1 = Arrays.stream(claim1).anyMatch(p -> p == Policy.LIBERAL);
+        boolean lib2 = Arrays.stream(claim2).anyMatch(p -> p == Policy.LIBERAL);
         return (lib1 ^ lib2) || conf;
     }
 
@@ -192,14 +191,14 @@ public class NewGovPane extends VBox {
         });
     }
 
-    private int[] autoGenerate(int[] claim1) {
-        int blauw = (int) Arrays.stream(claim1).filter(policy -> policy == 1).count();
-        int[] result = new int[2];
+    private Policy[] autoGenerate(Policy[] claim1) {
+        int blauw = (int) Arrays.stream(claim1).filter(policy -> policy == Policy.LIBERAL).count();
+        Policy[] result = new Policy[2];
         for (int i = 0; i < 2; i++) {
             if (blauw == 0) {
-                result[i] = 2;
+                result[i] = Policy.FASCIST;
             } else {
-                result[i] = 1;
+                result[i] = Policy.LIBERAL;
                 blauw--;
             }
         }
