@@ -21,7 +21,8 @@ import java.util.stream.Stream;
 public class NewGovPane extends VBox {
 
     private static final Map<String, String> SWITCH = Map.of("JA", "NEIN", "NEIN", "JA");
-    private static final List<String> STRINGPOLICIES = List.of("R", "B");
+    private static final List<Character> STRINGPOLICIES = List.of('R', 'B');
+    private static final List<Character> LOWERSTRINGPOLICIES = List.of('r', 'b');
     private final ChoiceBox<Player> presidentChoiceBox;
     private final ChoiceBox<Player> chancellorChoiceBox;
     private final TextField claim1;
@@ -86,7 +87,7 @@ public class NewGovPane extends VBox {
             Label voteName = new Label(playerStringConverter.toString(players.get(i)));
             ToggleButton jaNein = new ToggleButton("JA");
             jaNein.setOnAction(e -> switchVote(jaNein));
-            votes.addRow(i, voteName, jaNein);
+            votes.addRow(i % 5, voteName, jaNein);
             voteList.add(jaNein);
         }
 
@@ -184,8 +185,13 @@ public class NewGovPane extends VBox {
         textField.textProperty().addListener((observableValue, oldString, newString) -> {
             if (newString.length() > numberOfClaims) {
                 textField.setText(oldString);
-            } else if (!newString.equals("") && Arrays.stream(newString.split("")).filter(string -> !STRINGPOLICIES.contains(string.toUpperCase())).toList().size() != 0) {
-                textField.setText(oldString);
+            } else if (!newString.equals("") && newString.length()>oldString.length()) {
+                Character newChar = newString.charAt(newString.length()-1);
+                if (LOWERSTRINGPOLICIES.contains(newChar)) {
+                    textField.setText(oldString + newChar.toString().toUpperCase());
+                } else if (!STRINGPOLICIES.contains(newChar)) {
+                    textField.setText(oldString);
+                }
             }
         });
     }

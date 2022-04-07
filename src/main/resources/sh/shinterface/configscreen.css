@@ -285,3 +285,15 @@ CheckBox:selected .mark {
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-alignment: center;
 }
+
+.centeredHBox {
+    -fx-alignment: center;
+}
+
+RightUpperWindow {
+    -fx-spacing: 5;
+}
+
+SplitPane {
+    -fx-background-color: transparent;
+}

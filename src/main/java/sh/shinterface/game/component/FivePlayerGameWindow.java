@@ -1,6 +1,7 @@
 package sh.shinterface.game.component;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Orientation;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,7 +14,8 @@ public class FivePlayerGameWindow extends SplitPane {
     private final TableView<Gov> govTable;
 
     public FivePlayerGameWindow(Game game) {
-        VBox leftSide = new VBox();
+        SplitPane leftSide = new SplitPane();
+        leftSide.setOrientation(Orientation.VERTICAL);
         govTable = new TableView<>();
 
         TableColumn<Gov, String> president = new TableColumn<>("President");
@@ -26,8 +28,7 @@ public class FivePlayerGameWindow extends SplitPane {
 
         govTable.getColumns().setAll(president, chancellor, claim);
 
-        leftSide.getChildren().add(govTable);
-        leftSide.getChildren().add(new NewGovPane(game));
+        leftSide.getItems().addAll(govTable, new NewGovPane(game));
 
         VBox rightSide = new VBox();
 

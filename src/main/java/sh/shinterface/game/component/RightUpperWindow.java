@@ -1,13 +1,13 @@
 package sh.shinterface.game.component;
 
 import javafx.scene.layout.HBox;
-import sh.shinterface.datacontainer.Player;
+import javafx.scene.layout.VBox;
 import sh.shinterface.game.Game;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class RightUpperWindow extends HBox {
+public class RightUpperWindow extends VBox {
 
     private final Game game;
     /**
@@ -19,16 +19,24 @@ public class RightUpperWindow extends HBox {
         this.game = game;
         //contains playerOverview and deck info
         //TODO deck info
-        HBox hBox = new HBox();
 
-        HBox playerOverview = new HBox();
-        for (Player player : game.getPlayers()) {
-            PlayerView component = new PlayerView(player, game, this);
-            playerOverview.getChildren().add(component);
+
+        HBox playerOverview1 = new HBox();
+        HBox playerOverview2 = new HBox();
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            PlayerView component = new PlayerView(game.getPlayers().get(i), game, this);
+            if (playerOverview1.getChildren().size() == 5) {
+                playerOverview2.getChildren().add(component);
+            } else {
+                playerOverview1.getChildren().add(component);
+            }
             players.add(component);
         }
 
-        this.getChildren().add(playerOverview);
+        playerOverview1.getStyleClass().add("centeredHBox");
+        playerOverview2.getStyleClass().add("centeredHBox");
+
+        this.getChildren().addAll(playerOverview1, playerOverview2);
     }
 
     /**

@@ -36,7 +36,7 @@ public class FivePlayerGame extends Bord1Game {
         Scene scene = new Scene(pane);
         scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
-        stage.sizeToScene();
+        stage.setFullScreen(true);
         stage.show();
     }
 

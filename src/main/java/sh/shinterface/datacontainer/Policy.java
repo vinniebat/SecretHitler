@@ -27,6 +27,7 @@ public enum Policy {
 
     /**
      * Returns the policy corresponding to the given letter, or null if no Policy matches
+     *
      * @param letter "B" for liberal or "R" for fascist
      * @return Corresponding Policy
      */
@@ -36,6 +37,7 @@ public enum Policy {
 
     /**
      * Returns the single letter representation of this Policy
+     *
      * @return "B" for liberal, "R" for fascist
      */
     public String toString() {
