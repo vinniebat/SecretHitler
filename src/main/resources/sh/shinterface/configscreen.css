@@ -241,6 +241,10 @@ TableView .table-column {
     -fx-border-insets: -1;
 }
 
+TableView .placeholder .label {
+    -fx-text-fill: -fx-main-dark;
+}
+
 .split-pane-divider {
     -fx-background-color: -fx-main-dark;
     -fx-border-width: 10;
@@ -301,4 +305,22 @@ SplitPane {
 .titleLabel {
     -fx-font-weight: bold;
     -fx-underline: true;
+}
+
+.newGovPaneTextFieldError {
+    -fx-border-color: rgb(176, 131, 11);
+    -fx-border-width: 5;
+}
+
+.newGovPaneBoxError {
+    -fx-background-color: rgb(176, 131, 11);
+    -fx-text-fill: -fx-main-dark;
+}
+
+.newGovPaneBoxError .label {
+    -fx-text-fill: -fx-main-dark;
+}
+
+.newGovPaneBoxError .context-menu {
+    -fx-background-color: rgb(176, 131, 11);
 }
