@@ -297,3 +297,8 @@ RightUpperWindow {
 SplitPane {
     -fx-background-color: transparent;
 }
+
+.titleLabel {
+    -fx-font-weight: bold;
+    -fx-underline: true;
+}

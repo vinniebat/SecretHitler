@@ -35,6 +35,9 @@ public class NewGovPane extends VBox {
 
         govPlayers = new GridPane();
 
+        Label title1 = new Label("Add new gov:");
+        title1.getStyleClass().add("titleLabel");
+
         Label presLabel = new Label("President: ");
         Label chancLabel = new Label("Chancellor: ");
 
@@ -82,6 +85,9 @@ public class NewGovPane extends VBox {
         govPlayers.add(new Label("Conflict?"), 0, 2);
         govPlayers.add(conf, 1, 2, 2, 1);
 
+        Label title2 = new Label("Votes");
+        title2.getStyleClass().add("titleLabel");
+
         GridPane votes = new GridPane();
         for (int i = 0; i < players.size(); i++) {
             Label voteName = new Label(playerStringConverter.toString(players.get(i)));
@@ -94,7 +100,7 @@ public class NewGovPane extends VBox {
         Button createGov = new Button("Create gov");
         createGov.setOnAction(e -> createGov(game));
 
-        this.getChildren().addAll(new Label("Add new gov:"), govPlayers, new Label("Votes"), votes, createGov);
+        this.getChildren().addAll(title1, govPlayers, title2, votes, createGov);
     }
 
     private void switchVote(ToggleButton button) {
@@ -185,8 +191,8 @@ public class NewGovPane extends VBox {
         textField.textProperty().addListener((observableValue, oldString, newString) -> {
             if (newString.length() > numberOfClaims) {
                 textField.setText(oldString);
-            } else if (!newString.equals("") && newString.length()>oldString.length()) {
-                Character newChar = newString.charAt(newString.length()-1);
+            } else if (!newString.equals("") && newString.length() > oldString.length()) {
+                Character newChar = newString.charAt(newString.length() - 1);
                 if (LOWERSTRINGPOLICIES.contains(newChar)) {
                     textField.setText(oldString + newChar.toString().toUpperCase());
                 } else if (!STRINGPOLICIES.contains(newChar)) {
