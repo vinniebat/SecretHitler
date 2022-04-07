@@ -33,7 +33,7 @@ public class PlayerView extends VBox {
     /**
      * Current role of this player. Does not equal the chosen in role in roleBox
      */
-    private Role currentRole = Role.UNKNOWN;
+    private Role currentRole;
 
     /**
      * Makes an overview of a player, consisting of a role-card (image), a label and a ChoiceBox to choose the role
@@ -43,6 +43,7 @@ public class PlayerView extends VBox {
      * @param window the window that holds this component
      */
     public PlayerView(Player player, Game game, RightUpperWindow window) {
+        currentRole = player.getRole();
         this.window = window;
         roleImage = new ImageView(ImagePicker.pick(player.getRole()));
         Label playerLabel = new Label(new PlayerStringConverter(game).toString(player));
