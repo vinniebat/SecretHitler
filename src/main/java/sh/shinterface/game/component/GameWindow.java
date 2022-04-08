@@ -12,11 +12,11 @@ import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
 import sh.shinterface.util.PlayerStringConverter;
 
-public class FivePlayerGameWindow extends SplitPane {
+public class GameWindow extends SplitPane {
 
     private final TableView<Gov> govTable;
 
-    public FivePlayerGameWindow(Game game, Role role) {
+    public GameWindow(Game game, Role role) {
         PlayerStringConverter playerStringConverter = new PlayerStringConverter(game);
         SplitPane leftSide = new SplitPane();
         leftSide.setOrientation(Orientation.VERTICAL);

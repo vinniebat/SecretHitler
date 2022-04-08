@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
-import sh.shinterface.game.component.FivePlayerGameWindow;
+import sh.shinterface.game.component.GameWindow;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Game {
 
     private final List<Player> players;
     private final Pane pane;
-    private final FivePlayerGameWindow gameVenster;
+    private final GameWindow gameVenster;
 
     public Game(List<Player> players, Role role) {
         this.players = players;
@@ -25,7 +25,7 @@ public class Game {
         while (i < players.size() && players.get(i).getRole() == Role.UNKNOWN) {
             i++;
         }
-        gameVenster = new FivePlayerGameWindow(this, role);
+        gameVenster = new GameWindow(this, role);
         pane = new VBox(gameVenster);
         VBox.setVgrow(gameVenster, Priority.ALWAYS);
         pane.getStyleClass().addAll(role.getStyle(), "interface");
