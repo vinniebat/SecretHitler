@@ -28,7 +28,7 @@
     -fx-border-insets: -28;
 }
 
-.config-screen, .interface {
+.config-screen, .interface, .top-deck-window {
     -fx-padding: 10;
     -fx-background-color: -fx-main-light;
 
@@ -264,6 +264,28 @@ NewGovPane Label {
     -fx-text-fill: -fx-main-dark;
 }
 
+NewGovPane HBox {
+    -fx-alignment: center-left;
+}
+
+.newGovPaneTextFieldError {
+    -fx-border-color: rgb(176, 131, 11);
+    -fx-border-width: 5;
+}
+
+.newGovPaneBoxError {
+    -fx-background-color: rgb(176, 131, 11);
+    -fx-text-fill: -fx-main-dark;
+}
+
+.newGovPaneBoxError .label {
+    -fx-text-fill: -fx-main-dark;
+}
+
+.newGovPaneBoxError .context-menu {
+    -fx-background-color: rgb(176, 131, 11);
+}
+
 GridPane {
     -fx-hgap: 10;
     -fx-vgap: 10;
@@ -307,20 +329,14 @@ SplitPane {
     -fx-underline: true;
 }
 
-.newGovPaneTextFieldError {
-    -fx-border-color: rgb(176, 131, 11);
-    -fx-border-width: 5;
+TopDeckWindow {
+    -fx-background-color: -fx-main-light;
 }
 
-.newGovPaneBoxError {
-    -fx-background-color: rgb(176, 131, 11);
+TopDeckWindow Label {
     -fx-text-fill: -fx-main-dark;
 }
 
-.newGovPaneBoxError .label {
-    -fx-text-fill: -fx-main-dark;
-}
-
-.newGovPaneBoxError .context-menu {
-    -fx-background-color: rgb(176, 131, 11);
+TopDeckWindow HBox {
+    -fx-alignment: center;
 }

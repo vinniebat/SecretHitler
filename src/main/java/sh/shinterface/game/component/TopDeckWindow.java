@@ -8,11 +8,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Policy;
+import sh.shinterface.datacontainer.Role;
 import sh.shinterface.datacontainer.TopDeck;
 
 public class TopDeckWindow extends VBox {
 
-    public TopDeckWindow(TableView<Gov> tableView, Stage stage) {
+    public TopDeckWindow(TableView<Gov> tableView, Stage stage, Role role) {
+        VBox innerContainer = new VBox();
         HBox buttons = new HBox();
 
         Button lib = new Button("Lib");
@@ -21,7 +23,9 @@ public class TopDeckWindow extends VBox {
         fasc.setOnAction(e -> buttonAction(tableView, Policy.FASCIST, stage));
 
         buttons.getChildren().addAll(lib, fasc);
-        this.getChildren().addAll(new Label("Topdeck policy:"), buttons);
+        innerContainer.getChildren().addAll(new Label("Topdeck policy:"), buttons);
+        innerContainer.getStyleClass().addAll(role.getStyle(), "inner-box");
+        this.getChildren().add(innerContainer);
     }
 
     private void buttonAction(TableView<Gov> tableView, Policy policy, Stage stage) {

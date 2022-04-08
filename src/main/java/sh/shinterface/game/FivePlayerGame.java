@@ -25,7 +25,7 @@ public class FivePlayerGame extends Bord1Game {
         while (i < players.size() && players.get(i).getRole() == Role.UNKNOWN) {
             i++;
         }
-        gameVenster = new FivePlayerGameWindow(this);
+        gameVenster = new FivePlayerGameWindow(this, role);
         pane = new VBox(gameVenster);
         VBox.setVgrow(gameVenster, Priority.ALWAYS);
         pane.getStyleClass().addAll(role.getStyle(), "interface");
@@ -36,7 +36,7 @@ public class FivePlayerGame extends Bord1Game {
         Scene scene = new Scene(pane);
         scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        stage.setMaximized(true);
         stage.show();
     }
 

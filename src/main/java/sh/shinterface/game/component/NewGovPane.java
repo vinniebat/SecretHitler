@@ -7,10 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.PlayerGov;
-import sh.shinterface.datacontainer.Policy;
-import sh.shinterface.datacontainer.Vote;
+import sh.shinterface.datacontainer.*;
 import sh.shinterface.game.Game;
 import sh.shinterface.util.BooleanVoteConverter;
 import sh.shinterface.util.PlayerStringConverter;
@@ -37,7 +34,7 @@ public class NewGovPane extends VBox {
     private final List<ToggleButton> voteList = new ArrayList<>();
     private final GridPane govPlayers;
 
-    public NewGovPane(Game game) {
+    public NewGovPane(Game game, Role role) {
 
         govPlayers = new GridPane();
 
@@ -109,7 +106,7 @@ public class NewGovPane extends VBox {
         createGov.setOnAction(e -> createGov(game));
 
         Button topDeck = new Button("Top deck");
-        topDeck.setOnAction(e -> createTopDeckWindow(game));
+        topDeck.setOnAction(e -> createTopDeckWindow(game, role));
 
         buttons.getChildren().addAll(createGov, topDeck);
         this.getChildren().addAll(title1, govPlayers, title2, votes, buttons);
@@ -253,9 +250,12 @@ public class NewGovPane extends VBox {
         return list.size();
     }
 
-    private void createTopDeckWindow(Game game) {
+    private void createTopDeckWindow(Game game, Role role) {
         Stage stage = new Stage();
-        Scene scene = new Scene(new TopDeckWindow(game.getGovTable(), stage));
+        TopDeckWindow topDeckWindow = new TopDeckWindow(game.getGovTable(), stage, role);
+        Scene scene = new Scene(topDeckWindow);
+        scene.getStylesheets().add("sh/shinterface/configscreen.css");
+        topDeckWindow.getStyleClass().addAll(role.getStyle(), "top-deck-window");
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
