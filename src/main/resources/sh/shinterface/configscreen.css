@@ -251,7 +251,7 @@ TableView .placeholder .label {
     -fx-border-color: -fx-main-light;
 }
 
-FivePlayerGameWindow {
+GameWindow {
     -fx-background-color: transparent;
 }
 
@@ -331,6 +331,7 @@ SplitPane {
 
 TopDeckWindow {
     -fx-background-color: -fx-main-light;
+    -fx-alignment: center;
 }
 
 TopDeckWindow Label {
@@ -338,5 +339,15 @@ TopDeckWindow Label {
 }
 
 TopDeckWindow HBox {
+    -fx-alignment: center;
+}
+
+TopDeckWindow VBox {
+    -fx-alignment: center;
+    -fx-fill-width: true;
+    -fx-fill-height: true;
+}
+
+GameWindow Stackpane {
     -fx-alignment: center;
 }

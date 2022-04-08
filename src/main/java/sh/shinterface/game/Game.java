@@ -17,7 +17,7 @@ public class Game {
 
     private final List<Player> players;
     private final Pane pane;
-    private final GameWindow gameVenster;
+    private final GameWindow gameWindow;
 
     public Game(List<Player> players, Role role) {
         this.players = players;
@@ -25,9 +25,9 @@ public class Game {
         while (i < players.size() && players.get(i).getRole() == Role.UNKNOWN) {
             i++;
         }
-        gameVenster = new GameWindow(this, role);
-        pane = new VBox(gameVenster);
-        VBox.setVgrow(gameVenster, Priority.ALWAYS);
+        gameWindow = new GameWindow(this, role);
+        pane = new VBox(gameWindow);
+        VBox.setVgrow(gameWindow, Priority.ALWAYS);
         pane.getStyleClass().addAll(role.getStyle(), "interface");
     }
 
@@ -44,6 +44,10 @@ public class Game {
     }
 
     public TableView<Gov> getGovTable() {
-        return gameVenster.getGovTable();
+        return gameWindow.getGovTable();
+    }
+
+    public GameWindow getGameWindow() {
+        return gameWindow;
     }
 }

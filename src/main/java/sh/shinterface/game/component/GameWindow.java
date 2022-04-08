@@ -2,19 +2,23 @@ package sh.shinterface.game.component;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Orientation;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
 import sh.shinterface.util.PlayerStringConverter;
 
+import java.util.Map;
+
 public class GameWindow extends SplitPane {
 
+    private static final Map<String, String> TOGGLETOPDECKTEXT = Map.of("Top deck", "Cancel", "Cancel", "Top deck");
+
     private final TableView<Gov> govTable;
+    private final TopDeckWindow topDeckWindow;
+    private final Button topDeckButton;
 
     public GameWindow(Game game, Role role) {
         PlayerStringConverter playerStringConverter = new PlayerStringConverter(game);
@@ -34,7 +38,14 @@ public class GameWindow extends SplitPane {
 
         govTable.getColumns().setAll(president, chancellor, claim);
 
-        leftSide.getItems().addAll(govTable, new NewGovPane(game, role));
+        StackPane stackPane = new StackPane();
+        topDeckWindow = new TopDeckWindow(govTable, role, this);
+        topDeckWindow.setVisible(false);
+        stackPane.getChildren().addAll(govTable, topDeckWindow);
+
+        NewGovPane newGovPane = new NewGovPane(game, role, this);
+        topDeckButton = newGovPane.getTopDeckButton();
+        leftSide.getItems().addAll(stackPane, newGovPane);
 
         VBox rightSide = new VBox();
 
@@ -46,5 +57,11 @@ public class GameWindow extends SplitPane {
 
     public TableView<Gov> getGovTable() {
         return govTable;
+    }
+
+    public void toggleTopDeck() {
+        topDeckButton.setText(TOGGLETOPDECKTEXT.get(topDeckButton.getText()));
+        govTable.setVisible(!govTable.isVisible());
+        topDeckWindow.setVisible(!topDeckWindow.isVisible());
     }
 }
