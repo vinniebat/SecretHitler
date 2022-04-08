@@ -9,12 +9,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.game.Game;
+import sh.shinterface.util.PlayerStringConverter;
 
 public class FivePlayerGameWindow extends SplitPane {
 
     private final TableView<Gov> govTable;
 
     public FivePlayerGameWindow(Game game) {
+        PlayerStringConverter playerStringConverter = new PlayerStringConverter(game);
         SplitPane leftSide = new SplitPane();
         leftSide.setOrientation(Orientation.VERTICAL);
         govTable = new TableView<>();
@@ -25,8 +27,8 @@ public class FivePlayerGameWindow extends SplitPane {
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
         TableColumn<Gov, String> claim = new TableColumn<>("Claim(s)");
 
-        president.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().president().getId() + ". " + data.getValue().president().getName()));
-        chancellor.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().chancellor().getId() + ". " + data.getValue().chancellor().getName()));
+        president.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().president())));
+        chancellor.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().chancellor())));
         claim.setCellValueFactory(data -> data.getValue().displayClaims());
 
         govTable.getColumns().setAll(president, chancellor, claim);

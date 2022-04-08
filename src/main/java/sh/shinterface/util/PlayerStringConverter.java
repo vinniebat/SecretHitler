@@ -6,11 +6,14 @@ import sh.shinterface.game.Game;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.joining;
 
 //TODO check for different names before starting game + strip() stuff
 public class PlayerStringConverter extends StringConverter<Player> {
+
+    private static final Map<String, Player> SPECIALGOVPLAYERMAP = Map.of("", SpecialGovPlayers.EMPTY, "Topdeck", SpecialGovPlayers.TOPDECK);
 
     private final Game game;
 
@@ -25,6 +28,9 @@ public class PlayerStringConverter extends StringConverter<Player> {
     @Override
     public String toString(Player player) {
         if (player != null) {
+            if (player.getId() < 0) {
+                return player.getName();
+            }
             return player.getId() + ". " + player.getName();
         }
         return null;
@@ -36,8 +42,7 @@ public class PlayerStringConverter extends StringConverter<Player> {
         try {
             return players.get(Integer.parseInt(s.substring(0, 1)));
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("*ERROR* " + e);
-            return null;
+            return SPECIALGOVPLAYERMAP.get(s);
         }
     }
 }

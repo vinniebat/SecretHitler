@@ -1,11 +1,14 @@
 package sh.shinterface.game.component;
 
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sh.shinterface.datacontainer.Gov;
+import javafx.stage.Stage;
 import sh.shinterface.datacontainer.Player;
+import sh.shinterface.datacontainer.PlayerGov;
 import sh.shinterface.datacontainer.Policy;
 import sh.shinterface.datacontainer.Vote;
 import sh.shinterface.game.Game;
@@ -100,10 +103,16 @@ public class NewGovPane extends VBox {
             voteList.add(jaNein);
         }
 
+        HBox buttons = new HBox();
+
         Button createGov = new Button("Create gov");
         createGov.setOnAction(e -> createGov(game));
 
-        this.getChildren().addAll(title1, govPlayers, title2, votes, createGov);
+        Button topDeck = new Button("Top deck");
+        topDeck.setOnAction(e -> createTopDeckWindow(game));
+
+        buttons.getChildren().addAll(createGov, topDeck);
+        this.getChildren().addAll(title1, govPlayers, title2, votes, buttons);
     }
 
     private void switchVote(ToggleButton button) {
@@ -155,7 +164,7 @@ public class NewGovPane extends VBox {
 
         if (valid) {
             resetPane();
-            game.getGovTable().getItems().add(new Gov(president, chancellor, played, claim1, claim2, conf, voteList));
+            game.getGovTable().getItems().add(new PlayerGov(president, chancellor, played, claim1, claim2, conf, voteList));
         }
     }
 
@@ -242,5 +251,13 @@ public class NewGovPane extends VBox {
             }
         }
         return list.size();
+    }
+
+    private void createTopDeckWindow(Game game) {
+        Stage stage = new Stage();
+        Scene scene = new Scene(new TopDeckWindow(game.getGovTable(), stage));
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
     }
 }
