@@ -16,18 +16,22 @@ public class TopDeck implements Gov {
     }
 
     @Override
-    public Player president() {
+    public Player getPresident() {
         return president;
     }
 
     @Override
-    public Player chancellor() {
+    public Player getChancellor() {
         return chancellor;
     }
 
     @Override
     public SimpleStringProperty displayClaims() {
         return new SimpleStringProperty(PolicyConverter.toString(new Policy[]{policy}));
+    }
+
+    public Policy[] getCards() {
+        return new Policy[]{policy};
     }
 
 

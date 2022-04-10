@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
@@ -32,8 +31,8 @@ public class GameWindow extends SplitPane {
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
         TableColumn<Gov, String> claim = new TableColumn<>("Claim(s)");
 
-        president.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().president())));
-        chancellor.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().chancellor())));
+        president.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().getPresident())));
+        chancellor.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().getChancellor())));
         claim.setCellValueFactory(data -> data.getValue().displayClaims());
 
         govTable.getColumns().setAll(president, chancellor, claim);
@@ -47,9 +46,10 @@ public class GameWindow extends SplitPane {
         topDeckButton = newGovPane.getTopDeckButton();
         leftSide.getItems().addAll(stackPane, newGovPane);
 
-        VBox rightSide = new VBox();
+        SplitPane rightSide = new SplitPane();
+        rightSide.setOrientation(Orientation.VERTICAL);
 
-        rightSide.getChildren().add(new RightUpperWindow(game));
+        rightSide.getItems().addAll(new RightUpperWindow(game), new GovSpecifics(govTable));
 
         this.getItems().addAll(leftSide, rightSide);
         this.getStyleClass().add("inner-box");

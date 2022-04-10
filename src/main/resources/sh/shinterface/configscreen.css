@@ -351,3 +351,11 @@ TopDeckWindow VBox {
 GameWindow Stackpane {
     -fx-alignment: center;
 }
+
+.tab-pane {
+    -fx-tab-max-height: 100000;
+}
+
+.tab-label {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+}
