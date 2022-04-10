@@ -351,17 +351,17 @@ GameWindow Stackpane {
 }
 
 
-TabPane .headers-region {
+GovSpecifics .headers-region {
     -fx-pref-height: 100;
 }
 
 
-TabPane .tab {
+GovSpecifics .tab {
     -fx-pref-height: 100;
     -fx-pref-width: 500;
 }
 
-TabPane .tab .tab-label {
+GovSpecifics .tab .tab-label {
     -fx-pref-height: 80;
     -fx-pref-width: 400;
     -fx-alignment: center;
