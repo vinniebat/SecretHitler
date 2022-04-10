@@ -42,9 +42,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         Main.stage = stage;
-//        configScreen = new ConfigScreen(stage);
-//        Scene scene = new Scene(configScreen);
-        Scene scene = new Scene(new GovSpecifics(new TableView<>()));
+        configScreen = new ConfigScreen(stage);
+        Scene scene = new Scene(configScreen);
         scene.getStylesheets().add("sh/shinterface/configscreen.css");
         stage.setScene(scene);
         stage.setTitle("Secret Hitler Interface");

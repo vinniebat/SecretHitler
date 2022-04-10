@@ -352,20 +352,10 @@ GameWindow Stackpane {
     -fx-alignment: center;
 }
 
-
-GovSpecifics .headers-region {
-    -fx-pref-height: 100;
+.tab-pane {
+    -fx-tab-max-height: 100000;
 }
 
-
-GovSpecifics .tab {
-    -fx-pref-height: 100;
-    -fx-pref-width: 500;
-}
-
-GovSpecifics .tab .tab-label {
-    -fx-pref-height: 80;
-    -fx-pref-width: 400;
-    -fx-alignment: center;
-    -fx-font-size: 20;
+.tab-label {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
 }

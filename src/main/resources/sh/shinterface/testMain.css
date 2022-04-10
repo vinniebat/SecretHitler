@@ -1,0 +1,6 @@
+TabPane .tab-label {
+    -fx-font-size: 20;
+}
+.tab-pane {
+    -fx-tab-max-height: 100000;
+}
