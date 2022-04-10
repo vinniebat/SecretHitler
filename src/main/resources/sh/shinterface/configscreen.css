@@ -121,7 +121,9 @@ HBox {
     -fx-font-family: "Times New Roman";
 }
 
-
+.text {
+    -fx-font-size: 20;
+}
 
 .title {
     -fx-text-fill: -fx-main-dark;
