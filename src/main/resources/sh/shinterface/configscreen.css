@@ -121,9 +121,7 @@ HBox {
     -fx-font-family: "Times New Roman";
 }
 
-.text {
-    -fx-font-size: 20;
-}
+
 
 .title {
     -fx-text-fill: -fx-main-dark;
@@ -350,4 +348,22 @@ TopDeckWindow VBox {
 
 GameWindow Stackpane {
     -fx-alignment: center;
+}
+
+
+TabPane .headers-region {
+    -fx-pref-height: 100;
+}
+
+
+TabPane .tab {
+    -fx-pref-height: 100;
+    -fx-pref-width: 500;
+}
+
+TabPane .tab .tab-label {
+    -fx-pref-height: 80;
+    -fx-pref-width: 400;
+    -fx-alignment: center;
+    -fx-font-size: 20;
 }

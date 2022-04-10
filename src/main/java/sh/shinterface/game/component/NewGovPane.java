@@ -119,7 +119,7 @@ public class NewGovPane extends VBox {
         Player chancellor = chancellorChoiceBox.getValue();
         Policy[] claim1 = PolicyConverter.fromString(this.claim1.getText());
         Policy[] claim2 = PolicyConverter.fromString(this.claim2.getText());
-        int played = 0;
+        Policy played = null;
         List<Vote> voteList = this.voteList.stream().map(toggle -> BooleanVoteConverter.fromBool(!toggle.isSelected())).toList();
 
         boolean presBool = choiceBoxCheck(presidentChoiceBox);
@@ -135,9 +135,9 @@ public class NewGovPane extends VBox {
                 claim2 = autoGenerate(claim1);
             }
             if (Arrays.stream(claim2).anyMatch(i -> i == Policy.LIBERAL)) {
-                played = 1;
+                played = Policy.LIBERAL;
             } else {
-                played = 2;
+                played = Policy.FASCIST;
             }
         }
         boolean conf = checkConf(claim1, claim2, this.conf.isSelected());

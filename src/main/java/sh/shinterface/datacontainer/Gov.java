@@ -4,9 +4,11 @@ import javafx.beans.property.SimpleStringProperty;
 
 public interface Gov {
 
-    Player president();
+    Player getPresident();
 
-    Player chancellor();
+    Player getChancellor();
 
     SimpleStringProperty displayClaims();
+
+    Policy[] getCards();
 }
