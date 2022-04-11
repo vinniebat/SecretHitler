@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
@@ -34,6 +35,10 @@ public class PlayerView extends VBox {
      * Current role of this player. Does not equal the chosen in role in roleBox
      */
     private Role currentRole;
+    /**
+     * The Label that shows the player's name
+     */
+    private Label playerLabel;
 
     /**
      * Makes an overview of a player, consisting of a role-card (image), a label and a ChoiceBox to choose the role
@@ -46,7 +51,7 @@ public class PlayerView extends VBox {
         currentRole = player.getRole();
         this.window = window;
         roleImage = new ImageView(ImagePicker.pick(player.getRole()));
-        Label playerLabel = new Label(new PlayerStringConverter(game).toString(player));
+        playerLabel = new Label(new PlayerStringConverter(game).toString(player));
         roleBox.setValue(player.getRole());
         roleBox.setOnAction(this::updateRole);
         roleBox.setDisable(player.getRole() != Role.UNKNOWN);
@@ -102,5 +107,9 @@ public class PlayerView extends VBox {
         } else if (window.hasHitler() && currentRole != Role.HITLER) {
             roles.removeAll(Role.HITLER);
         }
+    }
+
+    public void setLabelGraphic(Rectangle rectangle) {
+        playerLabel.setGraphic(rectangle);
     }
 }

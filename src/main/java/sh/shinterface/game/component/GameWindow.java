@@ -15,6 +15,7 @@ public class GameWindow extends SplitPane {
 
     private static final Map<String, String> TOGGLETOPDECKTEXT = Map.of("Top deck", "Cancel", "Cancel", "Top deck");
 
+    //TODO GovTable css for selection and scrollbar
     private final TableView<Gov> govTable;
     private final TopDeckWindow topDeckWindow;
     private final Button topDeckButton;
@@ -50,7 +51,9 @@ public class GameWindow extends SplitPane {
         rightSide.setOrientation(Orientation.VERTICAL);
         rightSide.getStyleClass().add("rightSide");
 
-        rightSide.getItems().addAll(new RightUpperWindow(game), new GovSpecifics(game, govTable));
+        RightUpperWindow rightUpperWindow = new RightUpperWindow(game, govTable);
+        rightSide.getItems().addAll(rightUpperWindow, new GovSpecifics(game, govTable));
+        govTable.getSelectionModel().selectedItemProperty().addListener(rightUpperWindow);
 
         this.getItems().addAll(leftSide, rightSide);
         this.getStyleClass().add("inner-box");

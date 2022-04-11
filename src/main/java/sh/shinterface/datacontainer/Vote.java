@@ -1,20 +1,19 @@
 package sh.shinterface.datacontainer;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public enum Vote {
     JA("JA"), NEIN("NEIN");
 
     private String vote;
-    private Rectangle graphic;
+    private Color color;
 
     Vote(String str) {
         vote = str;
         if (str.equals("JA")) {
-            graphic = new Rectangle(10, 20, Color.GREEN);
+            color = Color.GREEN;
         } else {
-            graphic = new Rectangle(10, 20, Color.RED);
+            color = Color.RED;
         }
     }
 
@@ -22,7 +21,7 @@ public enum Vote {
         return vote;
     }
 
-    public Rectangle getGraphic() {
-        return graphic;
+    public Color getColor() {
+        return color;
     }
 }

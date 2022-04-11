@@ -1,25 +1,33 @@
 package sh.shinterface.game.component;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import sh.shinterface.datacontainer.Gov;
+import sh.shinterface.datacontainer.Vote;
 import sh.shinterface.game.Game;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class RightUpperWindow extends VBox {
+public class RightUpperWindow extends VBox implements InvalidationListener {
 
     private final Game game;
+    private final TableView<Gov> tableView;
+
     /**
      * All PlayerComponents controlled by this window
      */
-    private final Set<PlayerView> players = new HashSet<>();
+    private final List<PlayerView> players = new ArrayList<>();
 
-    public RightUpperWindow(Game game) {
+    public RightUpperWindow(Game game, TableView<Gov> tableView) {
         this.game = game;
         //contains playerOverview and deck info
         //TODO deck info
-
+        this.tableView = tableView;
 
         HBox playerOverview1 = new HBox();
         HBox playerOverview2 = new HBox();
@@ -64,5 +72,21 @@ public class RightUpperWindow extends VBox {
      */
     public boolean hasHitler() {
         return players.parallelStream().anyMatch(PlayerView::isHitler);
+    }
+
+    @Override
+    public void invalidated(Observable observable) {
+        Gov gov = tableView.getSelectionModel().getSelectedItem();
+        List<Vote> votes = gov.getVotes();
+        if (votes == null) {
+            for (PlayerView playerView :
+                    players) {
+                playerView.setLabelGraphic(null);
+            }
+        } else {
+            for (int i = 0; i < players.size(); i++) {
+                players.get(i).setLabelGraphic(new Rectangle(15, 20, votes.get(i).getColor()));
+            }
+        }
     }
 }

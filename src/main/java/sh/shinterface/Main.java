@@ -48,4 +48,6 @@ public class Main extends Application {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons/secret-hitler-icon.png")));
         stage.show();
     }
+
+
 }

@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import sh.shinterface.util.PolicyConverter;
 import sh.shinterface.util.SpecialGovPlayers;
 
+import java.util.List;
+
 public class TopDeck implements Gov {
 
     private static final Player president = SpecialGovPlayers.TOPDECK;
@@ -37,6 +39,11 @@ public class TopDeck implements Gov {
     @Override
     public Policy getPlayed() {
         return policy;
+    }
+
+    @Override
+    public List<Vote> getVotes() {
+        return null;
     }
 
 

@@ -56,4 +56,8 @@ public class PlayerGov implements Gov {
     public Policy getPlayed() {
         return played;
     }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
 }
