@@ -19,6 +19,7 @@ public class GameWindow extends SplitPane {
     private final TableView<Gov> govTable;
     private final TopDeckWindow topDeckWindow;
     private final Button topDeckButton;
+    private final NewGovPane newGovPane;
 
     public GameWindow(Game game, Role role) {
         PlayerStringConverter playerStringConverter = new PlayerStringConverter(game);
@@ -43,7 +44,7 @@ public class GameWindow extends SplitPane {
         topDeckWindow.setVisible(false);
         stackPane.getChildren().addAll(govTable, topDeckWindow);
 
-        NewGovPane newGovPane = new NewGovPane(game, role, this);
+        newGovPane = new NewGovPane(game, role, this);
         topDeckButton = newGovPane.getTopDeckButton();
         leftSide.getItems().addAll(stackPane, newGovPane);
 
@@ -67,5 +68,9 @@ public class GameWindow extends SplitPane {
         topDeckButton.setText(TOGGLETOPDECKTEXT.get(topDeckButton.getText()));
         govTable.setVisible(!govTable.isVisible());
         topDeckWindow.setVisible(!topDeckWindow.isVisible());
+    }
+
+    public NewGovPane getNewGovPane() {
+        return newGovPane;
     }
 }

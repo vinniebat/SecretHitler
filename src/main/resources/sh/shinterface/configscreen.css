@@ -397,7 +397,7 @@ GameWindow Stackpane {
 }
 
 BoardTab VBox {
-    -fx-alignment: center;
+    -fx-alignment: top-center;
     -fx-spacing: 5;
     -fx-padding: 5;
 }

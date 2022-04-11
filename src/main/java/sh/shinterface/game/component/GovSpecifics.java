@@ -20,7 +20,7 @@ public class GovSpecifics extends TabPane {
         govModel = new GovModel(game, this);
         tableView.getSelectionModel().selectedItemProperty().addListener(govModel);
 
-        boardTab = new BoardTab(govModel);
+        boardTab = new BoardTab(govModel, game);
         board.setContent(boardTab);
 
         this.getTabs().addAll(board, claimsAndAssumptions);

@@ -7,17 +7,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.GovModel;
+import sh.shinterface.game.Game;
 
 public class BoardTab extends StackPane {
 
     private final String players;
-    private GovModel govModel;
     private final ImageView liberalBoard;
     private final ImageView fascistBoard;
 
-    public BoardTab(GovModel govModel) {
+    public BoardTab(GovModel govModel, Game game) {
         this.players = govModel.getPlayerString();
-        this.govModel = govModel;
         liberalBoard = new ImageView(new Image("sh/shinterface/images/boards/liberal/0.png"));
         fascistBoard = new ImageView(new Image("sh/shinterface/images/boards/fascist" + players + "/0.png"));
 
@@ -28,13 +27,15 @@ public class BoardTab extends StackPane {
 
         VBox boards = new VBox(liberalBoard, fascistBoard);
         Button endGameButton = new Button("End game");
-        endGameButton.setOnAction(e -> endGame());
+        endGameButton.setOnAction(e -> endGame(game, endGameButton));
         HBox buttonBox = new HBox(endGameButton);
         this.getChildren().addAll(boards, buttonBox);
     }
 
-    private void endGame() {
-
+    public void endGame(Game game, Button endGameButton) {
+        endGameButton.setText("Save Game");
+        endGameButton.setOnAction(e -> saveGame(game));
+        game.end();
     }
 
     public void updateBoards(int lib, int fasc) {
@@ -42,5 +43,7 @@ public class BoardTab extends StackPane {
         fascistBoard.setImage(new Image("sh/shinterface/images/boards/fascist" + players + "/" + fasc + ".png"));
     }
 
+    public void saveGame(Game game) {
 
+    }
 }

@@ -50,4 +50,8 @@ public class Game {
     public GameWindow getGameWindow() {
         return gameWindow;
     }
+
+    public void end() {
+        gameWindow.getNewGovPane().setDisable(true);
+    }
 }
