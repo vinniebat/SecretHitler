@@ -48,6 +48,7 @@ public class GameWindow extends SplitPane {
 
         SplitPane rightSide = new SplitPane();
         rightSide.setOrientation(Orientation.VERTICAL);
+        rightSide.getStyleClass().add("rightSide");
 
         rightSide.getItems().addAll(new RightUpperWindow(game), new GovSpecifics(govTable));
 

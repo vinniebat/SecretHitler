@@ -356,6 +356,42 @@ GameWindow Stackpane {
     -fx-tab-max-height: 100000;
 }
 
-.tab-label {
+.tab-header-area {
+    -fx-border-color: -fx-main-dark;
+    -fx-border-width: 5 0 5 0;
+    -fx-alignment: center;
+}
+
+.tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab {
+    -fx-background-color: -fx-main-light;
+}
+
+.tab:selected {
+    -fx-background-color: -fx-main-dark;
+    -fx-border-width: 2;
+    -fx-border-color: -fx-main-white;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: -fx-main-light;
+}
+
+.tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.tab .tab-label {
+    -fx-alignment: center;
     -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-main-dark;
+}
+
+.rightSide .split-pane-divider {
+    -fx-padding: 0 1 0 1;
+    -fx-background-color: transparent;
 }
