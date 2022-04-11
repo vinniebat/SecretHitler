@@ -51,4 +51,9 @@ public class PlayerGov implements Gov {
             return claim1;
         }
     }
+
+    @Override
+    public Policy getPlayed() {
+        return played;
+    }
 }

@@ -11,4 +11,6 @@ public interface Gov {
     SimpleStringProperty displayClaims();
 
     Policy[] getCards();
+
+    Policy getPlayed();
 }

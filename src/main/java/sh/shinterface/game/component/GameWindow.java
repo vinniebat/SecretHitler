@@ -50,7 +50,7 @@ public class GameWindow extends SplitPane {
         rightSide.setOrientation(Orientation.VERTICAL);
         rightSide.getStyleClass().add("rightSide");
 
-        rightSide.getItems().addAll(new RightUpperWindow(game), new GovSpecifics(govTable));
+        rightSide.getItems().addAll(new RightUpperWindow(game), new GovSpecifics(game, govTable));
 
         this.getItems().addAll(leftSide, rightSide);
         this.getStyleClass().add("inner-box");

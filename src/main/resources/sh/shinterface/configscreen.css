@@ -395,3 +395,13 @@ GameWindow Stackpane {
     -fx-padding: 0 1 0 1;
     -fx-background-color: transparent;
 }
+
+BoardTab VBox {
+    -fx-alignment: center;
+    -fx-spacing: 5;
+    -fx-padding: 5;
+}
+
+BoardTab HBox {
+    -fx-alignment: bottom-right;
+}

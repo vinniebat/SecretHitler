@@ -34,5 +34,10 @@ public class TopDeck implements Gov {
         return new Policy[]{policy};
     }
 
+    @Override
+    public Policy getPlayed() {
+        return policy;
+    }
+
 
 }
