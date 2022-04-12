@@ -1,5 +1,7 @@
 package sh.shinterface.datacontainer;
 
+import javafx.scene.layout.HBox;
+
 import java.util.List;
 
 public interface Gov {
@@ -8,7 +10,7 @@ public interface Gov {
 
     Player getChancellor();
 
-    ObservableHBox displayClaims();
+    HBox getClaims();
 
     Policy[] getCards();
 

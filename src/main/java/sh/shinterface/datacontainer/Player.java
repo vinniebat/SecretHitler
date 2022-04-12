@@ -1,5 +1,7 @@
 package sh.shinterface.datacontainer;
 
+import sh.shinterface.util.PlayerStringConverter;
+
 public class Player {
 
     private final int id;
@@ -22,5 +24,13 @@ public class Player {
 
     public Role getRole() {
         return role;
+    }
+
+    @Override
+    public String toString() {
+        if (id < 0) {
+            return name;
+        }
+        return id + ". " + name;
     }
 }

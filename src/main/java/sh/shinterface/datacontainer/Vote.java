@@ -3,18 +3,14 @@ package sh.shinterface.datacontainer;
 import javafx.scene.paint.Color;
 
 public enum Vote {
-    JA("JA"), NEIN("NEIN");
+    JA("JA", Color.GREEN), NEIN("NEIN", Color.RED);
 
     private String vote;
     private Color color;
 
-    Vote(String str) {
+    Vote(String str, Color color) {
         vote = str;
-        if (str.equals("JA")) {
-            color = Color.GREEN;
-        } else {
-            color = Color.RED;
-        }
+        this.color = color;
     }
 
     public String getVote() {

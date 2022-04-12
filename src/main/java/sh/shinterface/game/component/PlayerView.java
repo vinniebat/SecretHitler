@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -57,6 +58,7 @@ public class PlayerView extends VBox {
         roleBox.setDisable(player.getRole() != Role.UNKNOWN);
         VBox.setVgrow(roleImage, Priority.ALWAYS);
         this.getChildren().addAll(roleImage, playerLabel, roleBox);
+        HBox.setHgrow(this, Priority.ALWAYS);
     }
 
     /**

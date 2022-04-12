@@ -27,7 +27,7 @@ public class PlayerGov implements Gov {
         this.votes = votes;
     }
 
-    public ObservableHBox displayClaims() {
+    public HBox getClaims() {
         HBox result = new HBox();
         for (Policy policy : claim1) {
             result.getChildren().add(new Rectangle(15, 20, policy.getColor()));
@@ -42,7 +42,7 @@ public class PlayerGov implements Gov {
 //        if (conf) {
 //            claimText += " \uD83D\uDDF2 " + PolicyConverter.toString(claim2);
 //        }
-        return new ObservableHBox(result);
+        return result;
     }
 
     @Override

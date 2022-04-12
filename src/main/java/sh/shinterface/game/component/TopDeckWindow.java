@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Policy;
@@ -16,14 +17,15 @@ public class TopDeckWindow extends VBox {
         VBox innerContainer = new VBox();
         HBox buttons = new HBox();
 
-        Button lib = new Button("Lib");
-        Button fasc = new Button("Fasc");
+        Button lib = new Button("Liberal");
+        Button fasc = new Button("Fascist");
         lib.setOnAction(e -> buttonAction(tableView, Policy.LIBERAL, gameWindow));
         fasc.setOnAction(e -> buttonAction(tableView, Policy.FASCIST, gameWindow));
 
         buttons.getChildren().addAll(lib, fasc);
         innerContainer.getChildren().addAll(new Label("Topdeck policy:"), buttons);
         innerContainer.getStyleClass().addAll(role.getStyle(), "inner-box");
+        VBox.setVgrow(innerContainer, Priority.ALWAYS);
         this.getChildren().add(innerContainer);
     }
 

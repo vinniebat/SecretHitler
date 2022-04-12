@@ -30,14 +30,14 @@ public class TopDeck implements Gov {
     }
 
     @Override
-    public ObservableHBox displayClaims() {
+    public HBox getClaims() {
         Label label = new Label("\uD83D\uDDF2");
         label.setVisible(false);
         HBox hBox = new HBox(new Rectangle(15, 20, policy.getColor()),
                 new Rectangle(15, 20, Color.TRANSPARENT),
                 new Rectangle(15, 20, Color.TRANSPARENT));
 
-        return new ObservableHBox(hBox);
+        return hBox;
     }
 
     public Policy[] getCards() {

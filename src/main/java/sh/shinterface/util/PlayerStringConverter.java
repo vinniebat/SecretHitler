@@ -28,10 +28,7 @@ public class PlayerStringConverter extends StringConverter<Player> {
     @Override
     public String toString(Player player) {
         if (player != null) {
-            if (player.getId() < 0) {
-                return player.getName();
-            }
-            return player.getId() + ". " + player.getName();
+            return player.toString();
         }
         return null;
     }

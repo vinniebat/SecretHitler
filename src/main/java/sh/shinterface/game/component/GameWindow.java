@@ -3,6 +3,7 @@ package sh.shinterface.game.component;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import sh.shinterface.datacontainer.Gov;
@@ -24,8 +25,6 @@ public class GameWindow extends SplitPane {
 
     public GameWindow(Game game, Role role) {
         PlayerStringConverter playerStringConverter = new PlayerStringConverter(game);
-        SplitPane leftSide = new SplitPane();
-        leftSide.setOrientation(Orientation.VERTICAL);
         govTable = new TableView<>();
 
         govTable.setPlaceholder(new Label("No govs yet!"));
@@ -35,27 +34,25 @@ public class GameWindow extends SplitPane {
         TableColumn<Gov, HBox> claim = new TableColumn<>("Claim(s)");
         claim.getStyleClass().add("claims");
 
-        president.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().getPresident())));
-        chancellor.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().getChancellor())));
-        claim.setCellValueFactory(data -> data.getValue().displayClaims());
+        president.setCellValueFactory(new PropertyValueFactory<>("president"));
+        chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
+        claim.setCellValueFactory(new PropertyValueFactory<>("claims"));
 
         govTable.getColumns().setAll(president, chancellor, claim);
 
-        StackPane stackPane = new StackPane();
         topDeckWindow = new TopDeckWindow(govTable, role, this);
         topDeckWindow.setVisible(false);
-        stackPane.getChildren().addAll(govTable, topDeckWindow);
+        StackPane stackPane = new StackPane(govTable, topDeckWindow);
 
         newGovPane = new NewGovPane(game, role, this);
         topDeckButton = newGovPane.getTopDeckButton();
-        leftSide.getItems().addAll(stackPane, newGovPane);
-
-        SplitPane rightSide = new SplitPane();
-        rightSide.setOrientation(Orientation.VERTICAL);
-        rightSide.getStyleClass().add("rightSide");
+        SplitPane leftSide = new SplitPane(stackPane, newGovPane);
+        leftSide.setOrientation(Orientation.VERTICAL);
 
         RightUpperWindow rightUpperWindow = new RightUpperWindow(game, govTable);
-        rightSide.getItems().addAll(rightUpperWindow, new GovSpecifics(game, govTable));
+        SplitPane rightSide = new SplitPane(rightUpperWindow, new GovSpecifics(game, govTable));
+        rightSide.setOrientation(Orientation.VERTICAL);
+        rightSide.getStyleClass().add("rightSide");
         govTable.getSelectionModel().selectedItemProperty().addListener(rightUpperWindow);
 
         this.getItems().addAll(leftSide, rightSide);

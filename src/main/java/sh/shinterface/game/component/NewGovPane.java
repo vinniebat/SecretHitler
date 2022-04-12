@@ -7,20 +7,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.*;
 import sh.shinterface.game.Game;
-import sh.shinterface.util.BooleanVoteConverter;
 import sh.shinterface.util.PlayerStringConverter;
 import sh.shinterface.util.PolicyConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class NewGovPane extends VBox {
 
-    private static final Map<String, String> SWITCH = Map.of("JA", "NEIN", "NEIN", "JA");
     private static final List<Character> STRINGPOLICIES = List.of('R', 'B');
     private static final List<Character> LOWERSTRINGPOLICIES = List.of('r', 'b');
     private final Button topDeckButton;
@@ -48,8 +45,6 @@ public class NewGovPane extends VBox {
         chancellorChoiceBox = new ChoiceBox<>();
         presidentChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> choiceBoxAction(newPlayer, 0));
         chancellorChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> choiceBoxAction(newPlayer, 1));
-        presidentChoiceBox.setConverter(playerStringConverter);
-        chancellorChoiceBox.setConverter(playerStringConverter);
         List<Player> players = game.getPlayers();
         presidentChoiceBox.getItems().setAll(players);
         chancellorChoiceBox.getItems().setAll(players);
@@ -92,8 +87,7 @@ public class NewGovPane extends VBox {
         GridPane votes = new GridPane();
         for (int i = 0; i < players.size(); i++) {
             Label voteName = new Label(playerStringConverter.toString(players.get(i)));
-            ToggleButton jaNein = new ToggleButton("JA");
-            jaNein.setOnAction(e -> switchVote(jaNein));
+            ToggleButton jaNein = new ToggleButton();
             votes.addRow(i % 5, voteName, jaNein);
             voteList.add(jaNein);
         }
@@ -110,58 +104,42 @@ public class NewGovPane extends VBox {
         this.getChildren().addAll(title1, govPlayers, title2, votes, buttons);
     }
 
-    private void switchVote(ToggleButton button) {
-        button.setText(SWITCH.get(button.getText()));
-    }
-
     private void createGov(Game game) {
         Player president = presidentChoiceBox.getValue();
         Player chancellor = chancellorChoiceBox.getValue();
         Policy[] claim1 = PolicyConverter.fromString(this.claim1.getText());
         Policy[] claim2 = PolicyConverter.fromString(this.claim2.getText());
-        Policy played = null;
-        List<Vote> voteList = this.voteList.stream().map(toggle -> BooleanVoteConverter.fromBool(!toggle.isSelected())).toList();
 
-        boolean presBool = choiceBoxCheck(presidentChoiceBox);
-        boolean chancBool = choiceBoxCheck(chancellorChoiceBox);
-        boolean valid = !(presBool || chancBool);
-
-        if (claim1.length < 3) {
-            valid = false;
-            this.claim1.getStyleClass().add("newGovPaneTextFieldError");
-        } else {
+        if (!(choiceBoxCheck(presidentChoiceBox) || choiceBoxCheck(chancellorChoiceBox))) {
             this.claim1.getStyleClass().removeAll("newGovPaneTextFieldError");
-            if (claim2.length < 2) {
-                claim2 = autoGenerate(claim1);
-            }
-            if (Arrays.stream(claim2).anyMatch(i -> i == Policy.LIBERAL)) {
-                played = Policy.LIBERAL;
-            } else {
-                played = Policy.FASCIST;
-            }
-        }
-        boolean conf = checkConf(claim1, claim2, this.conf.isSelected());
-
-        if (voteList.stream().filter(BooleanVoteConverter::toBool).count() <= voteList.size() / 2) {
-            valid = false;
-            for (ToggleButton voteButton : this.voteList) {
-                if (voteButton.getText().equals("NEIN")) {
-                    voteButton.getStyleClass().add("newGovPaneBoxError");
+            if (claim1.length == 3) {
+                if (claim2.length < 2) {
+                    claim2 = autoGenerate(claim1);
+                }
+                Policy played;
+                if (Arrays.stream(claim2).anyMatch(i -> i == Policy.LIBERAL)) {
+                    played = Policy.LIBERAL;
                 } else {
+                    played = Policy.FASCIST;
+                }
+
+                for (ToggleButton voteButton : voteList) {
                     voteButton.getStyleClass().removeAll("newGovPaneBoxError");
                 }
-            }
-        } else {
-            for (ToggleButton voteButton : this.voteList) {
-                voteButton.getStyleClass().removeAll("newGovPaneBoxError");
-            }
-        }
-
-        if (valid) {
-            resetPane();
-            game.getGovTable().getItems().add(new PlayerGov(president, chancellor, played, claim1, claim2, conf, voteList));
-            if (!game.getGovTable().isVisible()) {
-                game.getGameWindow().toggleTopDeck();
+                List<ToggleButton> voteButtons = voteList.stream().filter(ToggleButton::isSelected).toList();
+                if (voteButtons.size() > voteList.size() / 2) {
+                    voteButtons.forEach(b -> b.getStyleClass().add("newGovPaneBoxError"));
+                } else {
+                    resetPane();
+                    List<Vote> votes = voteList.stream().map(b -> b.isSelected() ? Vote.JA : Vote.NEIN).toList();
+                    boolean conf = checkConf(claim1, claim2, this.conf.isSelected());
+                    game.getGovTable().getItems().add(new PlayerGov(president, chancellor, played, claim1, claim2, conf, votes));
+                    if (!game.getGovTable().isVisible()) {
+                        game.getGameWindow().toggleTopDeck();
+                    }
+                }
+            } else {
+                this.claim1.getStyleClass().add("newGovPaneTextFieldError");
             }
         }
     }
@@ -170,14 +148,12 @@ public class NewGovPane extends VBox {
         presidentChoiceBox.setValue(null);
         chancellorChoiceBox.setValue(null);
         claim1.setPromptText("Claim of president");
-        claim1.setText("");
+        claim1.clear();
         claim2.setPromptText("Claim of chancellor");
-        claim2.setText("");
+        claim2.clear();
         conf.setSelected(false);
-        for (ToggleButton button :
-                voteList) {
+        for (ToggleButton button : voteList) {
             button.setSelected(false);
-            button.setText("JA");
         }
     }
 
