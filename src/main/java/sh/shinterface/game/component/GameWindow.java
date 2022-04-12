@@ -54,7 +54,6 @@ public class GameWindow extends SplitPane {
         govTable.getSelectionModel().selectedItemProperty().addListener(rightUpperWindow);
 
         this.getItems().addAll(leftSide, rightSide);
-        this.getStyleClass().add("inner-box");
     }
 
     public TableView<Gov> getGovTable() {

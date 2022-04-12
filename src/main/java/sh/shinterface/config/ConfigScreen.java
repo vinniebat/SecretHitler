@@ -105,7 +105,6 @@ public class ConfigScreen extends StackPane {
         // END BUTTON
 
         VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(hBox, createGameButton));
-        controlsBox.getStyleClass().add("inner-box");
         // END CONTROLS
 
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
