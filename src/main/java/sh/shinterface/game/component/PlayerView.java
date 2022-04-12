@@ -50,6 +50,7 @@ public class PlayerView extends VBox {
     public PlayerView(Player player, Game game, RightUpperWindow window) {
         currentRole = player.getRole();
         this.window = window;
+        this.currentRole = player.getRole();
         roleImage = new ImageView(ImagePicker.pick(player.getRole()));
         playerLabel = new Label(player.toString());
         roleBox.setValue(player.getRole());

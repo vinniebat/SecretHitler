@@ -40,8 +40,8 @@ public class TopDeck implements Gov {
         return hBox;
     }
 
-    public Policy[] getCards() {
-        return new Policy[]{policy};
+    public List<Policy> getCards() {
+        return List.of(policy);
     }
 
     @Override

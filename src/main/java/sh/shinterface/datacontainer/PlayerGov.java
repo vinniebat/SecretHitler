@@ -11,13 +11,13 @@ public class PlayerGov implements Gov {
     private final Player president;
     private final Player chancellor;
     private final Policy played;
-    private final Policy[] claim1;
-    private final Policy[] claim2;
+    private final List<Policy> claim1;
+    private final List<Policy> claim2;
     private final boolean conf;
     private final List<Vote> votes;
-    private Policy[] assumption = null;
+    private List<Policy> assumption = null;
 
-    public PlayerGov(Player president, Player chancellor, Policy played, Policy[] claim1, Policy[] claim2, boolean conf, List<Vote> votes) {
+    public PlayerGov(Player president, Player chancellor, Policy played, List<Policy> claim1, List<Policy> claim2, boolean conf, List<Vote> votes) {
         this.president = president;
         this.chancellor = chancellor;
         this.played = played;
@@ -55,7 +55,7 @@ public class PlayerGov implements Gov {
         return chancellor;
     }
 
-    public Policy[] getCards() {
+    public List<Policy> getCards() {
         if (assumption != null) {
             return assumption;
         } else {

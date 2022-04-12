@@ -12,7 +12,7 @@ public interface Gov {
 
     HBox getClaims();
 
-    Policy[] getCards();
+    List<Policy> getCards();
 
     Policy getPlayed();
 
