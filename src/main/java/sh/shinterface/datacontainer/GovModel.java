@@ -54,13 +54,8 @@ public class GovModel implements InvalidationListener {
         updateBoards();
     }
 
-    public String getPlayerString() {
-        int numberOfPlayers = game.getPlayers().size();
-        if (numberOfPlayers / 2 == (numberOfPlayers + 1) / 2) {
-            return (numberOfPlayers - 1) + "" + numberOfPlayers;
-        } else {
-            return numberOfPlayers + "" + (numberOfPlayers + 1);
-        }
+    public Game getGame() {
+        return game;
     }
 
     private void updateBoards() {

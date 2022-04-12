@@ -11,14 +11,14 @@ import sh.shinterface.game.Game;
 
 public class BoardTab extends StackPane {
 
-    private final String players;
+    private final int maxFasc;
     private final ImageView liberalBoard;
     private final ImageView fascistBoard;
 
     public BoardTab(GovModel govModel, Game game) {
-        this.players = govModel.getPlayerString();
+        this.maxFasc = (govModel.getGame().getPlayers().size()-1)/2;
         liberalBoard = new ImageView(new Image("sh/shinterface/images/boards/liberal/0.png"));
-        fascistBoard = new ImageView(new Image("sh/shinterface/images/boards/fascist" + players + "/0.png"));
+        fascistBoard = new ImageView(new Image("sh/shinterface/images/boards/fascist" + maxFasc + "/0.png"));
 
         liberalBoard.setPreserveRatio(true);
         fascistBoard.setPreserveRatio(true);
@@ -40,7 +40,7 @@ public class BoardTab extends StackPane {
 
     public void updateBoards(int lib, int fasc) {
         liberalBoard.setImage(new Image("sh/shinterface/images/boards/liberal/" + lib + ".png"));
-        fascistBoard.setImage(new Image("sh/shinterface/images/boards/fascist" + players + "/" + fasc + ".png"));
+        fascistBoard.setImage(new Image("sh/shinterface/images/boards/fascist" + maxFasc + "/" + fasc + ".png"));
     }
 
     public void saveGame(Game game) {
