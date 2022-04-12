@@ -33,9 +33,8 @@ public class Game {
 
     public void start(Stage stage) {
         Scene scene = new Scene(pane);
-        scene.getStylesheets().add("sh/shinterface/configscreen.css");
+        scene.getStylesheets().add("sh/shinterface/interface.css");
         stage.setScene(scene);
-        stage.setMaximized(true);
         stage.show();
     }
 

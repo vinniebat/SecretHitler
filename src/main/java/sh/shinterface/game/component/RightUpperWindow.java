@@ -41,9 +41,6 @@ public class RightUpperWindow extends VBox implements InvalidationListener {
             players.add(component);
         }
 
-        playerOverview1.getStyleClass().add("centeredHBox");
-        playerOverview2.getStyleClass().add("centeredHBox");
-
         this.getChildren().addAll(playerOverview1, playerOverview2);
     }
 

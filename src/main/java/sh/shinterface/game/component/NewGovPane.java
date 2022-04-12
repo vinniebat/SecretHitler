@@ -33,7 +33,6 @@ public class NewGovPane extends VBox {
         govPlayers = new GridPane();
 
         Label title1 = new Label("Add new gov:");
-        title1.getStyleClass().add("titleLabel");
 
         Label presLabel = new Label("President: ");
         Label chancLabel = new Label("Chancellor: ");
@@ -79,7 +78,6 @@ public class NewGovPane extends VBox {
         govPlayers.add(conf, 1, 2, 2, 1);
 
         Label title2 = new Label("Votes");
-        title2.getStyleClass().add("titleLabel");
 
         GridPane votes = new GridPane();
         for (int i = 0; i < players.size(); i++) {

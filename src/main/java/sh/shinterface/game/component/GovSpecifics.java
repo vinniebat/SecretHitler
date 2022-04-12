@@ -15,7 +15,7 @@ public class GovSpecifics extends TabPane {
     public GovSpecifics(Game game, TableView<Gov> tableView) {
         Tab board = new Tab("Board");
         Tab claimsAndAssumptions = new Tab("Claims and assumptions");
-        claimsAndAssumptions.setDisable(true);
+        //claimsAndAssumptions.setDisable(true);
 
         govModel = new GovModel(game, this);
         tableView.getSelectionModel().selectedItemProperty().addListener(govModel);
