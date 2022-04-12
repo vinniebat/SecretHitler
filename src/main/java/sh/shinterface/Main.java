@@ -24,7 +24,7 @@ public class Main extends Application {
      */
     public static void confirmSelection(ActionEvent e) {
         List<Player> players = configScreen.getPlayers();
-        if (!players.isEmpty()) {
+        if (configScreen.isValid()) {
             //later factory
             //TODO add activePlayer
             stage.close();

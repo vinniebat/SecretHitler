@@ -73,6 +73,7 @@ HBox {
 
 .role-box {
     -fx-alignment: center-left;
+    -fx-spacing: 10;
 }
 
 .role-box Label {
@@ -89,14 +90,14 @@ HBox {
     -fx-text-fill: -fx-main-light;
 }
 
-.config-screen PlayerField {
+PlayerField {
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-alignment: center;
     -fx-spacing: 10;
     -fx-padding: 10;
 }
 
-.config-screen PlayerField Label {
+PlayerField Label {
     -fx-padding: 5, 10, 5, 10;
     -fx-min-width: 70;
     -fx-text-fill: -fx-main-dark;
@@ -123,7 +124,7 @@ HBox {
     -fx-background-color: #E66443;
 }
 
-.config-screen .title .text {
+.title .text {
     -fx-font-size: 35;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }

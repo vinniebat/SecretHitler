@@ -5,14 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
 import sh.shinterface.datacontainer.Player;
@@ -58,10 +52,14 @@ public class ConfigScreen extends StackPane {
             FXCollections.observableArrayList(Role.LIBERAL, Role.FASCIST, Role.HITLER)
     );
 
+    private final Pane roleContainer = new HBox();
+
     /**
      * Button to create a game with the given players
      */
     private final Button createGameButton = new Button("Create Game");
+
+    private final List<ChoiceBox<Player>> playerBoxes = new ArrayList<>();
 
     /**
      * Creates a new ConfigurationScreen that is shown on the given stage
@@ -86,25 +84,26 @@ public class ConfigScreen extends StackPane {
         // INIT Player fields
         VBox playerContainer = new VBox();
         playerFields = playerContainer.getChildren(); // Sla de fields op voor makkelijk aan te passen
-        choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
-        activePlayerGroup.selectedToggleProperty().addListener(this::updateRoleChoice);
+        activePlayerGroup.selectedToggleProperty().addListener(this::resetRoleChoice);
         // Zorgt dat de role choice wordt getoond na selecteren van actieve speler
         //END PLAYER FIELDS
 
         // INIT Role Selection
-        HBox hBox = new HBox(new Label("Role:"), roleBox);
+        HBox hBox = new HBox(new Label("Your role:"), roleBox);
+        choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
         hBox.setVisible(false); // Eerst niet zichtbaar
-        HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
         hBox.getStyleClass().add("role-box");
-        roleBox.valueProperty().addListener(this::updateRoleChoice);
+        HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
+        roleBox.valueProperty().addListener(this::resetRoleChoice);
         roleBox.setValue(Role.NONE);
+        roleContainer.getStyleClass().add("role-box");
         // END ROLE SELECTION
 
         // INIT Create Game Button
         createGameButton.setOnAction(Main::confirmSelection);
         // END BUTTON
 
-        VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(hBox, createGameButton));
+        VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(hBox, createGameButton), roleContainer);
         // END CONTROLS
 
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
@@ -123,15 +122,15 @@ public class ConfigScreen extends StackPane {
         int amount = ((ChoiceBox<Integer>) e.getSource()).getValue();
         if (amount > playerFields.size()) { // Voeg spelers toe als er te weinig zijn
             for (int i = 1 + playerFields.size(); i <= amount; i++) {
-                PlayerField playerField = new PlayerField(i);
+                PlayerField playerField = new PlayerField(i, this);
                 playerFields.add(playerField);
                 activePlayerGroup.getToggles().add(playerField.getButton());
             }
         } else {
             activePlayerGroup.getToggles().remove(amount, playerFields.size());
             playerFields.remove(amount, playerFields.size()); // Hou enkel het juiste aantal spelers over
-            updateRoleChoice(null);
         }
+        resetRoleChoice(null);
         for (Node node : playerFields) {
             PlayerField playerField = (PlayerField) node;
             // fk u kris ik doe casting zoveel ik wil
@@ -150,19 +149,15 @@ public class ConfigScreen extends StackPane {
         List<Player> players = new ArrayList<>();
         for (Node node : playerFields) {
             PlayerField playerField = (PlayerField) node;
-            if (playerField.isValid()) {
-                Role role = Role.UNKNOWN;
-                if (playerField.isActive()) {
-                    role = roleBox.getValue();
-                }
-                players.add(new Player(
-                        playerField.getPlayerId(),
-                        playerField.getName(),
-                        role
-                ));
-            }
+            Role role = Role.UNKNOWN;
+            players.add((playerField.isEmpty()) ? null :
+                    new Player(
+                    playerField.getPlayerId(),
+                    playerField.getName(),
+                    role
+            ));
         }
-        return (players.size() == playerFields.size()) ? players : List.of();
+        return players;
     }
 
     /**
@@ -170,16 +165,35 @@ public class ConfigScreen extends StackPane {
      *
      * @param observable Unused
      */
-    public void updateRoleChoice(Observable observable) {
+    public void resetRoleChoice(Observable observable) {
+        ObservableList<Node> roleBoxes = roleContainer.getChildren();
+        List<Player> players = getPlayers();
+        roleBoxes.clear();
         if (activePlayerGroup.getSelectedToggle() == null) {
             roleBox.getParent().setVisible(false);
             roleBox.setValue(Role.NONE);
-            createGameButton.setDisable(false);
         } else {
             roleBox.getParent().setVisible(true);
-            createGameButton.setDisable(roleBox.getValue() == Role.NONE);
+            PlayerField playerField = ((PlayerField) ((ToggleButton) activePlayerGroup.getSelectedToggle()).getParent());
+            if (playerField.isValid() && roleBox.getValue().isFascist()) {
+                Player activePlayer = players.stream().filter(p -> p.getRole() != Role.UNKNOWN).findFirst().get();
+                players.remove(activePlayer);
+                List<ChoiceBox<Player>> choiceBoxes = new ArrayList<>();
+                for (int i = 0; i < (playerFields.size() - 1) / 2; i++) {
+                    ChoiceBox<Player> playerBox = new ChoiceBox<>(
+                            FXCollections.observableArrayList(players)
+                    );
+                    roleBoxes.add(
+                            new VBox(new Label((roleBoxes.size() == 0) ? "Hitler: " : "Fascist: "), playerBox)
+                    );
+                    choiceBoxes.add(playerBox);
+                }
+                choiceBoxes.get((roleBox.getValue() == Role.HITLER) ? 0 : 1).setValue(activePlayer);
+                choiceBoxes.get((roleBox.getValue() == Role.HITLER) ? 0 : 1).setDisable(true);
+            }
         }
         updateStyling();
+        stage.sizeToScene();
     }
 
     /**
@@ -197,5 +211,18 @@ public class ConfigScreen extends StackPane {
     private void updateStyling() {
         this.getStyleClass().removeAll("liberal", "fascist");
         this.getStyleClass().add(roleBox.getValue().getStyle());
+    }
+
+    public boolean isValid() {
+        boolean valid = true;
+        for (Node node : playerFields) {
+            PlayerField playerField = (PlayerField) node;
+            valid &= playerField.isValid();
+        }
+        for (Node node : roleContainer.getChildren()) {
+            ChoiceBox<Player> playerChoiceBox = (ChoiceBox<Player>) ((Pane) node).getChildren().get(1);
+            valid &= playerChoiceBox.getValue() != null;
+        }
+        return valid;
     }
 }

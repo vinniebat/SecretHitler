@@ -34,8 +34,9 @@ public class PlayerField extends HBox {
      * Create a player with given player id
      *
      * @param playerId Number of the player
+     * @param config ConfigScreen that controls this field
      */
-    public PlayerField(int playerId) {
+    public PlayerField(int playerId, ConfigScreen config) {
         String idString = (playerId < 10) ? "0" + playerId : "" + playerId;
         getChildren().addAll(
                 new Label("Player " + idString + ":"),
@@ -44,6 +45,7 @@ public class PlayerField extends HBox {
         );
         this.playerId = playerId;
         nameField.setOnAction(Main::confirmSelection);
+        nameField.textProperty().addListener(config::resetRoleChoice);
         nameField.setPromptText("Enter Player Name");
     }
 
@@ -65,6 +67,10 @@ public class PlayerField extends HBox {
 
     public int getPlayerId() {
         return playerId;
+    }
+
+    public boolean isEmpty() {
+        return nameField.getText().isBlank();
     }
 
     /**
