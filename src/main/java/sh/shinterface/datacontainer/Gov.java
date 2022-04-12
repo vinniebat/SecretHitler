@@ -1,7 +1,5 @@
 package sh.shinterface.datacontainer;
 
-import javafx.beans.property.SimpleStringProperty;
-
 import java.util.List;
 
 public interface Gov {
@@ -10,7 +8,7 @@ public interface Gov {
 
     Player getChancellor();
 
-    SimpleStringProperty displayClaims();
+    ObservableHBox displayClaims();
 
     Policy[] getCards();
 

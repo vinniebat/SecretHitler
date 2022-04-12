@@ -3,7 +3,7 @@ package sh.shinterface.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-class SQLiteDataAccessContext implements DataAccessContext{
+class SQLiteDataAccessContext implements DataAccessContext {
 
     private final Connection connection;
 

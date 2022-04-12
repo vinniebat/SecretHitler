@@ -241,6 +241,19 @@ TableView .table-column {
     -fx-border-insets: -1;
 }
 
+TableView HBox {
+    -fx-alignment: center;
+}
+
+.topDeck {
+    -fx-alignment: center-left;
+}
+
+.claims {
+    -fx-pref-width: 155;
+    -fx-alignment: center;
+}
+
 TableView .placeholder .label {
     -fx-text-fill: -fx-main-dark;
 }

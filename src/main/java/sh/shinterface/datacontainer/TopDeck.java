@@ -1,7 +1,9 @@
 package sh.shinterface.datacontainer;
 
-import javafx.beans.property.SimpleStringProperty;
-import sh.shinterface.util.PolicyConverter;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import sh.shinterface.util.SpecialGovPlayers;
 
 import java.util.List;
@@ -28,8 +30,14 @@ public class TopDeck implements Gov {
     }
 
     @Override
-    public SimpleStringProperty displayClaims() {
-        return new SimpleStringProperty(PolicyConverter.toString(new Policy[]{policy}));
+    public ObservableHBox displayClaims() {
+        Label label = new Label("\uD83D\uDDF2");
+        label.setVisible(false);
+        HBox hBox = new HBox(new Rectangle(15, 20, policy.getColor()),
+                new Rectangle(15, 20, Color.TRANSPARENT),
+                new Rectangle(15, 20, Color.TRANSPARENT));
+
+        return new ObservableHBox(hBox);
     }
 
     public Policy[] getCards() {

@@ -3,6 +3,7 @@ package sh.shinterface.game.component;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Role;
@@ -31,7 +32,8 @@ public class GameWindow extends SplitPane {
 
         TableColumn<Gov, String> president = new TableColumn<>("President");
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
-        TableColumn<Gov, String> claim = new TableColumn<>("Claim(s)");
+        TableColumn<Gov, HBox> claim = new TableColumn<>("Claim(s)");
+        claim.getStyleClass().add("claims");
 
         president.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().getPresident())));
         chancellor.setCellValueFactory(data -> new SimpleStringProperty(playerStringConverter.toString(data.getValue().getChancellor())));

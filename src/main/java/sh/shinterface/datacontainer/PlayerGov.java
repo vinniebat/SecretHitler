@@ -1,7 +1,8 @@
 package sh.shinterface.datacontainer;
 
-import javafx.beans.property.SimpleStringProperty;
-import sh.shinterface.util.PolicyConverter;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
@@ -26,12 +27,22 @@ public class PlayerGov implements Gov {
         this.votes = votes;
     }
 
-    public SimpleStringProperty displayClaims() {
-        String claimText = PolicyConverter.toString(claim1);
-        if (conf) {
-            claimText += " \uD83D\uDDF2 " + PolicyConverter.toString(claim2);
+    public ObservableHBox displayClaims() {
+        HBox result = new HBox();
+        for (Policy policy : claim1) {
+            result.getChildren().add(new Rectangle(15, 20, policy.getColor()));
         }
-        return new SimpleStringProperty(claimText);
+        if (conf) {
+            result.getChildren().add(new Label("\uD83D\uDDF2"));
+            for (Policy policy : claim2) {
+                result.getChildren().add(new Rectangle(15, 20, policy.getColor()));
+            }
+        }
+//        String claimText = PolicyConverter.toString(claim1);
+//        if (conf) {
+//            claimText += " \uD83D\uDDF2 " + PolicyConverter.toString(claim2);
+//        }
+        return new ObservableHBox(result);
     }
 
     @Override
