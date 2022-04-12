@@ -10,6 +10,13 @@
     -fx-alt-dark: #990200;
     -fx-alt-light: #E66443;
     -fx-alt-white: #FEFFAC;
+
+    -fx-border-image-source: url("images/border/liberal_border.png");
+
+    -fx-border-image-slice: 78 40 77 40;
+    -fx-border-image-width: 78 40 77 40;
+    -fx-border-image-repeat: round round;
+    -fx-border-image-insets: 10;
 }
 
 .fascist {
@@ -20,21 +27,18 @@
     -fx-alt-dark: #004E6E;
     -fx-alt-light: #61C8D9;
     -fx-alt-white: white;
-}
 
-.inner-box {
-    -fx-border-color: -fx-main-dark;
-    -fx-border-width: 16;
-    -fx-border-insets: -28;
+    -fx-border-image-source: url("images/border/fascist_border.png");
+
+    -fx-border-image-slice: 78 40 77 40;
+    -fx-border-image-width: 78 40 77 40;
+    -fx-border-image-repeat: round round;
+    -fx-border-image-insets: 10;
 }
 
 .interface {
-    -fx-padding: 10;
+    -fx-padding: -30 5 -30 5;
     -fx-background-color: -fx-main-light;
-
-    -fx-border-width: 20;
-    -fx-border-insets: 10;
-    -fx-border-color: -fx-main-white;
 
     -fx-pref-width: 1200;
     -fx-min-width: 810;
@@ -163,11 +167,11 @@ NewGovPane ToggleButton {
     -fx-border-color: transparent;
     -fx-border-width: 3;
     -fx-background-color: transparent;
-    -fx-graphic: url("images/ballot.cards(ja).png");
+    -fx-graphic: url("votes/ballot.cards(ja).png");
 }
 
 NewGovPane ToggleButton:selected {
-    -fx-graphic: url("images/ballot.cards(nein).png");
+    -fx-graphic: url("votes/ballot.cards(nein).png");
 }
 
 NewGovPane .choice-box {
