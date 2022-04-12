@@ -1,26 +1,19 @@
 package sh.shinterface.util;
 
-import java.util.Arrays;
-import java.util.Map;
+import sh.shinterface.datacontainer.Policy;
+
+import java.util.List;
 
 public class PolicyConverter {
-    private static final Map<Integer, String> TOSTRING = Map.of(1, "B", 2, "R");
-
-    private static final Map<String, Integer> FROMSTRING = Map.of("B", 1, "R", 2);
-
-    public static String toString(int[] policies) {
+    public static String toString(List<Policy> policies) {
         StringBuilder result = new StringBuilder();
-        for (int policy :
-                policies) {
-            result.append(TOSTRING.get(policy));
+        for (Policy policy : policies) {
+            result.append(policy.toString());
         }
         return result.toString();
     }
 
-    public static int[] fromString(String policies) {
-        if (policies.equals("")) {
-            return new int[0];
-        }
-        return Arrays.stream(policies.toUpperCase().split("")).mapToInt(FROMSTRING::get).toArray();
+    public static List<Policy> fromString(String policies) {
+        return policies.chars().filter(c -> (c == 'B') || (c == 'R')).mapToObj(c -> Policy.fromChar((char) c)).toList();
     }
 }

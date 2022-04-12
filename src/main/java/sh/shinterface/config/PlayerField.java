@@ -5,7 +5,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import sh.shinterface.Main;
-import sh.shinterface.util.PlayerStringConverter;
+
+import java.util.Arrays;
+
+import static java.util.stream.Collectors.joining;
 
 /**
  * Component that contains the player label and the TextField to input the player name
@@ -50,7 +53,7 @@ public class PlayerField extends HBox {
      * @return Trimmed name that was entered
      */
     public String getName() {
-        return PlayerStringConverter.formatName(nameField.getText());
+        return Arrays.stream(nameField.getText().split("\\s")).filter(str -> !str.isBlank()).map(String::strip).map(String::toLowerCase).map(str -> str.substring(0, 1).toUpperCase() + str.substring(1)).collect(joining(" "));
     }
 
     /**
@@ -82,5 +85,9 @@ public class PlayerField extends HBox {
      */
     public ToggleButton getButton() {
         return button;
+    }
+
+    public boolean isActive() {
+        return button.isSelected();
     }
 }

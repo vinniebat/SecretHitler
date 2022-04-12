@@ -105,7 +105,6 @@ public class ConfigScreen extends StackPane {
         // END BUTTON
 
         VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(hBox, createGameButton));
-        controlsBox.getStyleClass().add("inner-box");
         // END CONTROLS
 
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
@@ -152,9 +151,14 @@ public class ConfigScreen extends StackPane {
         for (Node node : playerFields) {
             PlayerField playerField = (PlayerField) node;
             if (playerField.isValid()) {
+                Role role = Role.UNKNOWN;
+                if (playerField.isActive()) {
+                    role = roleBox.getValue();
+                }
                 players.add(new Player(
                         playerField.getPlayerId(),
-                        playerField.getName()
+                        playerField.getName(),
+                        role
                 ));
             }
         }
