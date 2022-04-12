@@ -6,13 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
 import sh.shinterface.util.ImagePicker;
-import sh.shinterface.util.PlayerStringConverter;
 
 public class PlayerView extends VBox {
 
@@ -33,7 +34,11 @@ public class PlayerView extends VBox {
     /**
      * Current role of this player. Does not equal the chosen in role in roleBox
      */
-    private Role currentRole = Role.UNKNOWN;
+    private Role currentRole;
+    /**
+     * The Label that shows the player's name
+     */
+    private Label playerLabel;
 
     /**
      * Makes an overview of a player, consisting of a role-card (image), a label and a ChoiceBox to choose the role
@@ -43,15 +48,17 @@ public class PlayerView extends VBox {
      * @param window the window that holds this component
      */
     public PlayerView(Player player, Game game, RightUpperWindow window) {
+        currentRole = player.getRole();
         this.window = window;
         this.currentRole = player.getRole();
         roleImage = new ImageView(ImagePicker.pick(player.getRole()));
-        Label playerLabel = new Label(new PlayerStringConverter(game).toString(player));
+        playerLabel = new Label(player.toString());
         roleBox.setValue(player.getRole());
         roleBox.setOnAction(this::updateRole);
         roleBox.setDisable(player.getRole() != Role.UNKNOWN);
         VBox.setVgrow(roleImage, Priority.ALWAYS);
         this.getChildren().addAll(roleImage, playerLabel, roleBox);
+        HBox.setHgrow(this, Priority.ALWAYS);
     }
 
     /**
@@ -102,5 +109,9 @@ public class PlayerView extends VBox {
         } else if (window.hasHitler() && currentRole != Role.HITLER) {
             roles.removeAll(Role.HITLER);
         }
+    }
+
+    public void setLabelGraphic(Rectangle rectangle) {
+        playerLabel.setGraphic(rectangle);
     }
 }

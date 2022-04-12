@@ -23,4 +23,12 @@ public class Player {
     public Role getRole() {
         return role;
     }
+
+    @Override
+    public String toString() {
+        if (id < 0) {
+            return name;
+        }
+        return id + ". " + name;
+    }
 }

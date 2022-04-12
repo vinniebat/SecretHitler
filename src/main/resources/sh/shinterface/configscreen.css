@@ -28,37 +28,15 @@
     -fx-border-insets: -28;
 }
 
-.config-screen, .interface {
+.config-screen {
     -fx-padding: 10;
     -fx-background-color: -fx-main-light;
 
     -fx-border-width: 20;
     -fx-border-insets: 10;
     -fx-border-color: -fx-main-white;
-}
-
-.config-screen {
+    
     -fx-pref-height: 200;
-    -fx-alignment: top-center;
-}
-
-.interface {
-    -fx-pref-width: 1400;
-}
-
-.interface ChoiceBox {
-    -fx-pref-width: 100;
-}
-
-.interface TextField {
-    -fx-pref-width: 130;
-}
-
-.interface PlayerView Label {
-    -fx-text-fill: -fx-main-dark;
-}
-
-.interface PlayerView {
     -fx-alignment: top-center;
 }
 
@@ -167,20 +145,8 @@ ToggleButton {
     -fx-text-fill: -fx-main-light;
     -fx-border-width: 2;
     -fx-border-color: transparent;
-}
-
-.config-screen ToggleButton {
     -fx-font-family: "Times New Roman";
     -fx-pref-width: 54;
-}
-
-.interface ToggleButton {
-    -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-pref-width: 60;
-}
-
-.interface ToggleButton .text {
-    -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
 ToggleButton:selected {
@@ -201,70 +167,6 @@ ToggleButton .text {
     -fx-text-fill: -fx-alt-dark;
 }
 
-TableView {
-    -fx-background-color: transparent;
-}
-
-TableView .column-header {
-    -fx-background-color: transparent;
-}
-
-TableView .filler {
-    -fx-background-color: transparent;
-}
-
-TableView .column-header-background {
-    -fx-background-color: -fx-main-dark;
-}
-
-TableView .column-header-background .label {
-    -fx-text-fill: -fx-main-light;
-    -fx-background-color: transparent;
-}
-
-TableView .table-cell {
-    -fx-text-fill: -fx-main-dark;
-}
-
-TableView .table-row-cell {
-    -fx-background-color: -fx-main-light;
-    -fx-border-color: -fx-main-dark;
-}
-
-TableView .table-row-cell:odd {
-    -fx-background-color: derive(-fx-main-light, -10%);
-}
-
-TableView .table-column {
-    -fx-pref-width: 120;
-    -fx-border-color: -fx-main-dark;
-    -fx-border-insets: -1;
-}
-
-.split-pane-divider {
-    -fx-background-color: -fx-main-dark;
-    -fx-border-width: 10;
-    -fx-border-color: -fx-main-light;
-}
-
-FivePlayerGameWindow {
-    -fx-background-color: transparent;
-}
-
-NewGovPane {
-    -fx-spacing: 10;
-}
-
-NewGovPane Label {
-    -fx-font-family: "Times New Roman";
-    -fx-text-fill: -fx-main-dark;
-}
-
-GridPane {
-    -fx-hgap: 10;
-    -fx-vgap: 10;
-}
-
 CheckBox {
     -fx-text-fill: -fx-main-dark;
 }
@@ -275,13 +177,4 @@ CheckBox .box {
 
 CheckBox:selected .mark {
     -fx-background-color: -fx-main-light;
-}
-
-.interface PlayerView ChoiceBox {
-    -fx-pref-width: 150;
-}
-
-.interface PlayerView ChoiceBox .label {
-    -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-alignment: center;
 }
