@@ -15,9 +15,6 @@ public class PolicyConverter {
     }
 
     public static Policy[] fromString(String policies) {
-        if (policies.equals("")) {
-            return new Policy[0];
-        }
         List<Policy> policyList = new ArrayList<>();
         for (int c : policies.chars().filter(c -> !Character.isSpaceChar(c)).toArray()) {
             policyList.add(Policy.fromChar((char) c));

@@ -14,7 +14,6 @@ import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
 import sh.shinterface.util.ImagePicker;
-import sh.shinterface.util.PlayerStringConverter;
 
 public class PlayerView extends VBox {
 
@@ -52,7 +51,7 @@ public class PlayerView extends VBox {
         currentRole = player.getRole();
         this.window = window;
         roleImage = new ImageView(ImagePicker.pick(player.getRole()));
-        playerLabel = new Label(new PlayerStringConverter(game).toString(player));
+        playerLabel = new Label(player.toString());
         roleBox.setValue(player.getRole());
         roleBox.setOnAction(this::updateRole);
         roleBox.setDisable(player.getRole() != Role.UNKNOWN);

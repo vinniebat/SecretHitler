@@ -1,6 +1,5 @@
 package sh.shinterface.game.component;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -9,7 +8,6 @@ import javafx.scene.layout.StackPane;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
-import sh.shinterface.util.PlayerStringConverter;
 
 import java.util.Map;
 
@@ -24,10 +22,10 @@ public class GameWindow extends SplitPane {
     private final NewGovPane newGovPane;
 
     public GameWindow(Game game, Role role) {
-        PlayerStringConverter playerStringConverter = new PlayerStringConverter(game);
         govTable = new TableView<>();
 
         govTable.setPlaceholder(new Label("No govs yet!"));
+        govTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<Gov, String> president = new TableColumn<>("President");
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");

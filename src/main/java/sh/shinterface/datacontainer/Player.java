@@ -1,7 +1,5 @@
 package sh.shinterface.datacontainer;
 
-import sh.shinterface.util.PlayerStringConverter;
-
 public class Player {
 
     private final int id;

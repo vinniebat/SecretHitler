@@ -7,7 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.*;
 import sh.shinterface.game.Game;
-import sh.shinterface.util.PlayerStringConverter;
 import sh.shinterface.util.PolicyConverter;
 
 import java.util.ArrayList;
@@ -38,8 +37,6 @@ public class NewGovPane extends VBox {
 
         Label presLabel = new Label("President: ");
         Label chancLabel = new Label("Chancellor: ");
-
-        PlayerStringConverter playerStringConverter = new PlayerStringConverter(game);
 
         presidentChoiceBox = new ChoiceBox<>();
         chancellorChoiceBox = new ChoiceBox<>();
@@ -86,7 +83,7 @@ public class NewGovPane extends VBox {
 
         GridPane votes = new GridPane();
         for (int i = 0; i < players.size(); i++) {
-            Label voteName = new Label(playerStringConverter.toString(players.get(i)));
+            Label voteName = new Label(players.get(i).toString());
             ToggleButton jaNein = new ToggleButton();
             votes.addRow(i % 5, voteName, jaNein);
             voteList.add(jaNein);

@@ -10,6 +10,10 @@ import javafx.stage.Stage;
  * Used to test new Windows
  */
 public class testMain extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) {
         TabPane tabPane = new TabPane();
@@ -21,9 +25,5 @@ public class testMain extends Application {
         scene.getStylesheets().add("sh/shinterface/testMain.css");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
