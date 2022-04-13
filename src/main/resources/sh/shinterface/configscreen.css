@@ -13,8 +13,8 @@
 
     -fx-border-image-source: url("images/border/liberal_border.png");
 
-    -fx-border-image-slice: 78 40 77 40;
-    -fx-border-image-width: 78 40 77 40;
+    -fx-border-image-slice: 79 40 77 40;
+    -fx-border-image-width: 79 40 77 40;
     -fx-border-image-repeat: round round;
     -fx-border-image-insets: 10;
 }
@@ -30,8 +30,8 @@
 
     -fx-border-image-source: url("images/border/fascist_border.png");
 
-    -fx-border-image-slice: 78 40 77 40;
-    -fx-border-image-width: 78 40 77 40;
+    -fx-border-image-slice: 79 40 77 40;
+    -fx-border-image-width: 79 40 77 40;
     -fx-border-image-repeat: round round;
     -fx-border-image-insets: 10;
 }
