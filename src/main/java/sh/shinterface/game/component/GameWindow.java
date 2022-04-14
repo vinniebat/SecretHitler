@@ -21,7 +21,7 @@ public class GameWindow extends SplitPane {
     private final TableView<Gov> govTable;
     private final TopDeckWindow topDeckWindow;
     private final Button topDeckButton;
-    private final NewGovPane newGovPane;
+    private final CreateGovPane createGovPane;
 
     public GameWindow(Game game, Role role) {
         govTable = new TableView<>();
@@ -45,18 +45,18 @@ public class GameWindow extends SplitPane {
         StackPane stackPane = new StackPane(govTable, topDeckWindow);
         stackPane.getStyleClass().add("gov-stack");
 
-        newGovPane = new NewGovPane(game, role, this);
-        topDeckButton = newGovPane.getTopDeckButton();
-        VBox leftSide = new VBox(stackPane, newGovPane);
+        createGovPane = new CreateGovPane(game, role, this);
+        topDeckButton = createGovPane.getTopDeckButton();
+        VBox leftSide = new VBox(stackPane, createGovPane);
         VBox.setVgrow(stackPane, Priority.ALWAYS);
         leftSide.getStyleClass().add("left");
 
-        RightUpperWindow rightUpperWindow = new RightUpperWindow(game, govTable);
-        GovSpecifics specifics = new GovSpecifics(game, govTable);
+        PartyView partyView = new PartyView(game, govTable);
+        GovView specifics = new GovView(game, govTable);
         SplitPane.setResizableWithParent(specifics, false);
-        SplitPane rightSide = new SplitPane(rightUpperWindow, specifics);
+        SplitPane rightSide = new SplitPane(partyView, specifics);
         rightSide.setOrientation(Orientation.VERTICAL);
-        govTable.getSelectionModel().selectedItemProperty().addListener(rightUpperWindow);
+        govTable.getSelectionModel().selectedItemProperty().addListener(partyView);
 
         this.getItems().addAll(leftSide, rightSide);
     }
@@ -71,7 +71,7 @@ public class GameWindow extends SplitPane {
         topDeckWindow.setVisible(!topDeckWindow.isVisible());
     }
 
-    public NewGovPane getNewGovPane() {
-        return newGovPane;
+    public CreateGovPane getNewGovPane() {
+        return createGovPane;
     }
 }

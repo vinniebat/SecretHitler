@@ -30,7 +30,7 @@ public class PlayerView extends VBox {
     /**
      * Window that controls this View
      */
-    private final RightUpperWindow window;
+    private final PartyView window;
     /**
      * Current role of this player. Does not equal the chosen in role in roleBox
      */
@@ -47,7 +47,7 @@ public class PlayerView extends VBox {
      * @param game   game that this player is a part of
      * @param window the window that holds this component
      */
-    public PlayerView(Player player, Game game, RightUpperWindow window) {
+    public PlayerView(Player player, Game game, PartyView window) {
         currentRole = player.getRole();
         this.window = window;
         this.currentRole = player.getRole();

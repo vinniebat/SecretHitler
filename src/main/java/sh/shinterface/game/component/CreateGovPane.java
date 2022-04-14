@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class NewGovPane extends VBox {
+public class CreateGovPane extends VBox {
 
     private static final List<Character> STRINGPOLICIES = List.of('R', 'B');
     private static final List<Character> LOWERSTRINGPOLICIES = List.of('r', 'b');
@@ -29,7 +29,7 @@ public class NewGovPane extends VBox {
     private final List<ToggleButton> voteList = new ArrayList<>();
     private final GridPane govPlayers;
 
-    public NewGovPane(Game game, Role role, GameWindow gameWindow) {
+    public CreateGovPane(Game game, Role role, GameWindow gameWindow) {
         govPlayers = new GridPane();
 
         Label title1 = new Label("Add new gov:");

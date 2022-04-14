@@ -4,11 +4,11 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.control.TableView;
 import sh.shinterface.game.Game;
-import sh.shinterface.game.component.GovSpecifics;
+import sh.shinterface.game.component.GovView;
 
 public class GovModel implements InvalidationListener {
 
-    private final GovSpecifics govSpecifics;
+    private final GovView govView;
     private final Game game;
 
     private int lib;
@@ -17,8 +17,8 @@ public class GovModel implements InvalidationListener {
     private int fascPlayed;
 
 
-    public GovModel(Game game, GovSpecifics govSpecifics) {
-        this.govSpecifics = govSpecifics;
+    public GovModel(Game game, GovView govView) {
+        this.govView = govView;
         this.game = game;
         lib = 0;
         fasc = 0;
@@ -64,6 +64,6 @@ public class GovModel implements InvalidationListener {
     }
 
     private void updateBoards() {
-        govSpecifics.getBoardTab().updateBoards(libPlayed, fascPlayed);
+        govView.getBoardTab().updateBoards(libPlayed, fascPlayed);
     }
 }

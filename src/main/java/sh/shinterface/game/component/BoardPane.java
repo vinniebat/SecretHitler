@@ -9,13 +9,13 @@ import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.GovModel;
 import sh.shinterface.game.Game;
 
-public class BoardTab extends StackPane {
+public class BoardPane extends StackPane {
 
     private final String players;
     private final ImageView liberalBoard;
     private final ImageView fascistBoard;
 
-    public BoardTab(GovModel govModel, Game game) {
+    public BoardPane(GovModel govModel, Game game) {
         this.players = govModel.getPlayerString();
         liberalBoard = new ImageView(new Image("sh/shinterface/images/boards/liberal/0.png"));
         fascistBoard = new ImageView(new Image("sh/shinterface/images/boards/fascist" + players + "/0.png"));

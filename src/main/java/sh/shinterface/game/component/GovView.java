@@ -7,12 +7,12 @@ import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.GovModel;
 import sh.shinterface.game.Game;
 
-public class GovSpecifics extends TabPane {
+public class GovView extends TabPane {
 
     private final GovModel govModel;
-    private final BoardTab boardTab;
+    private final BoardPane boardPane;
 
-    public GovSpecifics(Game game, TableView<Gov> tableView) {
+    public GovView(Game game, TableView<Gov> tableView) {
         Tab board = new Tab("Board");
         Tab claimsAndAssumptions = new Tab("Claims and assumptions");
         //claimsAndAssumptions.setDisable(true);
@@ -20,14 +20,14 @@ public class GovSpecifics extends TabPane {
         govModel = new GovModel(game, this);
         tableView.getSelectionModel().selectedItemProperty().addListener(govModel);
 
-        boardTab = new BoardTab(govModel, game);
-        board.setContent(boardTab);
+        boardPane = new BoardPane(govModel, game);
+        board.setContent(boardPane);
 
         this.getTabs().addAll(board, claimsAndAssumptions);
         this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
     }
 
-    public BoardTab getBoardTab() {
-        return boardTab;
+    public BoardPane getBoardTab() {
+        return boardPane;
     }
 }
