@@ -212,12 +212,11 @@ public class NewGovPane extends VBox {
     }
 
     private int insertIndex(Player player, List<Player> list) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() > player.getId()) {
-                return i;
-            }
+        int i = 0;
+        while (i < list.size() && list.get(i).getId() <= player.getId()) {
+            i++;
         }
-        return list.size();
+        return i;
     }
 
     public Button getTopDeckButton() {
