@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.GovModel;
+import sh.shinterface.db.CreateTables;
 import sh.shinterface.game.Game;
 
 public class BoardPane extends StackPane {
@@ -44,6 +45,6 @@ public class BoardPane extends StackPane {
     }
 
     public void saveGame(Game game) {
-
+        CreateTables.createDB(game);
     }
 }
