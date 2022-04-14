@@ -293,6 +293,10 @@ TopDeckWindow Button {
     -fx-font-size: 20;
 }
 
+TopDeckWindow HBox {
+    -fx-padding: 5;
+}
+
 /*
 PlayerView Styling
  */
