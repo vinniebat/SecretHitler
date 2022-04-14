@@ -1,12 +1,25 @@
 package sh.shinterface.db;
 
+import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
+import sh.shinterface.datacontainer.Gov;
+import sh.shinterface.datacontainer.Player;
+import sh.shinterface.datacontainer.Policy;
+import sh.shinterface.datacontainer.Vote;
+import sh.shinterface.db.datatypes.GameDB;
+import sh.shinterface.db.datatypes.GovDB;
+import sh.shinterface.db.datatypes.PlayerDB;
+import sh.shinterface.db.datatypes.VoteDB;
 import sh.shinterface.game.Game;
+import sh.shinterface.util.SpecialGovPlayers;
 
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class CreateTables {
 
@@ -43,10 +56,10 @@ public final class CreateTables {
         try (Statement statement = connection.createStatement()) {
             statement.execute("""
                     CREATE TABLE votes (
-                        persoon_id INTEGER REFERENCES players,
+                        player_id INTEGER REFERENCES players,
                         gov_id INTEGER REFERENCES govs,
                         vote TEXT NOT NULL,
-                        PRIMARY KEY (persoon_id, gov_id)
+                        PRIMARY KEY (player_id, gov_id)
                     );
                     """
             );
@@ -60,16 +73,17 @@ public final class CreateTables {
         File file = chooser.showSaveDialog(null);
         try {
             if (!file.createNewFile()) {
-                if (file.delete()) {
-                    file.createNewFile();
-                    createTables(file.getPath());
-                } else {
-                    //TODO error
-                }
-            } else {
-                createTables(file.getPath());
+                System.out.println(file.delete());
+                System.out.println(file.createNewFile());
+            }
+            String path = file.getPath();
+            try (DataAccessContext dataAccessContext = new SQLiteDataAccessProvider(path).getDataAccessContext()) {
+                GameDAO gameDao = dataAccessContext.getGameDao();
+                gameDao.createTables();
+                gameDao.fillTables(CreateTables.fromGame(game));
             }
         } catch (Exception e) {
+            //TODO error text
             System.err.println("File error: " + e);
         }
     }
@@ -86,5 +100,49 @@ public final class CreateTables {
         createVoteTable(connection);
     }
 
+    private static GameDB fromGame(Game game) {
 
+        List<Player> players = game.getPlayers();
+        ObservableList<Gov> govs = game.getGovTable().getItems();
+
+        List<PlayerDB> playerDBs = new ArrayList<>();
+        for (Player specialgovplayer : SpecialGovPlayers.SPECIALGOVPLAYERS) {
+            int id = specialgovplayer.getId();
+            String name = specialgovplayer.getName();
+            String role = specialgovplayer.getRole().toString();
+            playerDBs.add(new PlayerDB(id, name, role));
+        }
+        for (Player player : players) {
+            int id = player.getId();
+            String name = player.getName();
+            String role = player.getRole().toString();
+            playerDBs.add(new PlayerDB(id, name, role));
+        }
+
+        List<GovDB> govDBs = new ArrayList<>();
+        List<VoteDB> voteDBs = new ArrayList<>();
+        for (Gov gov : govs) {
+            int id = govs.indexOf(gov);
+            int presidentId = gov.getPresident().getId();
+            int chancellorId = gov.getChancellor().getId();
+            String claim1 = gov.getClaim1().stream().map(Policy::toString).collect(Collectors.joining());
+            String claim2 = gov.getClaim2().stream().map(Policy::toString).collect(Collectors.joining());
+            int conf = gov.isConf() ? 1 : 0;
+
+            govDBs.add(new GovDB(id, presidentId, chancellorId, claim1, claim2, conf));
+
+            List<Vote> votes = gov.getVotes();
+            for (int i = 0; i < votes.size(); i++) {
+                String vote = votes.get(i).toString();
+                int playerId = players.get(i).getId();
+                voteDBs.add(new VoteDB(playerId, id, vote));
+            }
+        }
+        return new GameDB(playerDBs, govDBs, voteDBs);
+    }
+
+    private static void fillDB(GameDB game) throws SQLException{
+
+
+    }
 }

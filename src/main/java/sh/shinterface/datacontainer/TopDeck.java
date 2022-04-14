@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import sh.shinterface.util.SpecialGovPlayers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopDeck implements Gov {
@@ -54,5 +55,18 @@ public class TopDeck implements Gov {
         return null;
     }
 
+    @Override
+    public List<Policy> getClaim1() {
+        return List.of(policy);
+    }
 
+    @Override
+    public List<Policy> getClaim2() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean isConf() {
+        return false;
+    }
 }

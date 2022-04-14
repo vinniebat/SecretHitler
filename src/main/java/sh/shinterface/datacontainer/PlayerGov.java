@@ -71,4 +71,19 @@ public class PlayerGov implements Gov {
     public List<Vote> getVotes() {
         return votes;
     }
+
+    @Override
+    public List<Policy> getClaim1() {
+        return claim1;
+    }
+
+    @Override
+    public List<Policy> getClaim2() {
+        return claim2;
+    }
+
+    @Override
+    public boolean isConf() {
+        return conf;
+    }
 }

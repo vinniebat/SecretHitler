@@ -1,4 +1,4 @@
 package sh.shinterface.db.datatypes;
 
-public record VoteDB(int persoonId, int govId, String vote) {
+public record VoteDB(int playerId, int govId, String vote) {
 }

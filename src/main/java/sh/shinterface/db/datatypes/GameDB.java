@@ -1,6 +1,6 @@
 package sh.shinterface.db.datatypes;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public record GameDB(ArrayList<PlayerDB> players, ArrayList<GovDB> govs, ArrayList<VoteDB> votes) {
+public record GameDB(List<PlayerDB> players, List<GovDB> govs, List<VoteDB> votes) {
 }
