@@ -16,7 +16,7 @@
     -fx-border-image-slice: 78 40 77 40;
     -fx-border-image-width: 78 40 77 40;
     -fx-border-image-repeat: round round;
-    -fx-border-image-insets: 10;
+    -fx-border-image-insets: 5;
 }
 
 .fascist {
@@ -33,11 +33,11 @@
     -fx-border-image-slice: 78 40 77 40;
     -fx-border-image-width: 78 40 77 40;
     -fx-border-image-repeat: round round;
-    -fx-border-image-insets: 10;
+    -fx-border-image-insets: 5;
 }
 
 .interface {
-    -fx-padding: -30 5 -30 5;
+    -fx-padding: -37 2 -37 2;
     -fx-background-color: -fx-main-light;
 
     -fx-pref-width: 1200;
@@ -53,7 +53,18 @@
 }
 
 .split-pane:vertical {
-    -fx-padding: 0 5 0 5;
+    -fx-padding: 0 0 0 2;
+}
+
+.left {
+    -fx-max-width: 400;
+    -fx-pref-width: 330;
+    -fx-min-width: 320;
+}
+
+.gov-stack {
+    -fx-pref-height: 300;
+    -fx-min-height: 100;
 }
 
 /*
@@ -61,12 +72,12 @@ Government table styling
  */
 
 .gov {
-    -fx-padding: 0 5 5 0;
+    -fx-padding: 0 2 2 0;
 }
 
 .table-view {
     -fx-background-color: transparent;
-    -fx-pref-width: 340;
+
 }
 
 .table-view .column-header {
@@ -76,7 +87,7 @@ Government table styling
 .table-view .column-header-background .label {
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-font-size: 20;
+    -fx-font-size: 18;
     -fx-font-weight: normal;
 }
 
@@ -90,14 +101,14 @@ Government table styling
 }
 
 .table-view .table-cell {
-    -fx-font-size: 16;
+    -fx-font-size: 14;
     -fx-font-family: "Times New Roman";
     -fx-text-fill: -fx-main-dark;
     -fx-alignment: center;
 }
 
 .table-view .table-cell HBox {
-    -fx-spacing: 5;
+    -fx-spacing: 2;
     -fx-alignment: center;
 }
 
@@ -126,36 +137,41 @@ Government table styling
     -fx-background-color: -fx-main-dark;
 }
 
+.table-view .filler, .table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
 /*
 Government panel styling
  */
 
 NewGovPane {
     -fx-padding: 0;
-    -fx-spacing: 10;
-    -fx-pref-width: 340;
+    -fx-spacing: 5;
+    -fx-border-color: -fx-main-dark transparent transparent transparent;
+    -fx-border-width: 5;
 }
 
 NewGovPane Label {
     -fx-underline: true;
     -fx-text-fill: -fx-main-dark;
-    -fx-font-size: 20;
+    -fx-font-size: 18;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
 NewGovPane GridPane {
-    -fx-vgap: 10;
-    -fx-hgap: 20;
+    -fx-vgap: 3;
+    -fx-hgap: 10;
 }
 
 NewGovPane GridPane Label {
-    -fx-font-size: 18;
+    -fx-font-size: 14;
     -fx-underline: false;
     -fx-font-family: "Times New Roman";
 }
 
 NewGovPane HBox, NewGovPane VBox {
-    -fx-spacing: 10;
+    -fx-spacing: 2;
 }
 
 NewGovPane ToggleButton {
@@ -165,7 +181,7 @@ NewGovPane ToggleButton {
     -fx-min-height: 41;
 
     -fx-border-color: transparent;
-    -fx-border-width: 3;
+    -fx-border-width: 2;
     -fx-background-color: transparent;
     -fx-graphic: url("votes/ballot.cards(ja).png");
 }
@@ -183,7 +199,7 @@ NewGovPane .choice-box {
 NewGovPane .choice-box .label {
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 16;
+    -fx-font-size: 14;
 }
 
 NewGovPane .choice-box .context-menu {
@@ -210,7 +226,7 @@ NewGovPane .text-field {
 NewGovPane .check-box {
     -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 16;
+    -fx-font-size: 14;
 }
 
 NewGovPane .check-box .box {
@@ -225,7 +241,7 @@ NewGovPane .button {
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-text-fill: -fx-main-light;
     -fx-background-color: -fx-main-dark;
-    -fx-font-size: 16;
+    -fx-font-size: 14;
 }
 
 /*
@@ -256,7 +272,7 @@ Top deck styling
 TopDeckWindow {
     -fx-border-width: 20;
     -fx-border-color: -fx-main-dark transparent -fx-main-dark transparent;
-    -fx-border-insets: 120 0 120 0;
+    -fx-border-insets: 130 0 130 0;
 }
 
 TopDeckWindow, TopDeckWindow VBox, TopDeckWindow HBox {
