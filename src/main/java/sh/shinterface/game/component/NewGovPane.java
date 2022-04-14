@@ -202,13 +202,11 @@ public class NewGovPane extends VBox {
     private List<Policy> autoGenerate(List<Policy> claim1) {
         int blauw = (int) claim1.stream().filter(policy -> policy == Policy.LIBERAL).count();
         List<Policy> result = new ArrayList<>(2);
-        for (int i = 0; i < 2; i++) {
-            if (blauw == 0) {
-                result.set(i, Policy.FASCIST);
-            } else {
-                result.set(i, Policy.LIBERAL);
-                blauw--;
-            }
+        for (int i = 0; i < blauw; i++) {
+            result.add(Policy.LIBERAL);
+        }
+        for (int i = blauw; i < 2; i++) {
+            result.add(Policy.FASCIST);
         }
         return result;
     }
