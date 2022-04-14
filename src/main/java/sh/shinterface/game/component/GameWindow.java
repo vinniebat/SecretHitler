@@ -4,7 +4,9 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
@@ -41,20 +43,22 @@ public class GameWindow extends SplitPane {
         topDeckWindow = new TopDeckWindow(govTable, role, this);
         topDeckWindow.setVisible(false);
         StackPane stackPane = new StackPane(govTable, topDeckWindow);
+        stackPane.getStyleClass().add("gov-stack");
 
         newGovPane = new NewGovPane(game, role, this);
         topDeckButton = newGovPane.getTopDeckButton();
-        SplitPane leftSide = new SplitPane(stackPane, newGovPane);
-        leftSide.setOrientation(Orientation.VERTICAL);
+        VBox leftSide = new VBox(stackPane, newGovPane);
+        VBox.setVgrow(stackPane, Priority.ALWAYS);
+        leftSide.getStyleClass().add("left");
 
         RightUpperWindow rightUpperWindow = new RightUpperWindow(game, govTable);
-        SplitPane rightSide = new SplitPane(rightUpperWindow, new GovSpecifics(game, govTable));
+        GovSpecifics specifics = new GovSpecifics(game, govTable);
+        SplitPane.setResizableWithParent(specifics, false);
+        SplitPane rightSide = new SplitPane(rightUpperWindow, specifics);
         rightSide.setOrientation(Orientation.VERTICAL);
-        rightSide.getStyleClass().add("rightSide");
         govTable.getSelectionModel().selectedItemProperty().addListener(rightUpperWindow);
 
         this.getItems().addAll(leftSide, rightSide);
-        this.getStyleClass().add("inner-box");
     }
 
     public TableView<Gov> getGovTable() {
