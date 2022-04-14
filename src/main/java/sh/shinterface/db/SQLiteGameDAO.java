@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 class SQLiteGameDAO implements GameDAO {
 
-    private Connection connection;
+    private final Connection connection;
 
     SQLiteGameDAO(Connection connection) {
         this.connection = connection;
