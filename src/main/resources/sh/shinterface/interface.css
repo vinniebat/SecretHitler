@@ -303,6 +303,7 @@ PlayerView Styling
 
 PartyView {
     -fx-spacing: 10;
+    -fx-alignment: center;
 }
 
 PlayerView {
