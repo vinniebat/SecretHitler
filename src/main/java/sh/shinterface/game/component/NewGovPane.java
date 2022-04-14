@@ -125,13 +125,13 @@ public class NewGovPane extends VBox {
                 if (voteButtons.size() > voteList.size() / 2) {
                     voteButtons.forEach(b -> b.getStyleClass().add("newGovPaneBoxError"));
                 } else {
-                    resetPane();
-                    List<Vote> votes = voteList.stream().map(b -> b.isSelected() ? Vote.JA : Vote.NEIN).toList();
+                    List<Vote> votes = voteList.stream().map(b -> b.isSelected() ? Vote.NEIN : Vote.JA).toList();
                     boolean conf = checkConf(claim1, claim2, this.conf.isSelected());
                     game.getGovTable().getItems().add(new PlayerGov(president, chancellor, played, claim1, claim2, conf, votes));
                     if (!game.getGovTable().isVisible()) {
                         game.getGameWindow().toggleTopDeck();
                     }
+                    resetPane();
                 }
             } else {
                 this.claim1.getStyleClass().add("newGovPaneTextFieldError");
