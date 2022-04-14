@@ -106,7 +106,7 @@ public class CreateGovPane extends VBox {
         List<Policy> claim2 = PolicyConverter.fromString(this.claim2.getText());
 
         if (!(choiceBoxCheck(presidentChoiceBox) || choiceBoxCheck(chancellorChoiceBox))) {
-            this.claim1.getStyleClass().removeAll("newGovPaneTextFieldError");
+            this.claim1.getStyleClass().removeAll("createGovPaneTextFieldError");
             if (claim1.size() == 3) {
                 if (claim2.size() < 2) {
                     claim2 = autoGenerate(claim1);
@@ -119,11 +119,11 @@ public class CreateGovPane extends VBox {
                 }
 
                 for (ToggleButton voteButton : voteList) {
-                    voteButton.getStyleClass().removeAll("newGovPaneBoxError");
+                    voteButton.getStyleClass().removeAll("createGovPaneBoxError");
                 }
                 List<ToggleButton> voteButtons = voteList.stream().filter(ToggleButton::isSelected).toList();
                 if (voteButtons.size() > voteList.size() / 2) {
-                    voteButtons.forEach(b -> b.getStyleClass().add("newGovPaneBoxError"));
+                    voteButtons.forEach(b -> b.getStyleClass().add("createGovPaneBoxError"));
                 } else {
                     List<Vote> votes = voteList.stream().map(b -> b.isSelected() ? Vote.NEIN : Vote.JA).toList();
                     boolean conf = checkConf(claim1, claim2, this.conf.isSelected());
@@ -134,7 +134,7 @@ public class CreateGovPane extends VBox {
                     resetPane();
                 }
             } else {
-                this.claim1.getStyleClass().add("newGovPaneTextFieldError");
+                this.claim1.getStyleClass().add("createGovPaneTextFieldError");
             }
         }
     }
@@ -176,10 +176,10 @@ public class CreateGovPane extends VBox {
 
     private boolean choiceBoxCheck(ChoiceBox<Player> choiceBox) {
         if (choiceBox.getSelectionModel().getSelectedItem() == null) {
-            choiceBox.getStyleClass().add("newGovPaneBoxError");
+            choiceBox.getStyleClass().add("createGovPaneBoxError");
             return true;
         } else {
-            choiceBox.getStyleClass().removeAll("newGovPaneBoxError");
+            choiceBox.getStyleClass().removeAll("createGovPaneBoxError");
             return false;
         }
     }

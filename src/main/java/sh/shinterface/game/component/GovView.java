@@ -27,7 +27,7 @@ public class GovView extends TabPane {
         this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
     }
 
-    public BoardPane getBoardTab() {
+    public BoardPane getBoardPane() {
         return boardPane;
     }
 }

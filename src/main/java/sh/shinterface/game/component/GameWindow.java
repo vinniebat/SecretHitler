@@ -71,7 +71,7 @@ public class GameWindow extends SplitPane {
         topDeckWindow.setVisible(!topDeckWindow.isVisible());
     }
 
-    public CreateGovPane getNewGovPane() {
+    public CreateGovPane getCreateGovPane() {
         return createGovPane;
     }
 }

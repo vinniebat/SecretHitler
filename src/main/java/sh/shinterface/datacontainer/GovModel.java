@@ -64,6 +64,6 @@ public class GovModel implements InvalidationListener {
     }
 
     private void updateBoards() {
-        govView.getBoardTab().updateBoards(libPlayed, fascPlayed);
+        govView.getBoardPane().updateBoards(libPlayed, fascPlayed);
     }
 }
