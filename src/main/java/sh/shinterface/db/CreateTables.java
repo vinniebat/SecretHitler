@@ -90,12 +90,6 @@ public final class CreateTables {
         }
     }
 
-    private static void createTables(String path) throws SQLException {
-        try (DataAccessContext dataAccessContext = new SQLiteDataAccessProvider(path).getDataAccessContext()) {
-            dataAccessContext.getGameDao().createTables();
-        }
-    }
-
     static void createTables(Connection connection) throws SQLException {
         createPlayerTable(connection);
         createGovTable(connection);

@@ -3,7 +3,6 @@ package sh.shinterface.util;
 import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialGovPlayers {
