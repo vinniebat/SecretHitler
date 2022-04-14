@@ -1,6 +1,7 @@
 package sh.shinterface.db;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Player;
@@ -66,11 +67,11 @@ public final class CreateTables {
         }
     }
 
-    public static void createDB(Game game) {
+    public static void createDB(Game game, Button button) {
+        button.setDisable(true);
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Database files", "*.sqlite", "*.SQLITE"));
-        //TODO juiste window ingeven
-        File file = chooser.showSaveDialog(null);
+        File file = chooser.showSaveDialog(game.getGameWindow().getScene().getWindow());
         try {
             if (!file.createNewFile()) {
                 System.out.println(file.delete());
@@ -85,6 +86,7 @@ public final class CreateTables {
         } catch (Exception e) {
             //TODO error text
             System.err.println("File error: " + e);
+            button.setDisable(false);
         }
     }
 
@@ -139,10 +141,5 @@ public final class CreateTables {
             }
         }
         return new GameDB(playerDBs, govDBs, voteDBs);
-    }
-
-    private static void fillDB(GameDB game) throws SQLException{
-
-
     }
 }
