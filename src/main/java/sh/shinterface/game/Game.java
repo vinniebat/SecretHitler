@@ -12,6 +12,7 @@ import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.component.GameWindow;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Game {
 
@@ -19,12 +20,13 @@ public class Game {
     private final Pane pane;
     private final GameWindow gameWindow;
 
-    public Game(List<Player> players, Role role) {
+    public Game(List<Player> players, Optional<Player> activePlayer) {
         this.players = players;
         int i = 0;
         while (i < players.size() && players.get(i).getRole() == Role.UNKNOWN) {
             i++;
         }
+        Role role = (activePlayer.isPresent()) ? activePlayer.get().getRole() : Role.UNKNOWN;
         gameWindow = new GameWindow(this, role);
         pane = new VBox(gameWindow);
         VBox.setVgrow(gameWindow, Priority.ALWAYS);

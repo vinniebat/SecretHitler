@@ -1,9 +1,9 @@
 package sh.shinterface.config;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -20,21 +20,22 @@ import sh.shinterface.datacontainer.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Configuration screen that handles the selection of amount of players and inputting the player names.
  */
-public class ConfigScreen extends StackPane {
+public class ConfigScreen extends StackPane implements InvalidationListener {
 
     /**
      * Minimum amount of players
      */
-    private static final int minPlayers = 5;
+    private static final int MIN_PLAYERS = 5;
 
     /**
      * Max amount of players
      */
-    private static final int maxPlayers = 10;
+    private static final int MAX_PLAYERS = 10;
 
     /**
      * Stage where the ConfigScreen is present
@@ -58,10 +59,14 @@ public class ConfigScreen extends StackPane {
             FXCollections.observableArrayList(Role.LIBERAL, Role.FASCIST, Role.HITLER)
     );
 
+    private final ObservableList<Node> fascistBoxes;
+
     /**
      * Button to create a game with the given players
      */
     private final Button createGameButton = new Button("Create Game");
+
+    private final PartyModel model = new PartyModel();
 
     /**
      * Creates a new ConfigurationScreen that is shown on the given stage
@@ -76,35 +81,37 @@ public class ConfigScreen extends StackPane {
         // INIT ChoiceBox to select the amount of players
         ChoiceBox<Integer> choiceBox = new ChoiceBox<>(); // Selectie voor aantal spelers
         // Add the options
-        for (int i = minPlayers; i <= maxPlayers; i++) {
+        for (int i = MIN_PLAYERS; i <= MAX_PLAYERS; i++) {
             choiceBox.getItems().add(i);
         }
-        choiceBox.setValue(minPlayers); // Standaard-waarde is het minimum
-        choiceBox.setOnAction(this::updatePlayers); // Na selectie wordt het aantal spelers ge-update
+        choiceBox.setOnAction(e -> model.setPartySize(choiceBox.getValue()));
         // END CHOICE BOX
 
         // INIT Player fields
         VBox playerContainer = new VBox();
         playerFields = playerContainer.getChildren(); // Sla de fields op voor makkelijk aan te passen
-        choiceBox.fireEvent(new ActionEvent()); // Roept meteen updatePlayers op
-        activePlayerGroup.selectedToggleProperty().addListener(this::updateRoleChoice);
         // Zorgt dat de role choice wordt getoond na selecteren van actieve speler
         //END PLAYER FIELDS
 
         // INIT Role Selection
-        HBox hBox = new HBox(new Label("Role:"), roleBox);
-        hBox.setVisible(false); // Eerst niet zichtbaar
-        HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
+        HBox hBox = new HBox(new Label("Your role:"), roleBox);
+        roleBox.setOnAction(e -> {
+            if (model.getActivePlayer().isPresent()) {
+                model.setPlayerRole(model.getActivePlayer().get(), roleBox.getValue());
+            }
+        });
         hBox.getStyleClass().add("role-box");
-        roleBox.valueProperty().addListener(this::updateRoleChoice);
-        roleBox.setValue(Role.NONE);
+        HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
+        HBox roleContainer = new HBox();
+        roleContainer.getStyleClass().add("role-box");
+        fascistBoxes = roleContainer.getChildren();
         // END ROLE SELECTION
 
         // INIT Create Game Button
         createGameButton.setOnAction(Main::confirmSelection);
         // END BUTTON
 
-        VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(hBox, createGameButton));
+        VBox controlsBox = new VBox(choiceBox, playerContainer, roleContainer, new HBox(hBox, createGameButton));
         // END CONTROLS
 
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
@@ -112,90 +119,98 @@ public class ConfigScreen extends StackPane {
 
         this.getChildren().addAll(controlsBox, title);
         this.getStyleClass().addAll("config-screen", "liberal");
+
+        model.addListener(this);
+        choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
     }
 
-    /**
-     * Updates the display to reflect the change in amount of players.
-     *
-     * @param e event coming from the ChoiceBox
-     */
-    private void updatePlayers(ActionEvent e) {
-        int amount = ((ChoiceBox<Integer>) e.getSource()).getValue();
-        if (amount > playerFields.size()) { // Voeg spelers toe als er te weinig zijn
-            for (int i = 1 + playerFields.size(); i <= amount; i++) {
-                PlayerField playerField = new PlayerField(i);
-                playerFields.add(playerField);
-                activePlayerGroup.getToggles().add(playerField.getButton());
+    @Override
+    public void invalidated(Observable observable) {
+        setPlayerFields();
+        setRoleBox();
+        setFascistBoxes();
+        setCreateDisable();
+        setStyling();
+        stage.sizeToScene();
+    }
+
+    private void setPlayerFields() {
+        int size = model.getPartySize();
+        if (size > playerFields.size()) {
+            List<Player> party = model.getParty();
+            while (playerFields.size() < size) {
+                playerFields.add(
+                        new PlayerField(party.get(playerFields.size()), activePlayerGroup, model)
+                );
             }
         } else {
-            activePlayerGroup.getToggles().remove(amount, playerFields.size());
-            playerFields.remove(amount, playerFields.size()); // Hou enkel het juiste aantal spelers over
-            updateRoleChoice(null);
-        }
-        for (Node node : playerFields) {
-            PlayerField playerField = (PlayerField) node;
-            // fk u kris ik doe casting zoveel ik wil
-            // We weten da de elementen in de playersContainer PlayerFields
-            playerField.reset(); // We resetten dus gewoon het tekstveld
-        }
-        stage.sizeToScene(); // Resize het scherm zodat de player fields zichtbaar zijn
-    }
-
-    /**
-     * Checks if all fields where filled in and returns a list of players.
-     *
-     * @return If the input is valid, returns a list of players. Otherwise, this returns an empty list.
-     */
-    public List<Player> getPlayers() {
-        List<Player> players = new ArrayList<>();
-        for (Node node : playerFields) {
-            PlayerField playerField = (PlayerField) node;
-            if (playerField.isValid()) {
-                Role role = Role.UNKNOWN;
-                if (playerField.isActive()) {
-                    role = roleBox.getValue();
-                }
-                players.add(new Player(
-                        playerField.getPlayerId(),
-                        playerField.getName(),
-                        role
-                ));
+            playerFields.retainAll(new ArrayList<>(playerFields.subList(0, size)));
+            activePlayerGroup.getToggles().retainAll(new ArrayList<>(activePlayerGroup.getToggles().subList(0, size)));
+            if (activePlayerGroup.getSelectedToggle() == null) {
+                model.setActivePlayer(null);
             }
         }
-        return (players.size() == playerFields.size()) ? players : List.of();
+        for (Node node : playerFields) {
+            ((PlayerField) node).reset();
+        }
     }
 
-    /**
-     * Shows/Hides the role selection box according to the selected active player
-     *
-     * @param observable Unused
-     */
-    public void updateRoleChoice(Observable observable) {
-        if (activePlayerGroup.getSelectedToggle() == null) {
-            roleBox.getParent().setVisible(false);
+    private void setRoleBox() {
+        roleBox.getParent().setVisible(model.getActivePlayer().isPresent());
+        if (model.getActivePlayer().isEmpty()) {
             roleBox.setValue(Role.NONE);
-            createGameButton.setDisable(false);
-        } else {
-            roleBox.getParent().setVisible(true);
-            createGameButton.setDisable(roleBox.getValue() == Role.NONE);
         }
-        updateStyling();
     }
 
-    /**
-     * Get the value of the role selection box
-     *
-     * @return Role of the active player
-     */
-    public Role getRole() {
-        return roleBox.getValue();
+    private void setFascistBoxes() {
+        Optional<Player> activePlayer = model.getActivePlayer();
+        if (activePlayer.isEmpty() || !activePlayer.get().getRole().isFascist()) {
+            for (Node node : fascistBoxes) {
+                PlayerRoleBox playerRoleBox = (PlayerRoleBox) node;
+                playerRoleBox.clear();
+                model.removeListener(playerRoleBox);
+            }
+            fascistBoxes.clear();
+        } else {
+            while (fascistBoxes.size() < (model.getPartySize()-1)/2) {
+                PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size() == 0, model);
+                fascistBoxes.add(playerRoleBox);
+                model.addListener(playerRoleBox);
+            }
+            List<Player> fascists = model.getFascists();
+            for (int i = 0; i < fascistBoxes.size(); i++) {
+                ((PlayerRoleBox) fascistBoxes.get(i)).setValue(fascists.get(i));
+            }
+            model.setPlayerRole(activePlayer.get(), roleBox.getValue());
+        }
     }
 
-    /**
-     * Updates the styling according to the selected role
-     */
-    private void updateStyling() {
+    private void setCreateDisable() {
+        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < (model.getPartySize()-1)/2);
+    }
+
+    private void setStyling() {
         this.getStyleClass().removeAll("liberal", "fascist");
-        this.getStyleClass().add(roleBox.getValue().getStyle());
+        Optional<Player> activePlayer = model.getActivePlayer();
+        getStyleClass().add((activePlayer.isPresent() ? activePlayer.get().getRole().getStyle() : "liberal"));
+    }
+
+    public List<Player> getPlayers() {
+        return model.getFinalParty();
+    }
+
+    public boolean isValid() {
+        boolean valid = true;
+        for (Node node : playerFields) {
+            valid &= ((PlayerField) node).isValid();
+        }
+        for (Node node : fascistBoxes) {
+            valid &= ((PlayerRoleBox) node).isValid();
+        }
+        return valid;
+    }
+
+    public Optional<Player> getActivePlayer() {
+        return model.getActivePlayer();
     }
 }

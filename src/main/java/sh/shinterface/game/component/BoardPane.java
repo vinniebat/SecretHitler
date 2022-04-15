@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.GovModel;
+import sh.shinterface.db.CreateTables;
 import sh.shinterface.game.Game;
 
 public class BoardPane extends StackPane {
@@ -34,7 +35,7 @@ public class BoardPane extends StackPane {
 
     public void endGame(Game game, Button endGameButton) {
         endGameButton.setText("Save Game");
-        endGameButton.setOnAction(e -> saveGame(game));
+        endGameButton.setOnAction(e -> saveGame(game, endGameButton));
         game.end();
     }
 
@@ -43,7 +44,7 @@ public class BoardPane extends StackPane {
         fascistBoard.setImage(new Image("sh/shinterface/images/boards/fascist" + players + "/" + fasc + ".png"));
     }
 
-    public void saveGame(Game game) {
-
+    public void saveGame(Game game, Button button) {
+        CreateTables.createDB(game, button);
     }
 }

@@ -27,3 +27,4 @@ target
 out
 .idea
 *.iml
+*.sqlite

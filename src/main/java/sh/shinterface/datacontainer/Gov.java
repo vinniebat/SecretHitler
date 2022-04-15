@@ -17,4 +17,10 @@ public interface Gov {
     Policy getPlayed();
 
     List<Vote> getVotes();
+
+    List<Policy> getClaim1();
+
+    List<Policy> getClaim2();
+
+    boolean isConf();
 }
