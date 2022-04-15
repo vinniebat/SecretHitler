@@ -23,12 +23,10 @@ public class Main extends Application {
      * @param e Unused
      */
     public static void confirmSelection(ActionEvent e) {
-        List<Player> players = configScreen.getPlayers();
         if (configScreen.isValid()) {
             //later factory
-            //TODO add activePlayer
             stage.close();
-            Game game = new Game(players, configScreen.getRole());
+            Game game = new Game(configScreen.getPlayers(), configScreen.getActivePlayer());
             game.start(stage);
         }
     }

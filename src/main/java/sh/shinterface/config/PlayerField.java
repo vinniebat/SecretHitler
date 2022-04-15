@@ -1,12 +1,12 @@
 package sh.shinterface.config;
 
+import javafx.event.Event;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
-import sh.shinterface.Main;
-
-import java.util.Arrays;
+import sh.shinterface.datacontainer.Player;
 
 import static java.util.stream.Collectors.joining;
 
@@ -21,32 +21,32 @@ public class PlayerField extends HBox {
     private final TextField nameField = new TextField("TEST");
 
     /**
-     * Players ID
-     */
-    private final int playerId;
-
-    /**
      * Button to indicate the active player
      */
     private final ToggleButton button = new ToggleButton("ME!");
 
-    /**
-     * Create a player with given player id
-     *
-     * @param playerId Number of the player
-     * @param config ConfigScreen that controls this field
-     */
-    public PlayerField(int playerId, ConfigScreen config) {
+    private final PartyModel model;
+
+    private final Player player;
+
+    public PlayerField(Player player, ToggleGroup group, PartyModel model) {
+        this.player = player;
+        this.model = model;
+        nameField.setText(player.getName());
+        nameField.textProperty().addListener(e -> setName());
+        button.setToggleGroup(group);
+        button.setOnAction(this::setActivePlayer);
+        int playerId = player.getId();
         String idString = (playerId < 10) ? "0" + playerId : "" + playerId;
         getChildren().addAll(
                 new Label("Player " + idString + ":"),
                 nameField,
                 button
         );
-        this.playerId = playerId;
-        nameField.setOnAction(Main::confirmSelection);
-        nameField.textProperty().addListener(config::resetRoleChoice);
-        nameField.setPromptText("Enter Player Name");
+    }
+
+    public void setActivePlayer(Event event) {
+        model.setActivePlayer((button.isSelected()) ? player : null);
     }
 
     /**
@@ -55,7 +55,16 @@ public class PlayerField extends HBox {
      * @return Trimmed name that was entered
      */
     public String getName() {
-        return Arrays.stream(nameField.getText().split("\\s")).filter(str -> !str.isBlank()).map(String::strip).map(String::toLowerCase).map(str -> str.substring(0, 1).toUpperCase() + str.substring(1)).collect(joining(" "));
+        return nameField.getText().strip();
+    }
+
+    public void setName() {
+        player.setName(getName());
+        model.invalidate();
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     /**
@@ -63,14 +72,6 @@ public class PlayerField extends HBox {
      */
     public void reset() {
         getStyleClass().removeAll("emptyField"); // Reset de error
-    }
-
-    public int getPlayerId() {
-        return playerId;
-    }
-
-    public boolean isEmpty() {
-        return nameField.getText().isBlank();
     }
 
     /**
@@ -84,16 +85,5 @@ public class PlayerField extends HBox {
             getStyleClass().add("emptyField");
             return false;
         }
-    }
-
-    /**
-     * @return The active player ToggleButton
-     */
-    public ToggleButton getButton() {
-        return button;
-    }
-
-    public boolean isActive() {
-        return button.isSelected();
     }
 }
