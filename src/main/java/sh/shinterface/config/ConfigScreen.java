@@ -5,8 +5,14 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
 import sh.shinterface.datacontainer.Player;
@@ -123,7 +129,8 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         setPlayerFields();
         setRoleBox();
         setFascistBoxes();
-        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < (model.getPartySize()-1)/2);
+        setCreateDisable();
+        setStyling();
         stage.sizeToScene();
     }
 
@@ -176,6 +183,16 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
             }
             model.setPlayerRole(activePlayer.get(), roleBox.getValue());
         }
+    }
+
+    private void setCreateDisable() {
+        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < (model.getPartySize()-1)/2);
+    }
+
+    private void setStyling() {
+        this.getStyleClass().removeAll("liberal", "fascist");
+        Optional<Player> activePlayer = model.getActivePlayer();
+        getStyleClass().add((activePlayer.isPresent() ? activePlayer.get().getRole().getStyle() : "liberal"));
     }
 
     public List<Player> getPlayers() {
