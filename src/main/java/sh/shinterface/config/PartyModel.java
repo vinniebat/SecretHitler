@@ -6,7 +6,6 @@ import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,21 +108,14 @@ public class PartyModel implements Observable {
     }
 
     public List<Player> getFinalParty() {
-        if (party.stream().filter(p -> p.getRole().isFascist()).count() == (party.size()-1)/2) {
-            party.stream().filter(Player::isUnknown).forEach(p -> p.setRole(Role.LIBERAL));
+        if (activePlayer != null)  {
+            if (activePlayer.getRole().isFascist()) {
+                party.stream().filter(Player::isUnknown).forEach(p -> p.setRole(Role.LIBERAL));
+            } else {
+                activePlayer.setRole(Role.LIBERAL);
+            }
         }
         return party;
     }
 
-    public void swapRoles(Player player1, Player player2) {
-        Role role1 = (player1 != null) ? player1.getRole() : Role.UNKNOWN;
-        Role role2 = (player2 != null) ? player2.getRole() : Role.UNKNOWN;
-        if (player1 != null) {
-            player1.setRole(role2);
-        }
-        if (player2 != null) {
-            player2.setRole(role1);
-        }
-        invalidate();
-    }
 }
