@@ -5,13 +5,16 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Player;
 import sh.shinterface.datacontainer.Role;
 
 import java.util.Optional;
 
-public class PlayerRoleBox extends VBox implements InvalidationListener {
+public class PlayerRoleBox extends HBox implements InvalidationListener {
 
     private final Role role;
 
@@ -31,6 +34,8 @@ public class PlayerRoleBox extends VBox implements InvalidationListener {
         }
         playerBox = new ChoiceBox<>(FXCollections.observableArrayList(model.getUnknownPlayers()));
         playerBox.getSelectionModel().selectedItemProperty().addListener(o -> swapSelectedPlayer());
+        HBox.setHgrow(playerBox, Priority.ALWAYS);
+        GridPane.setHgrow(this, Priority.ALWAYS);
         this.getChildren().addAll(label, playerBox);
     }
 

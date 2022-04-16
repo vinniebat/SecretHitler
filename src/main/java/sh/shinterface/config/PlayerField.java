@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Player;
 
 import static java.util.stream.Collectors.joining;
@@ -34,6 +36,7 @@ public class PlayerField extends HBox {
         this.model = model;
         nameField.setText(player.getName());
         nameField.textProperty().addListener(e -> setName());
+        nameField.setPromptText("Enter player name");
         button.setToggleGroup(group);
         button.setOnAction(this::setActivePlayer);
         int playerId = player.getId();
@@ -43,6 +46,8 @@ public class PlayerField extends HBox {
                 nameField,
                 button
         );
+        VBox.setVgrow(this, Priority.ALWAYS);
+        HBox.setHgrow(nameField, Priority.ALWAYS);
     }
 
     public void setActivePlayer(Event event) {
