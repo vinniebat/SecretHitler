@@ -38,6 +38,10 @@ public class GameWindow extends SplitPane {
         chancellor.setSortable(false);
         claim.setSortable(false);
 
+        president.setReorderable(false);
+        chancellor.setReorderable(false);
+        claim.setReorderable(false);
+
         president.setCellValueFactory(new PropertyValueFactory<>("president"));
         chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
         claim.setCellValueFactory(new PropertyValueFactory<>("claims"));

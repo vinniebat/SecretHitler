@@ -30,7 +30,7 @@ public class AssumptionView extends VBox {
         DecimalFormat df = new DecimalFormat("#.####");
         df.setRoundingMode(RoundingMode.HALF_UP);
         double chance = deck.predictChance(numberOfLibs);
-        String labelText = "Chance: " + df.format(chance);
+        String labelText = "Chance: " + df.format(chance*100) + "%";
         if (chance != 0) {
             labelText += " \u2248 1/" + Math.round(1 / chance);
         }
