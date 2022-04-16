@@ -86,4 +86,13 @@ public class PlayerGov implements Gov {
     public boolean isConf() {
         return conf;
     }
+
+    @Override
+    public List<Policy> getAssumption() {
+        if (assumption == null) {
+            return claim1;
+        } else {
+            return assumption;
+        }
+    }
 }

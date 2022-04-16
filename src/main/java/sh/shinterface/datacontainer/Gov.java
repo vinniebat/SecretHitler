@@ -23,4 +23,6 @@ public interface Gov {
     List<Policy> getClaim2();
 
     boolean isConf();
+
+    List<Policy> getAssumption();
 }
