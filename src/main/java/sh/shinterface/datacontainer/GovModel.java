@@ -6,10 +6,14 @@ import javafx.scene.control.TableView;
 import sh.shinterface.game.Game;
 import sh.shinterface.game.component.GovView;
 
-public class GovModel implements InvalidationListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GovModel implements InvalidationListener, Observable {
 
     private final GovView govView;
     private final Game game;
+    private final List<InvalidationListener> listeners;
 
     private int lib;
     private int fasc;
@@ -18,10 +22,21 @@ public class GovModel implements InvalidationListener {
 
 
     public GovModel(Game game, GovView govView) {
+        listeners = new ArrayList<>();
         this.govView = govView;
         this.game = game;
         lib = 0;
         fasc = 0;
+    }
+
+    @Override
+    public void addListener(InvalidationListener invalidationListener) {
+        listeners.add(invalidationListener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener invalidationListener) {
+        listeners.remove(invalidationListener);
     }
 
     @Override
@@ -51,7 +66,7 @@ public class GovModel implements InvalidationListener {
             fascPlayed += govi.getPlayed().equals(Policy.FASCIST) ? 1 : 0;
         }
 
-        updateBoards();
+        fireInvalidationEvent();
     }
 
     public String getPlayerString() {
@@ -63,7 +78,17 @@ public class GovModel implements InvalidationListener {
         }
     }
 
-    private void updateBoards() {
-        govView.getBoardPane().updateBoards(libPlayed, fascPlayed);
+    private void fireInvalidationEvent() {
+        for (InvalidationListener invalidationListener : listeners) {
+            invalidationListener.invalidated(this);
+        }
+    }
+
+    public int getLibPlayed() {
+        return libPlayed;
+    }
+
+    public int getFascPlayed() {
+        return fascPlayed;
     }
 }

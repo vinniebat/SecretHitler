@@ -10,7 +10,6 @@ import sh.shinterface.game.Game;
 public class GovView extends TabPane {
 
     private final GovModel govModel;
-    private final BoardPane boardPane;
 
     public GovView(Game game, TableView<Gov> tableView) {
         Tab board = new Tab("Board");
@@ -20,14 +19,15 @@ public class GovView extends TabPane {
         govModel = new GovModel(game, this);
         tableView.getSelectionModel().selectedItemProperty().addListener(govModel);
 
-        boardPane = new BoardPane(govModel, game);
+        BoardPane boardPane = new BoardPane(govModel, game);
         board.setContent(boardPane);
+        AssumptionPane assumptionPane = new AssumptionPane(govModel);
+        claimsAndAssumptions.setContent(assumptionPane);
 
         this.getTabs().addAll(board, claimsAndAssumptions);
         this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-    }
 
-    public BoardPane getBoardPane() {
-        return boardPane;
+        govModel.addListener(boardPane);
+        govModel.addListener(assumptionPane);
     }
 }
