@@ -18,13 +18,13 @@ public class GovModel implements InvalidationListener, Observable {
 
     private int libPlayed;
     private int fascPlayed;
+    private List<Policy> assumption;
 
 
     public GovModel(Game game, GovView govView) {
         listeners = new ArrayList<>();
         this.govView = govView;
         this.game = game;
-
     }
 
     @Override
@@ -42,6 +42,7 @@ public class GovModel implements InvalidationListener, Observable {
         TableView<Gov> tableView = game.getGovTable();
 
         Gov gov = tableView.getSelectionModel().getSelectedItem();
+        assumption = gov.getAssumption();
         int govIndex = tableView.getItems().indexOf(gov);
 
         libPlayed = 0;
@@ -88,13 +89,14 @@ public class GovModel implements InvalidationListener, Observable {
         return fascPlayed;
     }
 
-    public Deck getDeck() {
+    public Deck getPreviousDeck() {
         int deckLibPlayed = 0;
         int deckFascPlayed = 0;
         int lib = 0;
         int fasc = 0;
         ObservableList<Gov> govs = game.getGovTable().getItems();
-        for (int i = 0; i < govs.size()-1; i++) {
+        int govIndex = govs.indexOf(game.getGovTable().getSelectionModel().getSelectedItem());
+        for (int i = 0; i < govIndex; i++) {
             Gov gov = govs.get(i);
             List<Policy> assumption = gov.getAssumption();
             Policy played = gov.getPlayed();
@@ -113,10 +115,17 @@ public class GovModel implements InvalidationListener, Observable {
                 deckFascPlayed = 0;
             }
         }
-        int allLib = libPlayed - deckLibPlayed;
-        int allFasc = fascPlayed - deckFascPlayed;
+        Gov currentGov = game.getGovTable().getSelectionModel().getSelectedItem();
+        int libPlayed = this.libPlayed - (currentGov.getPlayed().equals(Policy.LIBERAL) ? 1 : 0);
+        int fascPlayed = this.fascPlayed - (currentGov.getPlayed().equals(Policy.FASCIST) ? 1 : 0);
+        int allLib = 6 - libPlayed + deckLibPlayed;
+        int allFasc = 11 - fascPlayed + deckFascPlayed;
         int restLib = allLib - lib;
         int restFasc = allFasc - fasc;
         return new Deck(allLib, allFasc, restLib, restFasc);
+    }
+
+    public List<Policy> getAssumption() {
+        return assumption;
     }
 }

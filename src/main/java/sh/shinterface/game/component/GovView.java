@@ -14,14 +14,14 @@ public class GovView extends TabPane {
     public GovView(Game game, TableView<Gov> tableView) {
         Tab board = new Tab("Board");
         Tab claimsAndAssumptions = new Tab("Claims and assumptions");
-        //claimsAndAssumptions.setDisable(true);
+        claimsAndAssumptions.setDisable(true);
 
         govModel = new GovModel(game, this);
         tableView.getSelectionModel().selectedItemProperty().addListener(govModel);
 
         BoardPane boardPane = new BoardPane(govModel, game);
         board.setContent(boardPane);
-        AssumptionPane assumptionPane = new AssumptionPane(govModel);
+        AssumptionPane assumptionPane = new AssumptionPane(govModel, claimsAndAssumptions);
         claimsAndAssumptions.setContent(assumptionPane);
 
         this.getTabs().addAll(board, claimsAndAssumptions);

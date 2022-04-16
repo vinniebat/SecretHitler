@@ -24,7 +24,7 @@ public class PartyModel implements Observable {
             party.retainAll(party.subList(0, size));
         } else {
             while (party.size() < size) {
-                party.add(new Player(party.size() + 1,"Player " + (char) ('A' + party.size()), Role.UNKNOWN));
+                party.add(new Player(party.size() + 1, "Player " + (char) ('A' + party.size()), Role.UNKNOWN));
             }
         }
         invalidate();
@@ -47,7 +47,7 @@ public class PartyModel implements Observable {
         Optional<Player> hitler = party.stream().filter(p -> p.getRole() == Role.HITLER).findFirst();
         fascists.add(hitler.orElse(null));
         fascists.addAll(party.stream().filter(p -> p.getRole() == Role.FASCIST).toList());
-        while (fascists.size() < (party.size()-1)/2) {
+        while (fascists.size() < (party.size() - 1) / 2) {
             fascists.add(null);
         }
         return fascists;
@@ -108,7 +108,7 @@ public class PartyModel implements Observable {
     }
 
     public List<Player> getFinalParty() {
-        if (activePlayer != null)  {
+        if (activePlayer != null) {
             if (activePlayer.getRole().isFascist()) {
                 party.stream().filter(Player::isUnknown).forEach(p -> p.setRole(Role.LIBERAL));
             } else {
