@@ -34,6 +34,10 @@ public class GameWindow extends SplitPane {
         TableColumn<Gov, HBox> claim = new TableColumn<>("Claim(s)");
         claim.getStyleClass().add("claims");
 
+        president.setSortable(false);
+        chancellor.setSortable(false);
+        claim.setSortable(false);
+
         president.setCellValueFactory(new PropertyValueFactory<>("president"));
         chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
         claim.setCellValueFactory(new PropertyValueFactory<>("claims"));
