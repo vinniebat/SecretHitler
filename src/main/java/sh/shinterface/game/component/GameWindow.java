@@ -1,5 +1,9 @@
 package sh.shinterface.game.component;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -76,6 +80,14 @@ public class GameWindow extends SplitPane {
         govTable.getSelectionModel().selectedItemProperty().addListener(partyView);
 
         this.getItems().addAll(leftSide, rightSide);
+
+        govTable.getItems().addListener((ListChangeListener<Gov>) change -> {
+            while (change.next()){
+                if (change.wasAdded()) {
+                    govTable.getSelectionModel().select(govTable.getItems().size()-1);
+                }
+            }
+        });
     }
 
     public TableView<Gov> getGovTable() {
