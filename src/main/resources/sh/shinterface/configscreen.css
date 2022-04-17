@@ -10,13 +10,14 @@
     -fx-alt-dark: #990200;
     -fx-alt-light: #E66443;
     -fx-alt-white: #FEFFAC;
+}
 
+.liberal .config-screen {
     -fx-border-image-source: url("images/border/liberal_border.png");
 
     -fx-border-image-slice: 79 40 77 40;
     -fx-border-image-width: 79 40 77 40;
     -fx-border-image-repeat: round round;
-    -fx-border-image-insets: 10;
 }
 
 .fascist {
@@ -27,160 +28,138 @@
     -fx-alt-dark: #004E6E;
     -fx-alt-light: #61C8D9;
     -fx-alt-white: white;
+}
 
+.fascist .config-screen {
     -fx-border-image-source: url("images/border/fascist_border.png");
 
     -fx-border-image-slice: 79 40 77 40;
     -fx-border-image-width: 79 40 77 40;
     -fx-border-image-repeat: round round;
-    -fx-border-image-insets: 10;
 }
 
-.config-screen {
-    -fx-padding: -37 2 -37 2;
+ConfigScreen {
     -fx-background-color: -fx-main-light;
+    -fx-padding: 5;
     
     -fx-pref-height: 200;
     -fx-alignment: top-center;
 }
 
-ChoiceBox {
+.config-screen {
+    -fx-padding: -36 4 -35 4;
+}
+
+.title.label {
+    -fx-background-color: -fx-main-light;
+    -fx-text-fill: -fx-main-dark;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-font-size: 32;
+    -fx-padding: -2 5 0 5
+}
+
+.label {
+    -fx-text-fill: -fx-main-dark;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 16;
+}
+
+VBox, HBox, PlayerRoleBox {
+    -fx-spacing: 5;
+}
+
+.button, .toggle-button {
+    -fx-background-color: -fx-main-dark;
+    -fx-text-fill: -fx-main-light;
+    -fx-font-size: 16;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+}
+
+/*
+Party size choice box
+ */
+.choice-box {
     -fx-background-color: -fx-main-dark;
     -fx-mark-color: -fx-main-light;
 }
 
-ChoiceBox .label {
+.choice-box .label {
     -fx-text-fill: -fx-main-light;
-    -fx-font-family: "Times New Roman";
+    -fx-font-size: 18;
 }
 
-ChoiceBox .context-menu {
+.choice-box .context-menu {
     -fx-background-color: -fx-main-dark;
 }
 
-ChoiceBox .menu-item:focused {
+.choice-box .menu-item:focused {
     -fx-background-color: derive(-fx-main-dark, 40%);
 }
 
-ChoiceBox .arrow-button .arrow {
+.choice-box .arrow-button .arrow {
     -fx-background-color: -fx-main-light;
 }
 
-HBox {
-    -fx-alignment: center-right;
+/*
+PlayerField styling
+ */
+
+PlayerField {
+    -fx-alignment: center;
     -fx-spacing: 10;
 }
+
+.text-field {
+    -fx-background-color: -fx-main-dark;
+    -fx-text-fill: -fx-main-light;
+    -fx-border-width: 2;
+    -fx-border-color: -fx-main-white;
+}
+
+.toggle-button {
+    -fx-font-size: 14;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-padding: 2 5 2 5;
+}
+
+.toggle-button:selected {
+    -fx-border-color: -fx-main-white;
+}
+
+/*
+RoleBox styling
+ */
 
 .role-box {
-    -fx-padding: 0 0 5 0;
     -fx-alignment: center-left;
-    -fx-spacing: 10;
 }
 
-.role-box Label {
-    -fx-text-fill: -fx-main-dark;
-    -fx-font-family: "Times New Roman";
+.role-box .choice-box .label {
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-font-size: 16;
 }
 
-.role-box ChoiceBox {
+/*
+Role choices
+ */
+
+.roles {
+    -fx-padding: 5 0 5 0;
+    -fx-alignment: center-right;
+    -fx-vgap: 5;
+    -fx-hgap: 10;
+}
+
+.roles .choice-box {
     -fx-pref-width: 100;
 }
 
-.role-box ChoiceBox .label {
-    -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-text-fill: -fx-main-light;
-}
-
-PlayerField {
-    -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-alignment: center;
-    -fx-spacing: 10;
-    -fx-padding: 10;
-}
-
-PlayerField Label {
-    -fx-padding: 5, 10, 5, 10;
-    -fx-min-width: 70;
-    -fx-text-fill: -fx-main-dark;
+.roles .choice-box .label {
     -fx-font-family: "Times New Roman";
-}
-
-.text {
-    -fx-font-size: 20;
-}
-
-.title {
-    -fx-text-fill: -fx-main-dark;
-    -fx-alignment: center;
-    -fx-border-radius: 5;
-    -fx-translate-y: -57;
-    -fx-padding: 5;
-}
-
-.liberal .title  {
-    -fx-background-color: #61C8D9;
-}
-
-.fascist .title {
-    -fx-background-color: #E66443;
-}
-
-.title .text {
-    -fx-font-size: 35;
-    -fx-font-family: "Eskapade Fraktur W04 Black";
-}
-
-TextField {
-    -fx-background-color: -fx-main-dark;
-    -fx-border-color: -fx-main-white;
-    -fx-border-width: 2;
-    -fx-text-fill: -fx-main-light;
-    -fx-font-weight: bold;
-}
-
-Button {
-    -fx-background-color: -fx-main-dark;
-    -fx-fill: -fx-main-light;
-    -fx-text-fill: -fx-main-light;
-    -fx-font-family: "Eskapade Fraktur W04 Black";
-}
-
-ToggleButton {
-    -fx-background-color: -fx-main-dark;
-    -fx-fill: -fx-main-light;
-    -fx-text-fill: -fx-main-light;
-    -fx-border-width: 2;
-    -fx-border-color: transparent;
-    -fx-font-family: "Times New Roman";
-    -fx-pref-width: 54;
-}
-
-ToggleButton:selected {
-    -fx-border-color: -fx-main-white;
-}
-
-ToggleButton .text {
     -fx-font-size: 14;
 }
 
-.emptyField TextField {
-    -fx-border-color: -fx-alt-white;
-    -fx-background-color: -fx-alt-dark;
-    -fx-text-fill: -fx-alt-light;
-}
-
-.emptyField Label {
-    -fx-text-fill: -fx-alt-dark;
-}
-
-CheckBox {
-    -fx-text-fill: -fx-main-dark;
-}
-
-CheckBox .box {
-    -fx-background-color: -fx-main-dark;
-}
-
-CheckBox:selected .mark {
-    -fx-background-color: -fx-main-light;
+PlayerRoleBox {
+    -fx-alignment: center-right;
 }

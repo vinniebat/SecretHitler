@@ -100,6 +100,12 @@ Government table styling
     -fx-background-color: derive(-fx-main-light, -10%);
 }
 
+.table-view .table-row-cell:selected {
+    -fx-border-color: -fx-main-white;
+    -fx-border-width: 2 0 2 0;
+    -fx-background-color: derive(-fx-main-light, 30%);
+}
+
 .table-view .table-cell {
     -fx-font-size: 14;
     -fx-font-family: "Times New Roman";
@@ -303,6 +309,7 @@ PlayerView Styling
 
 PartyView {
     -fx-spacing: 10;
+    -fx-alignment: center;
 }
 
 PlayerView {

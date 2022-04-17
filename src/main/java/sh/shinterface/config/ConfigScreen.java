@@ -9,10 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
 import sh.shinterface.datacontainer.Player;
@@ -59,7 +56,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
             FXCollections.observableArrayList(Role.LIBERAL, Role.FASCIST, Role.HITLER)
     );
 
-    private final ObservableList<Node> fascistBoxes;
+    private final GridPane fascistPane = new GridPane();
 
     /**
      * Button to create a game with the given players
@@ -90,6 +87,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         // INIT Player fields
         VBox playerContainer = new VBox();
         playerFields = playerContainer.getChildren(); // Sla de fields op voor makkelijk aan te passen
+        VBox.setVgrow(playerContainer, Priority.ALWAYS);
         // Zorgt dat de role choice wordt getoond na selecteren van actieve speler
         //END PLAYER FIELDS
 
@@ -102,23 +100,22 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         });
         hBox.getStyleClass().add("role-box");
         HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
-        HBox roleContainer = new HBox();
-        roleContainer.getStyleClass().add("role-box");
-        fascistBoxes = roleContainer.getChildren();
+        fascistPane.getStyleClass().add("roles");
         // END ROLE SELECTION
 
         // INIT Create Game Button
         createGameButton.setOnAction(Main::confirmSelection);
         // END BUTTON
 
-        VBox controlsBox = new VBox(choiceBox, playerContainer, roleContainer, new HBox(hBox, createGameButton));
+        VBox controlsBox = new VBox(choiceBox, playerContainer, fascistPane, new HBox(hBox, createGameButton));
+        controlsBox.getStyleClass().add("config-screen");
         // END CONTROLS
 
         Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
         title.getStyleClass().add("title");
 
         this.getChildren().addAll(controlsBox, title);
-        this.getStyleClass().addAll("config-screen", "liberal");
+        this.getStyleClass().addAll("liberal");
 
         model.addListener(this);
         choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
@@ -164,18 +161,21 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
     private void setFascistBoxes() {
         Optional<Player> activePlayer = model.getActivePlayer();
+        List<Node> fascistBoxes = fascistPane.getChildren();
         if (activePlayer.isEmpty() || !activePlayer.get().getRole().isFascist()) {
             for (Node node : fascistBoxes) {
-                PlayerRoleBox playerRoleBox = (PlayerRoleBox) node;
-                playerRoleBox.clear();
-                model.removeListener(playerRoleBox);
+                model.removeListener((PlayerRoleBox) node);
             }
             fascistBoxes.clear();
         } else {
-            while (fascistBoxes.size() < (model.getPartySize() - 1) / 2) {
-                PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size() == 0, model);
-                fascistBoxes.add(playerRoleBox);
-                model.addListener(playerRoleBox);
+            if (fascistBoxes.size() < model.maxFascistCount()) {
+                while (fascistBoxes.size() < model.maxFascistCount()) {
+                    PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size() == 0, model);
+                    fascistPane.add(playerRoleBox, fascistBoxes.size() % 2, fascistBoxes.size() / 2);
+                    model.addListener(playerRoleBox);
+                }
+            } else {
+                fascistBoxes.retainAll(new ArrayList<>(fascistBoxes.subList(0, model.maxFascistCount())));
             }
             List<Player> fascists = model.getFascists();
             for (int i = 0; i < fascistBoxes.size(); i++) {
@@ -186,7 +186,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
     }
 
     private void setCreateDisable() {
-        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < (model.getPartySize() - 1) / 2);
+        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < model.maxFascistCount());
     }
 
     private void setStyling() {
@@ -204,7 +204,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         for (Node node : playerFields) {
             valid &= ((PlayerField) node).isValid();
         }
-        for (Node node : fascistBoxes) {
+        for (Node node : fascistPane.getChildren()) {
             valid &= ((PlayerRoleBox) node).isValid();
         }
         return valid;
