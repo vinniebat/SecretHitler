@@ -65,7 +65,12 @@ public class AssumptionView extends VBox {
     }
 
     public void setRelativeChance(double assumedChance) {
-        relChanceLabel.setText("Relative Chance: " + df.format(chance / assumedChance));
+        String relChance = df.format(chance / assumedChance);
+        if (assumedChance == 0 && chance == 0) {
+            relChance = "1";
+        }
+
+        relChanceLabel.setText("Relative Chance: " + relChance);
     }
 
     public void setRelativeChance(int libsAssumption) {
