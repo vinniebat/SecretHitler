@@ -1,4 +1,4 @@
-package sh.shinterface.game.component;
+package sh.shinterface.game.component.gamewindow.tabpane;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

@@ -1,4 +1,4 @@
-package sh.shinterface.game.component;
+package sh.shinterface.game.component.gamewindow;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.*;
 import sh.shinterface.game.Game;
+import sh.shinterface.game.component.GameWindow;
 import sh.shinterface.util.PolicyConverter;
 
 import java.util.ArrayList;

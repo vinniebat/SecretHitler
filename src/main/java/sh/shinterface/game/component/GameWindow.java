@@ -10,6 +10,10 @@ import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
+import sh.shinterface.game.component.gamewindow.CreateGovPane;
+import sh.shinterface.game.component.gamewindow.GovView;
+import sh.shinterface.game.component.gamewindow.PartyView;
+import sh.shinterface.game.component.gamewindow.TopDeckWindow;
 
 import java.util.Map;
 

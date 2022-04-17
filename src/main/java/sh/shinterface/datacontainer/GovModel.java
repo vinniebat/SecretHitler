@@ -5,7 +5,7 @@ import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import sh.shinterface.game.Game;
-import sh.shinterface.game.component.GovView;
+import sh.shinterface.game.component.gamewindow.GovView;
 
 import java.util.ArrayList;
 import java.util.List;

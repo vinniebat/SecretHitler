@@ -1,4 +1,4 @@
-package sh.shinterface.game.component;
+package sh.shinterface.game.component.gamewindow.tabpane;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
