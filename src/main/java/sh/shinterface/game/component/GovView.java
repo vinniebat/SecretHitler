@@ -12,10 +12,11 @@ import sh.shinterface.game.Game;
 public class GovView extends TabPane implements InvalidationListener {
 
     private final GovModel govModel;
+    private final Tab board;
     private final Tab claimsAndAssumptions;
 
     public GovView(Game game, TableView<Gov> tableView) {
-        Tab board = new Tab("Board");
+        board = new Tab("Board");
         claimsAndAssumptions = new Tab("Claims and assumptions");
         claimsAndAssumptions.setDisable(true);
 
@@ -36,6 +37,9 @@ public class GovView extends TabPane implements InvalidationListener {
 
     @Override
     public void invalidated(Observable observable) {
-        claimsAndAssumptions.setDisable(govModel.getTable().getSelectionModel().getSelectedItem().getClaim1().size() < 3);
+        if (govModel.getTable().getSelectionModel().getSelectedItem().getClaim1().size() < 3){
+            claimsAndAssumptions.setDisable(govModel.getTable().getSelectionModel().getSelectedItem().getClaim1().size() < 3);
+            this.getSelectionModel().select(board);
+        }
     }
 }
