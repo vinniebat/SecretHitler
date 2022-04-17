@@ -128,4 +128,8 @@ public class GovModel implements InvalidationListener, Observable {
     public List<Policy> getAssumption() {
         return assumption;
     }
+
+    public Game getGame() {
+        return game;
+    }
 }

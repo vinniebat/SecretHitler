@@ -2,6 +2,7 @@ package sh.shinterface.game.component;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
 import sh.shinterface.datacontainer.Deck;
@@ -28,7 +29,17 @@ public class AssumptionPane extends GridPane implements InvalidationListener {
         double assumedChance = previousDeck.predictChance(assumption);
         this.getChildren().clear();
         for (int i = 0; i <= 3; i++) {
-            this.add(new AssumptionView(i, previousDeck, i == assumption, assumedChance), i % 2, i / 2);
+            AssumptionView assumptionView = new AssumptionView(govModel, i, previousDeck, i == assumption, assumedChance);
+            this.add(assumptionView, i % 2, i / 2);
+        }
+    }
+
+    public void updateRelChance(int libsAssumption) {
+        for (Node node : this.getChildren()) {
+            for (Node child : ((AssumptionView) node).getChildren()) {
+                child.setDisable(false);
+            }
+            ((AssumptionView) node).setRelativeChance(libsAssumption);
         }
     }
 }
