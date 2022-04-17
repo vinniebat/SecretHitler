@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Deck;
+import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.GovModel;
 
 import java.math.RoundingMode;
@@ -18,9 +19,11 @@ public class AssumptionView extends VBox {
     private final Label relChanceLabel;
     private final GovModel govModel;
     private final DecimalFormat df = new DecimalFormat("#.##");
+    private final Gov currentGov;
 
     public AssumptionView(GovModel govModel, int numberOfLibs, Deck deck, boolean assumption, double assumedChance) {
         this.govModel = govModel;
+        currentGov = govModel.getTable().getSelectionModel().getSelectedItem();
         HBox policies = new HBox();
         for (int i = 0; i < 3 - numberOfLibs; i++) {
             ImageView imageView = new ImageView(new Image("sh/shinterface/images/draw_pile/policies/fascist.png"));
@@ -49,6 +52,8 @@ public class AssumptionView extends VBox {
         Button assumptionButton = new Button("Set assumption");
         assumptionButton.setOnAction(e -> {
             ((AssumptionPane) this.getParent()).updateRelChance(numberOfLibs);
+            currentGov.setAssumption(numberOfLibs);
+            govModel.getTable().refresh();
             assumptionButton.setDisable(true);
         });
 

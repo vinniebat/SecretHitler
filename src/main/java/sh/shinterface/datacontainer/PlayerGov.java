@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerGov implements Gov {
@@ -93,6 +94,35 @@ public class PlayerGov implements Gov {
             return claim1;
         } else {
             return assumption;
+        }
+    }
+
+    @Override
+    public HBox getAssumptionHBox() {
+        HBox result = new HBox();
+        if (assumption != null) {
+            for (Policy policy : assumption) {
+                result.getChildren().add(new Rectangle(15, 20, policy.getColor()));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public void setAssumption(int numberOfLibs) {
+        int libs = (int) claim1.stream().filter(policy -> policy.equals(Policy.LIBERAL)).count();
+        if (numberOfLibs == libs) {
+            assumption = null;
+        } else {
+            List<Policy> newAssumption = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                if (3 - newAssumption.size() > numberOfLibs) {
+                    newAssumption.add(Policy.FASCIST);
+                } else {
+                    newAssumption.add(Policy.LIBERAL);
+                }
+            }
+            assumption = newAssumption;
         }
     }
 }

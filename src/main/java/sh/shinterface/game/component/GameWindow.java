@@ -32,21 +32,25 @@ public class GameWindow extends SplitPane {
         TableColumn<Gov, String> president = new TableColumn<>("President");
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
         TableColumn<Gov, HBox> claim = new TableColumn<>("Claim(s)");
+        TableColumn<Gov, HBox> assumption = new TableColumn<>("Assumptions");
         claim.getStyleClass().add("claims");
 
         president.setSortable(false);
         chancellor.setSortable(false);
         claim.setSortable(false);
+        assumption.setSortable(false);
 
         president.setReorderable(false);
         chancellor.setReorderable(false);
         claim.setReorderable(false);
+        assumption.setReorderable(false);
 
         president.setCellValueFactory(new PropertyValueFactory<>("president"));
         chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
         claim.setCellValueFactory(new PropertyValueFactory<>("claims"));
+        assumption.setCellValueFactory(new PropertyValueFactory<>("assumptionHBox"));
 
-        govTable.getColumns().setAll(president, chancellor, claim);
+        govTable.getColumns().setAll(president, chancellor, claim, assumption);
 
         topDeckWindow = new TopDeckWindow(govTable, role, this);
         topDeckWindow.setVisible(false);
@@ -61,6 +65,7 @@ public class GameWindow extends SplitPane {
 
         PartyView partyView = new PartyView(game, govTable);
         GovView specifics = new GovView(game, govTable);
+        govTable.getSelectionModel().selectedItemProperty().addListener(specifics);
         SplitPane.setResizableWithParent(specifics, false);
         SplitPane rightSide = new SplitPane(partyView, specifics);
         rightSide.setOrientation(Orientation.VERTICAL);

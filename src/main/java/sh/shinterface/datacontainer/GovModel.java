@@ -39,7 +39,7 @@ public class GovModel implements InvalidationListener, Observable {
 
     @Override
     public void invalidated(Observable observable) {
-        TableView<Gov> tableView = game.getGovTable();
+        TableView<Gov> tableView = getTable();
 
         Gov gov = tableView.getSelectionModel().getSelectedItem();
         assumption = gov.getAssumption();
@@ -94,8 +94,8 @@ public class GovModel implements InvalidationListener, Observable {
         int deckFascPlayed = 0;
         int lib = 0;
         int fasc = 0;
-        ObservableList<Gov> govs = game.getGovTable().getItems();
-        int govIndex = govs.indexOf(game.getGovTable().getSelectionModel().getSelectedItem());
+        ObservableList<Gov> govs = getTable().getItems();
+        int govIndex = govs.indexOf(getTable().getSelectionModel().getSelectedItem());
         for (int i = 0; i < govIndex; i++) {
             Gov gov = govs.get(i);
             List<Policy> assumption = gov.getAssumption();
@@ -115,7 +115,7 @@ public class GovModel implements InvalidationListener, Observable {
                 deckFascPlayed = 0;
             }
         }
-        Gov currentGov = game.getGovTable().getSelectionModel().getSelectedItem();
+        Gov currentGov = getTable().getSelectionModel().getSelectedItem();
         int libPlayed = this.libPlayed - (currentGov.getPlayed().equals(Policy.LIBERAL) ? 1 : 0);
         int fascPlayed = this.fascPlayed - (currentGov.getPlayed().equals(Policy.FASCIST) ? 1 : 0);
         int allLib = 6 - libPlayed + deckLibPlayed;
@@ -129,7 +129,7 @@ public class GovModel implements InvalidationListener, Observable {
         return assumption;
     }
 
-    public Game getGame() {
-        return game;
+    public TableView<Gov> getTable() {
+        return game.getGovTable();
     }
 }

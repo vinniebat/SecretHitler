@@ -25,4 +25,8 @@ public interface Gov {
     boolean isConf();
 
     List<Policy> getAssumption();
+
+    HBox getAssumptionHBox();
+
+    void setAssumption(int numberOfLibs);
 }

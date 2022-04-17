@@ -73,4 +73,14 @@ public class TopDeck implements Gov {
     public List<Policy> getAssumption() {
         return getCards();
     }
+
+    @Override
+    public HBox getAssumptionHBox() {
+        return new HBox();
+    }
+
+    @Override
+    public void setAssumption(int numberOfLibs) {
+        //do nothing
+    }
 }
