@@ -164,16 +164,18 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         List<Node> fascistBoxes = fascistPane.getChildren();
         if (activePlayer.isEmpty() || !activePlayer.get().getRole().isFascist()) {
             for (Node node : fascistBoxes) {
-                PlayerRoleBox playerRoleBox = (PlayerRoleBox) node;
-                playerRoleBox.clear();
-                model.removeListener(playerRoleBox);
+                model.removeListener((PlayerRoleBox) node);
             }
             fascistBoxes.clear();
         } else {
-            while (fascistBoxes.size() < (model.getPartySize() - 1) / 2) {
-                PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size() == 0, model);
-                fascistPane.add(playerRoleBox, fascistBoxes.size() % 2, fascistBoxes.size() / 2);
-                model.addListener(playerRoleBox);
+            if (fascistBoxes.size() < model.maxFascistCount()) {
+                while (fascistBoxes.size() < model.maxFascistCount()) {
+                    PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size() == 0, model);
+                    fascistPane.add(playerRoleBox, fascistBoxes.size() % 2, fascistBoxes.size() / 2);
+                    model.addListener(playerRoleBox);
+                }
+            } else {
+                fascistBoxes.retainAll(new ArrayList<>(fascistBoxes.subList(0, model.maxFascistCount())));
             }
             List<Player> fascists = model.getFascists();
             for (int i = 0; i < fascistBoxes.size(); i++) {
@@ -184,7 +186,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
     }
 
     private void setCreateDisable() {
-        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < (model.getPartySize() - 1) / 2);
+        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < model.maxFascistCount());
     }
 
     private void setStyling() {

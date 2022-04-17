@@ -51,10 +51,12 @@ public class PlayerRoleBox extends HBox implements InvalidationListener {
 
     public void swapSelectedPlayer() {
         Player oldP = playerBox.getValue();
+        Player newP = playerBox.getSelectionModel().getSelectedItem();
         if (oldP != null) {
-            oldP.setRole(Role.UNKNOWN);
+            model.swapRoles(oldP, newP);
+        } else {
+            model.setPlayerRole(newP, role);
         }
-        model.setPlayerRole(playerBox.getSelectionModel().getSelectedItem(), role);
     }
 
     @Override
@@ -67,9 +69,5 @@ public class PlayerRoleBox extends HBox implements InvalidationListener {
         } else {
             playerBox.setDisable(false);
         }
-    }
-
-    public void clear() {
-        model.setPlayerRole(playerBox.getValue(), Role.UNKNOWN);
     }
 }
