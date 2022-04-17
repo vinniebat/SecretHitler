@@ -27,7 +27,7 @@ public class AssumptionView extends VBox {
             imageView.setPreserveRatio(true);
         }
 
-        DecimalFormat df = new DecimalFormat("#.####");
+        DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.HALF_UP);
         double chance = deck.predictChance(numberOfLibs);
         String labelText = "Chance: " + df.format(chance*100) + "%";
