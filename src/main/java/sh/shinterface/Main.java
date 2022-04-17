@@ -6,10 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import sh.shinterface.config.ConfigScreen;
-import sh.shinterface.datacontainer.Player;
 import sh.shinterface.game.Game;
-
-import java.util.List;
 
 public class Main extends Application {
 

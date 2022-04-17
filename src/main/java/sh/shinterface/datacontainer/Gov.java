@@ -23,4 +23,10 @@ public interface Gov {
     List<Policy> getClaim2();
 
     boolean isConf();
+
+    List<Policy> getAssumption();
+
+    HBox getAssumptionHBox();
+
+    void setAssumption(int numberOfLibs);
 }

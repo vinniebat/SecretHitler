@@ -8,8 +8,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import sh.shinterface.datacontainer.Player;
 
-import static java.util.stream.Collectors.joining;
-
 /**
  * Component that contains the player label and the TextField to input the player name
  */

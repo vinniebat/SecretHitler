@@ -57,9 +57,9 @@
 }
 
 .left {
-    -fx-max-width: 400;
-    -fx-pref-width: 330;
-    -fx-min-width: 320;
+    -fx-max-width: 500;
+    -fx-pref-width: 450;
+    -fx-min-width: 400;
 }
 
 .gov-stack {

@@ -1,5 +1,7 @@
 package sh.shinterface.game.component;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,13 +12,15 @@ import sh.shinterface.datacontainer.GovModel;
 import sh.shinterface.db.CreateTables;
 import sh.shinterface.game.Game;
 
-public class BoardPane extends StackPane {
+public class BoardPane extends StackPane implements InvalidationListener {
 
     private final String players;
     private final ImageView liberalBoard;
     private final ImageView fascistBoard;
+    private final GovModel govModel;
 
     public BoardPane(GovModel govModel, Game game) {
+        this.govModel = govModel;
         this.players = govModel.getPlayerString();
         liberalBoard = new ImageView(new Image("sh/shinterface/images/boards/liberal/0.png"));
         fascistBoard = new ImageView(new Image("sh/shinterface/images/boards/fascist" + players + "/0.png"));
@@ -39,9 +43,11 @@ public class BoardPane extends StackPane {
         game.end();
     }
 
-    public void updateBoards(int lib, int fasc) {
-        liberalBoard.setImage(new Image("sh/shinterface/images/boards/liberal/" + lib + ".png"));
-        fascistBoard.setImage(new Image("sh/shinterface/images/boards/fascist" + players + "/" + fasc + ".png"));
+    public void invalidated(Observable observable) {
+        int libPlayed = govModel.getLibPlayed();
+        int fascPlayed = govModel.getFascPlayed();
+        liberalBoard.setImage(new Image("sh/shinterface/images/boards/liberal/" + libPlayed + ".png"));
+        fascistBoard.setImage(new Image("sh/shinterface/images/boards/fascist" + players + "/" + fascPlayed + ".png"));
     }
 
     public void saveGame(Game game, Button button) {

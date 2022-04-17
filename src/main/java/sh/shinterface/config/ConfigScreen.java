@@ -172,7 +172,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
             }
             fascistBoxes.clear();
         } else {
-            while (fascistBoxes.size() < (model.getPartySize()-1)/2) {
+            while (fascistBoxes.size() < (model.getPartySize() - 1) / 2) {
                 PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size() == 0, model);
                 fascistBoxes.add(playerRoleBox);
                 model.addListener(playerRoleBox);
@@ -186,7 +186,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
     }
 
     private void setCreateDisable() {
-        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < (model.getPartySize()-1)/2);
+        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < (model.getPartySize() - 1) / 2);
     }
 
     private void setStyling() {
