@@ -93,11 +93,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
         // INIT Role Selection
         HBox hBox = new HBox(new Label("Your role:"), roleBox);
-        roleBox.setOnAction(e -> {
-            if (model.getActivePlayer().isPresent()) {
-                model.setPlayerRole(model.getActivePlayer().get(), roleBox.getValue());
-            }
-        });
+        roleBox.setOnAction(e -> model.setActiveRole(roleBox.getValue()));
         hBox.getStyleClass().add("role-box");
         HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
         fascistPane.getStyleClass().add("roles");
@@ -133,6 +129,10 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
     private void setPlayerFields() {
         int size = model.getPartySize();
+
+        if (size == playerFields.size())
+            return;
+
         if (size > playerFields.size()) {
             List<Player> party = model.getParty();
             while (playerFields.size() < size) {
@@ -143,9 +143,6 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         } else {
             playerFields.retainAll(new ArrayList<>(playerFields.subList(0, size)));
             activePlayerGroup.getToggles().retainAll(new ArrayList<>(activePlayerGroup.getToggles().subList(0, size)));
-            if (activePlayerGroup.getSelectedToggle() == null) {
-                model.setActivePlayer(null);
-            }
         }
         for (Node node : playerFields) {
             ((PlayerField) node).reset();
@@ -170,23 +167,21 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         } else {
             if (fascistBoxes.size() < model.maxFascistCount()) {
                 while (fascistBoxes.size() < model.maxFascistCount()) {
-                    PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size() == 0, model);
+                    PlayerRoleBox playerRoleBox = new PlayerRoleBox(fascistBoxes.size(), model);
                     fascistPane.add(playerRoleBox, fascistBoxes.size() % 2, fascistBoxes.size() / 2);
                     model.addListener(playerRoleBox);
                 }
             } else {
                 fascistBoxes.retainAll(new ArrayList<>(fascistBoxes.subList(0, model.maxFascistCount())));
             }
-            List<Player> fascists = model.getFascists();
-            for (int i = 0; i < fascistBoxes.size(); i++) {
-                ((PlayerRoleBox) fascistBoxes.get(i)).setValue(fascists.get(i));
-            }
-            model.setPlayerRole(activePlayer.get(), roleBox.getValue());
         }
     }
 
     private void setCreateDisable() {
-        createGameButton.setDisable(model.getActivePlayer().isPresent() && model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < model.maxFascistCount());
+        createGameButton.setDisable(model.getActivePlayer().isPresent() && (
+                (model.getActivePlayer().get().getRole().isFascist() && model.getFascistCount() < model.maxFascistCount()) ||
+                        roleBox.getValue() == Role.NONE)
+        );
     }
 
     private void setStyling() {

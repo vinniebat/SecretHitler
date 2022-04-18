@@ -8,66 +8,37 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.Role;
 
 import java.util.Optional;
 
 public class PlayerRoleBox extends HBox implements InvalidationListener {
 
-    private final Role role;
-
     private final ChoiceBox<Player> playerBox;
 
     private final PartyModel model;
 
-    public PlayerRoleBox(boolean hitler, PartyModel model) {
+    private final int index;
+
+    public PlayerRoleBox(int index, PartyModel model) {
+        this.index = index;
         this.model = model;
-        Label label;
-        if (hitler) {
-            label = new Label("Hitler: ");
-            role = Role.HITLER;
-        } else {
-            label = new Label("Fascist: ");
-            role = Role.FASCIST;
-        }
         playerBox = new ChoiceBox<>(FXCollections.observableArrayList(model.getUnknownPlayers()));
-        playerBox.getSelectionModel().selectedItemProperty().addListener(o -> swapSelectedPlayer());
+        playerBox.getSelectionModel().selectedItemProperty().addListener(o -> model.setFascist(playerBox.getSelectionModel().getSelectedItem(), index));
         HBox.setHgrow(playerBox, Priority.ALWAYS);
         GridPane.setHgrow(this, Priority.ALWAYS);
-        this.getChildren().addAll(label, playerBox);
-    }
-
-    public void setValue(Player player) {
-        playerBox.setValue(null);
-        playerBox.setValue(player);
-        model.setPlayerRole(player, role);
+        this.getChildren().addAll(new Label((index == 0) ? "Hitler: " : "Fascist: "), playerBox);
     }
 
     public boolean isValid() {
         return playerBox.getValue() != null;
     }
 
-    public void swapSelectedPlayer() {
-        Player oldP = playerBox.getValue();
-        Player newP = playerBox.getSelectionModel().getSelectedItem();
-        if (oldP != null) {
-            model.swapRoles(oldP, newP);
-        } else {
-            model.setPlayerRole(newP, role);
-        }
-    }
-
     @Override
     public void invalidated(Observable observable) {
         playerBox.getItems().setAll(model.getUnknownPlayers());
+        playerBox.setValue(model.getFascist(index));
         Optional<Player> activePlayer = model.getActivePlayer();
-        Player player = playerBox.getValue();
-        if (activePlayer.isPresent()) {
-            playerBox.setDisable(activePlayer.get().equals(player));
-        } else {
-            playerBox.setDisable(false);
-        }
+        playerBox.setDisable(activePlayer.isPresent() && activePlayer.get().equals(playerBox.getValue()));
     }
 }
