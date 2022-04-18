@@ -103,6 +103,23 @@ public class PartyModel implements Observable {
     }
 
     /**
+     * Returns the final party, which means that if no active player is selected, this just returns the players.
+     * If the active player is liberal, only his role is selected.
+     * If the player is fascist, all fascist roles are selected and the remaining roles are set to liberal
+     *
+     * @return The final party with all roles set accordingly
+     */
+    public List<Player> getFinalParty() {
+        if (knowsFascist()) {
+            party.forEach(p -> {
+                if (p != null && !p.getRole().isFascist())
+                    p.setRole(Role.LIBERAL);
+            });
+        }
+        return party;
+    }
+
+    /**
      * Returs all player that don't have a role
      *
      * @return List of all players without a role
@@ -169,15 +186,6 @@ public class PartyModel implements Observable {
     }
 
     /**
-     * Returns the amount of fascists selected
-     *
-     * @return Amount of fascists roles filled
-     */
-    public int getFascistCount() {
-        return (int) fascists.stream().filter(Objects::nonNull).count();
-    }
-
-    /**
      * Returns the maximum amount of fascist for the current party size
      *
      * @return Max size of the fascist party
@@ -192,8 +200,17 @@ public class PartyModel implements Observable {
     private void updateFascists() {
         if (activePlayer == null || !activePlayer.getRole().isFascist()) {
             for (int i = 0; i < fascists.size(); i++) {
-                if (fascists.get(i) != null) {
-                    fascists.get(i).setRole(Role.UNKNOWN);
+                Player fascist = fascists.get(i);
+                if (fascist != null) {
+                    fascist.setRole(Role.UNKNOWN);
+                    fascists.set(i, null);
+                }
+            }
+        } else if (activePlayer != null && activePlayer.getRole() == Role.HITLER && fascists.size() > 2) {
+            for (int i = 0; i < fascists.size(); i++) {
+                Player fascist = fascists.get(i);
+                if (fascist != null && fascist.getRole() == Role.FASCIST) {
+                    fascist.setRole(Role.UNKNOWN);
                     fascists.set(i, null);
                 }
             }
@@ -229,21 +246,13 @@ public class PartyModel implements Observable {
     }
 
     /**
-     * Returns the final party, which means that if no active player is selected, this just returns the players.
-     * If the active player is liberal, only his role is selected.
-     * If the player is fascist, all fascist roles are selected and the remaining roles are set to liberal
+     * Check if the active player knows who the fascists are
      *
-     * @return The final party with all roles set accordingly
+     * @return True if the active player should know who the fascists are
      */
-    public List<Player> getFinalParty() {
-        if (activePlayer != null) {
-            if (activePlayer.getRole().isFascist()) {
-                party.stream().filter(Player::isUnknown).forEach(p -> p.setRole(Role.LIBERAL));
-            } else {
-                activePlayer.setRole(Role.LIBERAL);
-            }
-        }
-        return party;
+    public boolean knowsFascist() {
+        return activePlayer != null &&
+                (activePlayer.getRole() == Role.FASCIST || (activePlayer.getRole() == Role.HITLER && fascists.size() == 2));
     }
 
     /**
@@ -274,6 +283,19 @@ public class PartyModel implements Observable {
             player2.setRole(role1);
         }
         invalidate();
+    }
+
+    /**
+     * Check if the party is valid
+     * @return Returns true if the party is valid (active role chosen, fascist players chosen if fascists)
+     */
+    public boolean isValid() {
+        boolean fascistsValid = fascists.stream().allMatch(Objects::nonNull); // Check if all fascists are set
+        // The party is valid if
+        return activePlayer == null || // there is no active player
+                activePlayer.getRole() == Role.LIBERAL || // the active role is liberal
+                (activePlayer.getRole().isFascist() && fascistsValid) || // the active role is fascist and all fascists are chosen
+                (activePlayer.getRole() == Role.HITLER && fascists.size() > 2); // the active role is hitler and there are more than 2 fascists
     }
 
     @Override
