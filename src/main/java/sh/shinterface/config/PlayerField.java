@@ -25,10 +25,23 @@ public class PlayerField extends HBox {
      */
     private final ToggleButton button = new ToggleButton("ME!");
 
+    /**
+     * party from which the player comes
+     */
     private final PartyModel model;
 
+    /**
+     * Player controlled by this PlayerField
+     */
     private final Player player;
 
+    /**
+     * Makes a new PlayerField backed by the given player
+     *
+     * @param player Player that this PlayerField represents
+     * @param group  Group to which the button is added
+     * @param model  Party from which the player comes
+     */
     public PlayerField(Player player, ToggleGroup group, PartyModel model) {
         this.player = player;
         this.model = model;
@@ -48,6 +61,11 @@ public class PlayerField extends HBox {
         HBox.setHgrow(nameField, Priority.ALWAYS);
     }
 
+    /**
+     * Sets the active player as the player that this field represents
+     *
+     * @param event Unused
+     */
     public void setActivePlayer(Event event) {
         model.setActivePlayer((button.isSelected()) ? player : null);
     }
@@ -61,11 +79,19 @@ public class PlayerField extends HBox {
         return nameField.getText().strip();
     }
 
+    /**
+     * Sets the name of the internal player to the one entered into the TextField
+     */
     public void setName() {
         player.setName(getName());
         model.invalidate();
     }
 
+    /**
+     * Returns the player representing this PlayerField
+     *
+     * @return Player with given name
+     */
     public Player getPlayer() {
         return player;
     }

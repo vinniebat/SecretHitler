@@ -8,66 +8,55 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.Role;
 
 import java.util.Optional;
 
+/**
+ * Wrapper class for a ChoiceBox of Players. Used to select fascist or hitler players
+ */
 public class PlayerRoleBox extends HBox implements InvalidationListener {
 
-    private final Role role;
-
+    /**
+     * ChoiceBox to select the player for the given role
+     */
     private final ChoiceBox<Player> playerBox;
 
+    /**
+     * Party from which the players are selected
+     */
     private final PartyModel model;
 
-    public PlayerRoleBox(boolean hitler, PartyModel model) {
+    /**
+     * Index of the fascist role in the fascist party
+     */
+    private final int index;
+
+    /**
+     * Makes a PlayerRoleBox with the given index in the fascist party and using the given model
+     * @param index Index of the role in the fascist party
+     * @param model Party to which this role belongs
+     */
+    public PlayerRoleBox(int index, PartyModel model) {
+        this.index = index;
         this.model = model;
-        Label label;
-        if (hitler) {
-            label = new Label("Hitler: ");
-            role = Role.HITLER;
-        } else {
-            label = new Label("Fascist: ");
-            role = Role.FASCIST;
-        }
         playerBox = new ChoiceBox<>(FXCollections.observableArrayList(model.getUnknownPlayers()));
-        playerBox.getSelectionModel().selectedItemProperty().addListener(o -> swapSelectedPlayer());
+        playerBox.getSelectionModel().selectedItemProperty().addListener(o -> model.setFascist(playerBox.getSelectionModel().getSelectedItem(), index));
         HBox.setHgrow(playerBox, Priority.ALWAYS);
         GridPane.setHgrow(this, Priority.ALWAYS);
-        this.getChildren().addAll(label, playerBox);
-    }
-
-    public void setValue(Player player) {
-        playerBox.setValue(null);
-        playerBox.setValue(player);
-        model.setPlayerRole(player, role);
+        this.getChildren().addAll(new Label((index == 0) ? "Hitler: " : "Fascist: "), playerBox);
+        model.addListener(this);
     }
 
     public boolean isValid() {
         return playerBox.getValue() != null;
     }
 
-    public void swapSelectedPlayer() {
-        Player oldP = playerBox.getValue();
-        Player newP = playerBox.getSelectionModel().getSelectedItem();
-        if (oldP != null) {
-            model.swapRoles(oldP, newP);
-        } else {
-            model.setPlayerRole(newP, role);
-        }
-    }
-
     @Override
     public void invalidated(Observable observable) {
         playerBox.getItems().setAll(model.getUnknownPlayers());
+        playerBox.setValue(model.getFascist(index));
         Optional<Player> activePlayer = model.getActivePlayer();
-        Player player = playerBox.getValue();
-        if (activePlayer.isPresent()) {
-            playerBox.setDisable(activePlayer.get().equals(player));
-        } else {
-            playerBox.setDisable(false);
-        }
+        playerBox.setDisable(activePlayer.isPresent() && activePlayer.get().equals(playerBox.getValue()));
     }
 }
