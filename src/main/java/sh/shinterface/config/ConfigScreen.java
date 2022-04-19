@@ -2,8 +2,6 @@ package sh.shinterface.config;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -12,7 +10,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
 import sh.shinterface.datacontainer.Player;
@@ -127,7 +124,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
             if (Math.abs(nV.doubleValue() - oV.doubleValue()) > 0.5) {
                 setStyle("-fx-font-size: " + (int) (nV.doubleValue() * 0.05));
                 setPrefWidth(getWidth());
-                setMinHeight(getWidth()*0.8);
+                setMinHeight(getWidth() * 0.8);
                 stage.sizeToScene();
             }
         });
@@ -217,6 +214,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
     /**
      * Returns the selected party
+     *
      * @return The party as configured in this screen
      */
     public List<Player> getPlayers() {
@@ -225,6 +223,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
     /**
      * Check if every player name has been entered
+     *
      * @return True if all player names where entered
      */
     public boolean isValid() {
@@ -240,6 +239,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
     /**
      * Returns the active player, if chosen
+     *
      * @return An Optional holding the active player, or empty if no active player was selected
      */
     public Optional<Player> getActivePlayer() {

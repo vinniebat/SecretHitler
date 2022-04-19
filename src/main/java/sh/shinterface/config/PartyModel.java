@@ -287,6 +287,7 @@ public class PartyModel implements Observable {
 
     /**
      * Check if the party is valid
+     *
      * @return Returns true if the party is valid (active role chosen, fascist players chosen if fascists)
      */
     public boolean isValid() {

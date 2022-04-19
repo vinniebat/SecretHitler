@@ -1,7 +1,5 @@
 package sh.shinterface.config;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.event.Event;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
