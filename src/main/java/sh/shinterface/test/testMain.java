@@ -22,7 +22,7 @@ public class testMain extends Application {
         tabPane.getTabs().addAll(tab1, tab2);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         Scene scene = new Scene(tabPane);
-        scene.getStylesheets().add("sh/shinterface/testMain.css");
+        scene.getStylesheets().add("sh/shinterface/stylesheets/testMain.css");
         stage.setScene(scene);
         stage.show();
     }

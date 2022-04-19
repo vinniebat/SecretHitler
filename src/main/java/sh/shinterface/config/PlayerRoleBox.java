@@ -2,20 +2,24 @@ package sh.shinterface.config;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import sh.shinterface.datacontainer.Player;
+import sh.shinterface.datacontainer.Role;
 
 import java.util.Optional;
 
 /**
  * Wrapper class for a ChoiceBox of Players. Used to select fascist or hitler players
  */
-public class PlayerRoleBox extends HBox implements InvalidationListener {
+public class PlayerRoleBox extends VBox implements InvalidationListener {
 
     /**
      * ChoiceBox to select the player for the given role
@@ -41,10 +45,12 @@ public class PlayerRoleBox extends HBox implements InvalidationListener {
         this.index = index;
         this.model = model;
         playerBox = new ChoiceBox<>(FXCollections.observableArrayList(model.getUnknownPlayers()));
-        playerBox.getSelectionModel().selectedItemProperty().addListener(o -> model.setFascist(playerBox.getSelectionModel().getSelectedItem(), index));
-        HBox.setHgrow(playerBox, Priority.ALWAYS);
+        playerBox.getSelectionModel().selectedIndexProperty().addListener(o -> model.setFascist(playerBox.getSelectionModel().getSelectedItem(), index));
+        Label label = new Label((index == 0) ? "Hitler: " : "Fascist: ");
+        VBox.setVgrow(playerBox, Priority.SOMETIMES);
+        HBox.setHgrow(label, Priority.ALWAYS);
         GridPane.setHgrow(this, Priority.ALWAYS);
-        this.getChildren().addAll(new Label((index == 0) ? "Hitler: " : "Fascist: "), playerBox);
+        this.getChildren().addAll(label, playerBox);
         model.addListener(this);
     }
 
@@ -55,7 +61,9 @@ public class PlayerRoleBox extends HBox implements InvalidationListener {
     @Override
     public void invalidated(Observable observable) {
         playerBox.getItems().setAll(model.getUnknownPlayers());
-        playerBox.setValue(model.getFascist(index));
+        Player fascist = model.getFascist(index);
+        playerBox.setValue(null);
+        playerBox.setValue(fascist);
         Optional<Player> activePlayer = model.getActivePlayer();
         playerBox.setDisable(activePlayer.isPresent() && activePlayer.get().equals(playerBox.getValue()));
     }

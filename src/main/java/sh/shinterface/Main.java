@@ -37,7 +37,7 @@ public class Main extends Application {
         Main.stage = stage;
         configScreen = new ConfigScreen(stage);
         Scene scene = new Scene(configScreen);
-        scene.getStylesheets().add("sh/shinterface/configscreen.css");
+        scene.getStylesheets().add("sh/shinterface/stylesheets/configscreen.css");
         stage.setScene(scene);
         stage.setTitle("Secret Hitler Interface");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons/secret-hitler-icon.png")));

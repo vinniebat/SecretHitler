@@ -35,7 +35,7 @@ public class Game {
 
     public void start(Stage stage) {
         Scene scene = new Scene(pane);
-        scene.getStylesheets().add("sh/shinterface/interface.css");
+        scene.getStylesheets().add("sh/shinterface/stylesheets/interface.css");
         stage.setScene(scene);
         stage.show();
     }

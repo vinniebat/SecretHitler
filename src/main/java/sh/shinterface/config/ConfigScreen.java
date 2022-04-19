@@ -2,6 +2,8 @@ package sh.shinterface.config;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -10,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
 import sh.shinterface.datacontainer.Player;
@@ -97,7 +100,8 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         //END PLAYER FIELDS
 
         // INIT Role Selection
-        HBox hBox = new HBox(new Label("Your role:"), roleBox);
+        Label label = new Label("Your role:");
+        HBox hBox = new HBox(label, roleBox);
         roleBox.setOnAction(e -> model.setActiveRole(roleBox.getValue()));
         hBox.getStyleClass().add("role-box");
         HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
@@ -119,6 +123,14 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         this.getStyleClass().addAll("liberal");
 
         model.addListener(this);
+        controlsBox.widthProperty().addListener((o, oV, nV) -> {
+            if (Math.abs(nV.doubleValue() - oV.doubleValue()) > 0.5) {
+                setStyle("-fx-font-size: " + (int) (nV.doubleValue() * 0.05));
+                setPrefWidth(getWidth());
+                setMinHeight(getWidth()*0.8);
+                stage.sizeToScene();
+            }
+        });
         choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
     }
 

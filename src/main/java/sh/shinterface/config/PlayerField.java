@@ -1,5 +1,7 @@
 package sh.shinterface.config;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.Event;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -48,6 +50,7 @@ public class PlayerField extends HBox {
         nameField.setText(player.getName());
         nameField.textProperty().addListener(e -> setName());
         nameField.setPromptText("Enter player name");
+        nameField.setOnMouseClicked(e -> getStyleClass().removeAll("empty-field"));
         button.setToggleGroup(group);
         button.setOnAction(this::setActivePlayer);
         int playerId = player.getId();
@@ -100,7 +103,7 @@ public class PlayerField extends HBox {
      * Clear the name field and remove the error appearance
      */
     public void reset() {
-        getStyleClass().removeAll("emptyField"); // Reset de error
+        getStyleClass().removeAll("empty-field"); // Reset de error
     }
 
     /**
@@ -108,10 +111,10 @@ public class PlayerField extends HBox {
      */
     public boolean isValid() {
         if (!nameField.getText().isBlank()) {
-            getStyleClass().removeAll("emptyField");
+            getStyleClass().removeAll("empty-field");
             return true;
         } else {
-            getStyleClass().add("emptyField");
+            getStyleClass().add("empty-field");
             return false;
         }
     }

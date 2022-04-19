@@ -1,5 +1,5 @@
 @font-face {
-    src: url("Eskapade-Fraktur-W04-Black.ttf");
+    src: url("../Eskapade-Fraktur-W04-Black.ttf");
 }
 
 .liberal {
@@ -11,7 +11,7 @@
     -fx-alt-light: #E66443;
     -fx-alt-white: #FEFFAC;
 
-    -fx-border-image-source: url("images/border/liberal_border.png");
+    -fx-border-image-source: url("../images/border/liberal_border.png");
 
     -fx-border-image-slice: 78 40 77 40;
     -fx-border-image-width: 78 40 77 40;
@@ -28,7 +28,7 @@
     -fx-alt-light: #61C8D9;
     -fx-alt-white: white;
 
-    -fx-border-image-source: url("images/border/fascist_border.png");
+    -fx-border-image-source: url("../images/border/fascist_border.png");
 
     -fx-border-image-slice: 78 40 77 40;
     -fx-border-image-width: 78 40 77 40;
@@ -189,11 +189,11 @@ CreateGovPane ToggleButton {
     -fx-border-color: transparent;
     -fx-border-width: 2;
     -fx-background-color: transparent;
-    -fx-graphic: url("votes/ballot.cards(ja).png");
+    -fx-graphic: url("../votes/ballot.cards(ja).png");
 }
 
 CreateGovPane ToggleButton:selected {
-    -fx-graphic: url("votes/ballot.cards(nein).png");
+    -fx-graphic: url("../votes/ballot.cards(nein).png");
 }
 
 CreateGovPane .choice-box {
