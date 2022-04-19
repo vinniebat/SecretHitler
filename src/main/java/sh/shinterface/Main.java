@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import sh.shinterface.config.ConfigScreen;
 import sh.shinterface.game.Game;
 
+import java.io.InputStream;
+
 public class Main extends Application {
 
     private static Stage stage;
@@ -40,7 +42,9 @@ public class Main extends Application {
         scene.getStylesheets().add("sh/shinterface/stylesheets/configscreen.css");
         stage.setScene(scene);
         stage.setTitle("Secret Hitler Interface");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icons/secret-hitler-icon.png")));
+        InputStream icon = getClass().getResourceAsStream("images/icons/secret-hitler-icon.png");
+        assert icon != null; // If this failed the icon is missing
+        stage.getIcons().add(new Image(icon));
         stage.show();
     }
 

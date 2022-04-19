@@ -19,6 +19,7 @@ import sh.shinterface.game.component.gamewindow.GovView;
 import sh.shinterface.game.component.gamewindow.PartyView;
 import sh.shinterface.game.component.gamewindow.TopDeckWindow;
 
+import java.util.List;
 import java.util.Map;
 
 public class GameWindow extends SplitPane {
@@ -41,24 +42,19 @@ public class GameWindow extends SplitPane {
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
         TableColumn<Gov, HBox> claim = new TableColumn<>("Claim(s)");
         TableColumn<Gov, HBox> assumption = new TableColumn<>("Assumptions");
-        claim.getStyleClass().add("claims");
-
-        president.setSortable(false);
-        chancellor.setSortable(false);
-        claim.setSortable(false);
-        assumption.setSortable(false);
-
-        president.setReorderable(false);
-        chancellor.setReorderable(false);
-        claim.setReorderable(false);
-        assumption.setReorderable(false);
 
         president.setCellValueFactory(new PropertyValueFactory<>("president"));
         chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
         claim.setCellValueFactory(new PropertyValueFactory<>("claims"));
         assumption.setCellValueFactory(new PropertyValueFactory<>("assumptionHBox"));
 
-        govTable.getColumns().setAll(president, chancellor, claim, assumption);
+        List<TableColumn<Gov, ?>> columns = List.of(president, chancellor, claim, assumption);
+        for (TableColumn<Gov, ?> column : columns) {
+            column.setSortable(false);
+            column.setReorderable(false);
+        }
+
+        govTable.getColumns().setAll(columns);
 
         topDeckWindow = new TopDeckWindow(govTable, role, this);
         topDeckWindow.setVisible(false);

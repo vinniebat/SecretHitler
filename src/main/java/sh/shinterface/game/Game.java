@@ -15,7 +15,6 @@ import java.util.List;
 public class Game extends Scene {
 
     private final List<Player> players;
-    private final Pane pane;
     private final GameWindow gameWindow;
 
     public Game(List<Player> players, Player activePlayer) {
@@ -27,7 +26,7 @@ public class Game extends Scene {
         }
         Role role = (activePlayer == null) ? Role.UNKNOWN : activePlayer.getRole();
         gameWindow = new GameWindow(this, role);
-        pane = new VBox(gameWindow);
+        Pane pane = new VBox(gameWindow);
         VBox.setVgrow(gameWindow, Priority.ALWAYS);
         pane.getStyleClass().addAll(role.getStyle(), "interface");
 
