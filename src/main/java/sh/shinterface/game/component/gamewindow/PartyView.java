@@ -1,4 +1,4 @@
-package sh.shinterface.game.component;
+package sh.shinterface.game.component.gamewindow;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -13,7 +13,7 @@ import sh.shinterface.game.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RightUpperWindow extends VBox implements InvalidationListener {
+public class PartyView extends VBox implements InvalidationListener {
 
     private final Game game;
     private final TableView<Gov> tableView;
@@ -23,7 +23,7 @@ public class RightUpperWindow extends VBox implements InvalidationListener {
      */
     private final List<PlayerView> players = new ArrayList<>();
 
-    public RightUpperWindow(Game game, TableView<Gov> tableView) {
+    public PartyView(Game game, TableView<Gov> tableView) {
         this.game = game;
         //contains playerOverview and deck info
         //TODO deck info

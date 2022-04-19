@@ -1,4 +1,4 @@
-package sh.shinterface.game.component;
+package sh.shinterface.game.component.gamewindow;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +9,7 @@ import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Policy;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.datacontainer.TopDeck;
+import sh.shinterface.game.component.GameWindow;
 
 public class TopDeckWindow extends VBox {
 

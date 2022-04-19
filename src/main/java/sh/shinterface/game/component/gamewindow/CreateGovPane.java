@@ -1,4 +1,4 @@
-package sh.shinterface.game.component;
+package sh.shinterface.game.component.gamewindow;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -7,15 +7,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.*;
 import sh.shinterface.game.Game;
+import sh.shinterface.game.component.GameWindow;
 import sh.shinterface.util.PolicyConverter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class NewGovPane extends VBox {
+public class CreateGovPane extends VBox {
 
     private static final List<Character> STRINGPOLICIES = List.of('R', 'B');
     private static final List<Character> LOWERSTRINGPOLICIES = List.of('r', 'b');
@@ -29,7 +29,7 @@ public class NewGovPane extends VBox {
     private final List<ToggleButton> voteList = new ArrayList<>();
     private final GridPane govPlayers;
 
-    public NewGovPane(Game game, Role role, GameWindow gameWindow) {
+    public CreateGovPane(Game game, Role role, GameWindow gameWindow) {
         govPlayers = new GridPane();
 
         Label title1 = new Label("Add new gov:");
@@ -106,7 +106,7 @@ public class NewGovPane extends VBox {
         List<Policy> claim2 = PolicyConverter.fromString(this.claim2.getText());
 
         if (!(choiceBoxCheck(presidentChoiceBox) || choiceBoxCheck(chancellorChoiceBox))) {
-            this.claim1.getStyleClass().removeAll("newGovPaneTextFieldError");
+            this.claim1.getStyleClass().removeAll("createGovPaneTextFieldError");
             if (claim1.size() == 3) {
                 if (claim2.size() < 2) {
                     claim2 = autoGenerate(claim1);
@@ -119,22 +119,22 @@ public class NewGovPane extends VBox {
                 }
 
                 for (ToggleButton voteButton : voteList) {
-                    voteButton.getStyleClass().removeAll("newGovPaneBoxError");
+                    voteButton.getStyleClass().removeAll("createGovPaneBoxError");
                 }
                 List<ToggleButton> voteButtons = voteList.stream().filter(ToggleButton::isSelected).toList();
                 if (voteButtons.size() > voteList.size() / 2) {
-                    voteButtons.forEach(b -> b.getStyleClass().add("newGovPaneBoxError"));
+                    voteButtons.forEach(b -> b.getStyleClass().add("createGovPaneBoxError"));
                 } else {
-                    resetPane();
-                    List<Vote> votes = voteList.stream().map(b -> b.isSelected() ? Vote.JA : Vote.NEIN).toList();
+                    List<Vote> votes = voteList.stream().map(b -> b.isSelected() ? Vote.NEIN : Vote.JA).toList();
                     boolean conf = checkConf(claim1, claim2, this.conf.isSelected());
                     game.getGovTable().getItems().add(new PlayerGov(president, chancellor, played, claim1, claim2, conf, votes));
                     if (!game.getGovTable().isVisible()) {
                         game.getGameWindow().toggleTopDeck();
                     }
+                    resetPane();
                 }
             } else {
-                this.claim1.getStyleClass().add("newGovPaneTextFieldError");
+                this.claim1.getStyleClass().add("createGovPaneTextFieldError");
             }
         }
     }
@@ -176,10 +176,10 @@ public class NewGovPane extends VBox {
 
     private boolean choiceBoxCheck(ChoiceBox<Player> choiceBox) {
         if (choiceBox.getSelectionModel().getSelectedItem() == null) {
-            choiceBox.getStyleClass().add("newGovPaneBoxError");
+            choiceBox.getStyleClass().add("createGovPaneBoxError");
             return true;
         } else {
-            choiceBox.getStyleClass().removeAll("newGovPaneBoxError");
+            choiceBox.getStyleClass().removeAll("createGovPaneBoxError");
             return false;
         }
     }

@@ -1,5 +1,5 @@
 @font-face {
-    src: url("Eskapade-Fraktur-W04-Black.ttf");
+    src: url("../Eskapade-Fraktur-W04-Black.ttf");
 }
 
 .liberal {
@@ -11,7 +11,7 @@
     -fx-alt-light: #E66443;
     -fx-alt-white: #FEFFAC;
 
-    -fx-border-image-source: url("images/border/liberal_border.png");
+    -fx-border-image-source: url("../images/border/liberal_border.png");
 
     -fx-border-image-slice: 78 40 77 40;
     -fx-border-image-width: 78 40 77 40;
@@ -28,7 +28,7 @@
     -fx-alt-light: #61C8D9;
     -fx-alt-white: white;
 
-    -fx-border-image-source: url("images/border/fascist_border.png");
+    -fx-border-image-source: url("../images/border/fascist_border.png");
 
     -fx-border-image-slice: 78 40 77 40;
     -fx-border-image-width: 78 40 77 40;
@@ -57,9 +57,9 @@
 }
 
 .left {
-    -fx-max-width: 400;
-    -fx-pref-width: 330;
-    -fx-min-width: 320;
+    -fx-max-width: 500;
+    -fx-pref-width: 450;
+    -fx-min-width: 400;
 }
 
 .gov-stack {
@@ -98,6 +98,12 @@ Government table styling
 
 .table-view .table-row-cell:odd {
     -fx-background-color: derive(-fx-main-light, -10%);
+}
+
+.table-view .table-row-cell:selected {
+    -fx-border-color: -fx-main-white;
+    -fx-border-width: 2 0 2 0;
+    -fx-background-color: derive(-fx-main-light, 30%);
 }
 
 .table-view .table-cell {
@@ -145,36 +151,36 @@ Government table styling
 Government panel styling
  */
 
-NewGovPane {
+CreateGovPane {
     -fx-padding: 0;
     -fx-spacing: 5;
     -fx-border-color: -fx-main-dark transparent transparent transparent;
     -fx-border-width: 5;
 }
 
-NewGovPane Label {
+CreateGovPane Label {
     -fx-underline: true;
     -fx-text-fill: -fx-main-dark;
     -fx-font-size: 18;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
-NewGovPane GridPane {
+CreateGovPane GridPane {
     -fx-vgap: 3;
     -fx-hgap: 10;
 }
 
-NewGovPane GridPane Label {
+CreateGovPane GridPane Label {
     -fx-font-size: 14;
     -fx-underline: false;
     -fx-font-family: "Times New Roman";
 }
 
-NewGovPane HBox, NewGovPane VBox {
+CreateGovPane HBox, CreateGovPane VBox {
     -fx-spacing: 2;
 }
 
-NewGovPane ToggleButton {
+CreateGovPane ToggleButton {
     -fx-max-width: 58;
     -fx-max-height: 41;
     -fx-min-width: 54;
@@ -183,38 +189,38 @@ NewGovPane ToggleButton {
     -fx-border-color: transparent;
     -fx-border-width: 2;
     -fx-background-color: transparent;
-    -fx-graphic: url("votes/ballot.cards(ja).png");
+    -fx-graphic: url("../votes/ballot.cards(ja).png");
 }
 
-NewGovPane ToggleButton:selected {
-    -fx-graphic: url("votes/ballot.cards(nein).png");
+CreateGovPane ToggleButton:selected {
+    -fx-graphic: url("../votes/ballot.cards(nein).png");
 }
 
-NewGovPane .choice-box {
+CreateGovPane .choice-box {
     -fx-pref-width: 100;
     -fx-background-color: -fx-main-dark;
     -fx-mark-color: -fx-main-light;
 }
 
-NewGovPane .choice-box .label {
+CreateGovPane .choice-box .label {
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Times New Roman";
     -fx-font-size: 14;
 }
 
-NewGovPane .choice-box .context-menu {
+CreateGovPane .choice-box .context-menu {
     -fx-background-color: -fx-main-dark;
 }
 
-NewGovPane .choice-box .menu-item:focused {
+CreateGovPane .choice-box .menu-item:focused {
     -fx-background-color: derive(-fx-main-dark, 40%);
 }
 
-NewGovPane .choice-box .arrow-button .arrow {
+CreateGovPane .choice-box .arrow-button .arrow {
     -fx-background-color: -fx-main-light;
 }
 
-NewGovPane .text-field {
+CreateGovPane .text-field {
     -fx-background-color: -fx-main-dark;
     -fx-border-color: -fx-main-white;
     -fx-border-width: 2;
@@ -223,21 +229,21 @@ NewGovPane .text-field {
     -fx-pref-width: 50;
 }
 
-NewGovPane .check-box {
+CreateGovPane .check-box {
     -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Times New Roman";
     -fx-font-size: 14;
 }
 
-NewGovPane .check-box .box {
+CreateGovPane .check-box .box {
     -fx-background-color: -fx-main-dark;
 }
 
-NewGovPane .check-box:selected .mark {
+CreateGovPane .check-box:selected .mark {
     -fx-background-color: -fx-main-light;
 }
 
-NewGovPane .button {
+CreateGovPane .button {
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-text-fill: -fx-main-light;
     -fx-background-color: -fx-main-dark;
@@ -248,20 +254,20 @@ NewGovPane .button {
 GovPane errors
  */
 
-.newGovPaneTextFieldError {
+.createGovPaneTextFieldError {
     -fx-border-color: rgb(176, 131, 11);
 }
 
-.newGovPaneBoxError {
+.createGovPaneBoxError {
     -fx-background-color: rgb(176, 131, 11);
     -fx-text-fill: -fx-main-dark;
 }
 
-.newGovPaneBoxError .label {
+.createGovPaneBoxError .label {
     -fx-text-fill: -fx-main-dark;
 }
 
-.newGovPaneBoxError .context-menu {
+.createGovPaneBoxError .context-menu {
     -fx-background-color: rgb(176, 131, 11);
 }
 
@@ -293,12 +299,17 @@ TopDeckWindow Button {
     -fx-font-size: 20;
 }
 
+TopDeckWindow HBox {
+    -fx-padding: 5;
+}
+
 /*
 PlayerView Styling
  */
 
-RightUpperWindow {
+PartyView {
     -fx-spacing: 10;
+    -fx-alignment: center;
 }
 
 PlayerView {
@@ -341,18 +352,18 @@ PlayerView .choice-box .arrow-button .arrow {
 TabPane Styling
  */
 
-GovSpecifics .tab-header-background {
+GovView .tab-header-background {
     -fx-background-color: -fx-main-dark;
 }
 
-GovSpecifics .tab {
+GovView .tab {
     -fx-background-color: derive(-fx-main-light, -20%);
     -fx-border-color: transparent;
     -fx-border-width: 2;
     -fx-background-insets: 0 2 -2 1;
 }
 
-GovSpecifics .tab:selected {
+GovView .tab:selected {
     -fx-background-color: -fx-main-light;
     -fx-background-insets: 0 2 -4 1;
     -fx-background-radius: 5;
@@ -362,24 +373,24 @@ GovSpecifics .tab:selected {
     -fx-border-width: 2;
 }
 
-GovSpecifics .tab-label {
+GovView .tab-label {
     -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-font-size: 16;
 }
 
-GovSpecifics BoardTab HBox {
+GovView BoardPane HBox {
     -fx-alignment: bottom-right;
 }
 
-GovSpecifics BoardTab Button {
+GovView BoardPane Button {
     -fx-background-color: -fx-main-dark;
     -fx-text-fill: -fx-main-light;
     -fx-font-size: 16;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
-GovSpecifics BoardTab VBox {
+GovView BoardPane VBox {
     -fx-spacing: 10;
     -fx-alignment: center;
 }

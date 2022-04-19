@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import sh.shinterface.util.SpecialGovPlayers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopDeck implements Gov {
@@ -33,11 +34,10 @@ public class TopDeck implements Gov {
     public HBox getClaims() {
         Label label = new Label("\uD83D\uDDF2");
         label.setVisible(false);
-        HBox hBox = new HBox(new Rectangle(15, 20, policy.getColor()),
+
+        return new HBox(new Rectangle(15, 20, policy.getColor()),
                 new Rectangle(15, 20, Color.TRANSPARENT),
                 new Rectangle(15, 20, Color.TRANSPARENT));
-
-        return hBox;
     }
 
     public List<Policy> getCards() {
@@ -54,5 +54,33 @@ public class TopDeck implements Gov {
         return null;
     }
 
+    @Override
+    public List<Policy> getClaim1() {
+        return getCards();
+    }
 
+    @Override
+    public List<Policy> getClaim2() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean isConf() {
+        return false;
+    }
+
+    @Override
+    public List<Policy> getAssumption() {
+        return getCards();
+    }
+
+    @Override
+    public HBox getAssumptionHBox() {
+        return new HBox();
+    }
+
+    @Override
+    public void setAssumption(int numberOfLibs) {
+        //do nothing
+    }
 }
