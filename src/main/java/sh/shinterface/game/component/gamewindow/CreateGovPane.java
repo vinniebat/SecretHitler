@@ -188,7 +188,7 @@ public class CreateGovPane extends VBox {
         textField.textProperty().addListener((observableValue, oldString, newString) -> {
             if (newString.length() > numberOfClaims) {
                 textField.setText(oldString);
-            } else if (!newString.equals("") && newString.length() > oldString.length()) {
+            } else if (!newString.isBlank() && newString.length() > oldString.length()) {
                 Character newChar = newString.charAt(newString.length() - 1);
                 if (LOWERSTRINGPOLICIES.contains(newChar)) {
                     textField.setText(oldString + newChar.toString().toUpperCase());
