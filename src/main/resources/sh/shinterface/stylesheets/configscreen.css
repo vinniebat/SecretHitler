@@ -118,8 +118,8 @@ PlayerField {
     -fx-text-fill: -fx-main-light;
     -fx-border-color: -fx-main-white;
     -fx-border-width: 0.1em;
-    -fx-pref-width: 9em;
-    -fx-font-size: 70%;
+    -fx-pref-width: 7em;
+    -fx-font-size: 80%;
     -fx-font-family: "Times New Roman";
 }
 
@@ -153,13 +153,13 @@ RoleBox styling
 }
 
 .role-box .choice-box {
-    -fx-pref-width: 4.5em;
+    -fx-pref-width: 5em;
 }
 
 .role-box .choice-box .label {
     -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-font-size: 80%;
-    -fx-pref-width: 3.5em;
+    -fx-font-size: 90%;
+    -fx-pref-width: 4em;
 }
 
 /*
@@ -167,11 +167,11 @@ Role choices
  */
 
 PlayerRoleBox {
-    -fx-alignment: center;
+    -fx-alignment: bottom-right;
 }
 
 PlayerRoleBox .label {
-    -fx-font-size: 0.72em;
+    -fx-font-size: 0.75em;
 }
 
 .roles {
@@ -179,6 +179,11 @@ PlayerRoleBox .label {
     -fx-alignment: center-right;
     -fx-vgap: 0.25em;
     -fx-hgap: 0.5em;
+}
+
+.roles .choice-box {
+    -fx-min-width: 3em;
+    -fx-font-size: 80%;
 }
 
 .roles .choice-box .label {

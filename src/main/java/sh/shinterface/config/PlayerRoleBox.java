@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import sh.shinterface.datacontainer.Player;
 
 import java.util.Optional;
@@ -16,7 +15,7 @@ import java.util.Optional;
 /**
  * Wrapper class for a ChoiceBox of Players. Used to select fascist or hitler players
  */
-public class PlayerRoleBox extends VBox implements InvalidationListener {
+public class PlayerRoleBox extends HBox implements InvalidationListener {
 
     /**
      * ChoiceBox to select the player for the given role
@@ -48,9 +47,8 @@ public class PlayerRoleBox extends VBox implements InvalidationListener {
             if (valid)
                 model.setFascist(playerBox.getSelectionModel().getSelectedItem(), index);
         });
-        Label label = new Label((index == 0) ? "Hitler: " : "Fascist: ");
-        VBox.setVgrow(playerBox, Priority.SOMETIMES);
-        HBox.setHgrow(label, Priority.ALWAYS);
+        Label label = new Label((index == 0) ? "  Hitler: " : "Fascist: ");
+        HBox.setHgrow(playerBox, Priority.ALWAYS);
         GridPane.setHgrow(this, Priority.ALWAYS);
         this.getChildren().addAll(label, playerBox);
         model.addListener(this);

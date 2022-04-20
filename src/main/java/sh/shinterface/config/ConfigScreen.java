@@ -2,6 +2,7 @@ package sh.shinterface.config;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -9,7 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
 import sh.shinterface.datacontainer.Player;
@@ -93,7 +96,6 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         VBox playerContainer = new VBox();
         playerFields = playerContainer.getChildren(); // Sla de fields op voor makkelijk aan te passen
         VBox.setVgrow(playerContainer, Priority.ALWAYS);
-        // Zorgt dat de role choice wordt getoond na selecteren van actieve speler
         //END PLAYER FIELDS
 
         // INIT Role Selection
@@ -109,7 +111,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         createGameButton.setOnAction(Main::confirmSelection);
         // END BUTTON
 
-        VBox controlsBox = new VBox(choiceBox, playerContainer, fascistPane, new HBox(hBox, createGameButton));
+        VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(fascistPane), new HBox(hBox, createGameButton));
         controlsBox.getStyleClass().add("config-screen");
         // END CONTROLS
 
@@ -118,16 +120,31 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
         this.getChildren().addAll(controlsBox, title);
         this.getStyleClass().addAll("liberal");
+        setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * 0.01);
 
-        model.addListener(this);
-        controlsBox.widthProperty().addListener((o, oV, nV) -> {
-            if (Math.abs(nV.doubleValue() - oV.doubleValue()) > 0.5) {
-                setStyle("-fx-font-size: " + (int) (nV.doubleValue() * 0.05));
-                setPrefWidth(getWidth());
-                setMinHeight(getWidth() * 0.8);
+        ChangeListener<Boolean> fontSize = (o, oldB, newB) -> {
+            if (oldB == newB) return;
+            if (newB) {
+                setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getHeight() * 0.03);
+            } else {
+                setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * 0.01);
+            }
+        };
+        ChangeListener<Boolean> resize = (o, oldB, newB) -> {
+            if (!newB)
                 stage.sizeToScene();
+        };
+        stage.maximizedProperty().addListener(fontSize);
+        stage.maximizedProperty().addListener(resize);
+        stage.fullScreenProperty().addListener(fontSize);
+        stage.fullScreenProperty().addListener(resize);
+        this.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.F11) {
+                stage.setFullScreen(!stage.isFullScreen());
             }
         });
+
+        model.addListener(this);
         choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
     }
 
@@ -138,7 +155,8 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         setFascistBoxes();
         setCreateDisable();
         setStyling();
-        stage.sizeToScene();
+        if (!stage.isMaximized() && !stage.isFullScreen())
+            stage.sizeToScene();
     }
 
     /**

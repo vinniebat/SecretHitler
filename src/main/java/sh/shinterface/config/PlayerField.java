@@ -58,7 +58,6 @@ public class PlayerField extends HBox {
                 nameField,
                 button
         );
-        VBox.setVgrow(this, Priority.ALWAYS);
         HBox.setHgrow(nameField, Priority.ALWAYS);
     }
 
