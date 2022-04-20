@@ -121,6 +121,8 @@ PlayerField {
     -fx-pref-width: 9em;
     -fx-font-size: 70%;
     -fx-font-family: "Times New Roman";
+    -fx-highlight-fill: -fx-main-light;
+    -fx-highlight-text-fill: -fx-main-white;
 }
 
 .empty-field .text-field {

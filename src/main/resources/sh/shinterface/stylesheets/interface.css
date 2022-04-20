@@ -227,6 +227,8 @@ CreateGovPane .text-field {
     -fx-text-fill: -fx-main-light;
     -fx-font-weight: bold;
     -fx-pref-width: 50;
+    -fx-highlight-fill: -fx-main-light;
+    -fx-highlight-text-fill: -fx-main-white;
 }
 
 CreateGovPane .check-box {
