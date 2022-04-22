@@ -10,7 +10,7 @@ public interface Gov {
 
     Player getChancellor();
 
-    HBox getClaims();
+    List<Policy> getClaims();
 
     List<Policy> getCards();
 

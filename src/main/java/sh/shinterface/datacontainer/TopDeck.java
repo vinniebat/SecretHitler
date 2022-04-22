@@ -31,13 +31,8 @@ public class TopDeck implements Gov {
     }
 
     @Override
-    public HBox getClaims() {
-        Label label = new Label("\uD83D\uDDF2");
-        label.setVisible(false);
-
-        return new HBox(new Rectangle(15, 20, policy.getColor()),
-                new Rectangle(15, 20, Color.TRANSPARENT),
-                new Rectangle(15, 20, Color.TRANSPARENT));
+    public List<Policy> getClaims() {
+        return List.of(policy);
     }
 
     public List<Policy> getCards() {

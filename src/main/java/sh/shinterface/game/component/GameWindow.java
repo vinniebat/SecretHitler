@@ -1,17 +1,19 @@
 package sh.shinterface.game.component;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import sh.shinterface.datacontainer.Gov;
+import sh.shinterface.datacontainer.Policy;
 import sh.shinterface.datacontainer.Role;
 import sh.shinterface.game.Game;
 import sh.shinterface.game.component.gamewindow.CreateGovPane;
@@ -40,12 +42,13 @@ public class GameWindow extends SplitPane {
 
         TableColumn<Gov, String> president = new TableColumn<>("President");
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
-        TableColumn<Gov, HBox> claim = new TableColumn<>("Claim(s)");
+        TableColumn<Gov, List<Policy>> claim = new TableColumn<>("Claim(s)");
         TableColumn<Gov, HBox> assumption = new TableColumn<>("Assumptions");
 
         president.setCellValueFactory(new PropertyValueFactory<>("president"));
         chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
         claim.setCellValueFactory(new PropertyValueFactory<>("claims"));
+        claim.setCellFactory(column -> new PolicyCell());
         assumption.setCellValueFactory(new PropertyValueFactory<>("assumptionHBox"));
 
         List<TableColumn<Gov, ?>> columns = List.of(president, chancellor, claim, assumption);
@@ -84,6 +87,40 @@ public class GameWindow extends SplitPane {
                 }
             }
         });
+        this.getStyleClass().addAll(role.getStyle(), "interface");
+        this.getStylesheets().add("sh/shinterface/stylesheets/interface.css");
+    }
+
+    private static class PolicyCell extends TextFieldTableCell<Gov, List<Policy>> {
+
+        @Override
+        public void updateItem(List<Policy> policies, boolean empty) {
+            super.updateItem(policies, empty);
+            setText(null);
+            if (empty) {
+                setGraphic(null);
+            } else {
+                HBox hBox = new HBox();
+                List<Node> nodes = hBox.getChildren();
+                int i = 0;
+                while (i < policies.size() && i < 3) {
+                    nodes.add(new Rectangle(15, 20, policies.get(i).getColor()));
+                    i++;
+                }
+                while (i < 3) {
+                    nodes.add(new Rectangle(15, 20, Color.TRANSPARENT));
+                    i++;
+                }
+                if (policies.size() > 3) {
+                    nodes.add(new Label("\uD83D\uDDF2"));
+                }
+                while (i < policies.size()) {
+                    nodes.add(new Rectangle(15, 20, policies.get(i).getColor()));
+                    i++;
+                }
+                setGraphic(hBox);
+            }
+        }
     }
 
     public TableView<Gov> getGovTable() {

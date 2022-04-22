@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sh.shinterface.config.ConfigScreen;
 import sh.shinterface.game.Game;
@@ -24,9 +25,11 @@ public class Main extends Application {
     public static void confirmSelection(ActionEvent e) {
         if (configScreen.isValid()) {
             //later factory
-            stage.close();
-            stage.setScene(new Game(configScreen.getPlayers(), configScreen.getActivePlayer()));
-            stage.show();
+            stage.getScene().setRoot(new Game(configScreen.getPlayers(), configScreen.getActivePlayer()).getGameWindow());
+            if (!stage.isMaximized() && !stage.isFullScreen()) {
+                stage.sizeToScene();
+                stage.centerOnScreen();
+            }
         }
     }
 
@@ -38,9 +41,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         Main.stage = stage;
         configScreen = new ConfigScreen(stage);
-        Scene scene = new Scene(configScreen);
-        scene.getStylesheets().add("sh/shinterface/stylesheets/configscreen.css");
-        stage.setScene(scene);
+        stage.setScene(new Scene(configScreen));
         stage.setTitle("Secret Hitler Interface");
         InputStream icon = getClass().getResourceAsStream("images/icons/secret-hitler-icon.png");
         assert icon != null; // If this failed the icon is missing

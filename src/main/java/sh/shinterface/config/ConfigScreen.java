@@ -146,6 +146,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
         model.addListener(this);
         choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
+        getStylesheets().add("sh/shinterface/stylesheets/configscreen.css");
     }
 
     @Override

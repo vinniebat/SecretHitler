@@ -28,22 +28,11 @@ public class PlayerGov implements Gov {
         this.votes = votes;
     }
 
-    public HBox getClaims() {
-        HBox result = new HBox();
-        for (Policy policy : claim1) {
-            result.getChildren().add(new Rectangle(15, 20, policy.getColor()));
-        }
-        if (conf) {
-            result.getChildren().add(new Label("\uD83D\uDDF2"));
-            for (Policy policy : claim2) {
-                result.getChildren().add(new Rectangle(15, 20, policy.getColor()));
-            }
-        }
-//        String claimText = PolicyConverter.toString(claim1);
-//        if (conf) {
-//            claimText += " \uD83D\uDDF2 " + PolicyConverter.toString(claim2);
-//        }
-        return result;
+    public List<Policy> getClaims() {
+        List<Policy> claims = new ArrayList<>(claim1);
+        if (conf)
+            claims.addAll(claim2);
+        return claims;
     }
 
     @Override

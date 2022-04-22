@@ -71,6 +71,10 @@ VBox, HBox, PlayerRoleBox {
     -fx-spacing: 0.25em;
 }
 
+HBox {
+    -fx-alignment: bottom-right;
+}
+
 .button, .toggle-button {
     -fx-background-color: -fx-main-dark;
     -fx-text-fill: -fx-main-light;
