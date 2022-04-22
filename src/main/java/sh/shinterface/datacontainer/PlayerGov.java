@@ -1,6 +1,5 @@
 package sh.shinterface.datacontainer;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 

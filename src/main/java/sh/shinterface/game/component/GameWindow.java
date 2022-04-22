@@ -43,13 +43,14 @@ public class GameWindow extends SplitPane {
         TableColumn<Gov, String> president = new TableColumn<>("President");
         TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
         TableColumn<Gov, List<Policy>> claim = new TableColumn<>("Claim(s)");
-        TableColumn<Gov, HBox> assumption = new TableColumn<>("Assumptions");
+        TableColumn<Gov, List<Policy>> assumption = new TableColumn<>("Assumptions");
 
         president.setCellValueFactory(new PropertyValueFactory<>("president"));
         chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
         claim.setCellValueFactory(new PropertyValueFactory<>("claims"));
         claim.setCellFactory(column -> new PolicyCell());
-        assumption.setCellValueFactory(new PropertyValueFactory<>("assumptionHBox"));
+        assumption.setCellValueFactory(new PropertyValueFactory<>("assumption"));
+        assumption.setCellFactory(column -> new PolicyCell());
 
         List<TableColumn<Gov, ?>> columns = List.of(president, chancellor, claim, assumption);
         for (TableColumn<Gov, ?> column : columns) {

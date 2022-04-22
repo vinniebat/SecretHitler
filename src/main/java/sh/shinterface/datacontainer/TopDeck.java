@@ -1,9 +1,6 @@
 package sh.shinterface.datacontainer;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import sh.shinterface.util.SpecialGovPlayers;
 
 import java.util.ArrayList;
