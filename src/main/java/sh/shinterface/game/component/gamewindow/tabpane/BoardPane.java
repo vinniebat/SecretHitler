@@ -18,9 +18,12 @@ public class BoardPane extends StackPane implements InvalidationListener {
     private final ImageView liberalBoard;
     private final ImageView fascistBoard;
     private final GovModel govModel;
+    private final Button gameButton = new Button("End game");
+    private final Game game;
 
     public BoardPane(GovModel govModel, Game game) {
         this.govModel = govModel;
+        this.game = game;
         this.maxFasc = (govModel.getGame().getPlayers().size()-1)/2;
         liberalBoard = new ImageView(new Image("sh/shinterface/images/boards/liberal/0.png"));
         fascistBoard = new ImageView(new Image("sh/shinterface/images/boards/fascist" + maxFasc + "/0.png"));
@@ -31,15 +34,14 @@ public class BoardPane extends StackPane implements InvalidationListener {
         fascistBoard.setFitHeight(150);
 
         VBox boards = new VBox(liberalBoard, fascistBoard);
-        Button endGameButton = new Button("End game");
-        endGameButton.setOnAction(e -> endGame(game, endGameButton));
-        HBox buttonBox = new HBox(endGameButton);
+        gameButton.setOnAction(e -> endGame());
+        HBox buttonBox = new HBox(gameButton);
         this.getChildren().addAll(boards, buttonBox);
     }
 
-    public void endGame(Game game, Button endGameButton) {
-        endGameButton.setText("Save Game");
-        endGameButton.setOnAction(e -> saveGame(game, endGameButton));
+    public void endGame() {
+        gameButton.setText("Save Game");
+        gameButton.setOnAction(e -> saveGame());
         game.end();
     }
 
@@ -48,9 +50,12 @@ public class BoardPane extends StackPane implements InvalidationListener {
         int fascPlayed = govModel.getFascPlayed();
         liberalBoard.setImage(new Image("sh/shinterface/images/boards/liberal/" + libPlayed + ".png"));
         fascistBoard.setImage(new Image("sh/shinterface/images/boards/fascist" + maxFasc + "/" + fascPlayed + ".png"));
+        if (libPlayed >= 5 || fascPlayed >= 6) {
+            endGame();
+        }
     }
 
-    public void saveGame(Game game, Button button) {
-        CreateTables.createDB(game, button);
+    public void saveGame() {
+        CreateTables.createDB(game, gameButton);
     }
 }
