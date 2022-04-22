@@ -32,8 +32,8 @@
     -fx-padding: -37 2 -37 2;
     -fx-background-color: -fx-main-light;
 
-    -fx-pref-width: 1200;
-    -fx-min-width: 810;
+    -fx-pref-width: 60em;
+    -fx-min-width: 41em;
 }
 
 .split-pane {
@@ -44,19 +44,15 @@
     -fx-background-color: -fx-main-dark;
 }
 
-.split-pane:vertical {
-    -fx-padding: 0 0 0 2;
-}
-
 .left {
-    -fx-max-width: 500;
-    -fx-pref-width: 450;
-    -fx-min-width: 400;
+    -fx-max-width: 25em;
+    -fx-pref-width: 23em;
+    -fx-min-width: 20em;
 }
 
 .gov-stack {
-    -fx-pref-height: 300;
-    -fx-min-height: 100;
+    -fx-pref-height: 15em;
+    -fx-min-height: 5em;
 }
 
 /*
@@ -64,7 +60,7 @@ Government table styling
  */
 
 .gov {
-    -fx-padding: 0 2 2 0;
+    -fx-padding: 0 0.1em 0.1em 0;
 }
 
 .table-view {
@@ -79,7 +75,7 @@ Government table styling
 .table-view .column-header-background .label {
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-font-size: 18;
+    -fx-font-size: 0.9em;
     -fx-font-weight: normal;
 }
 
@@ -94,19 +90,19 @@ Government table styling
 
 .table-view .table-row-cell:selected {
     -fx-border-color: -fx-main-white;
-    -fx-border-width: 2 0 2 0;
+    -fx-border-width: 0.1em 0 0.1em 0;
     -fx-background-color: derive(-fx-main-light, 30%);
 }
 
 .table-view .table-cell {
-    -fx-font-size: 14;
+    -fx-font-size: 0.7em;
     -fx-font-family: "Times New Roman";
     -fx-text-fill: -fx-main-dark;
     -fx-alignment: center;
 }
 
 .table-view .table-cell HBox {
-    -fx-spacing: 2;
+    -fx-spacing: 0.1em;
     -fx-alignment: center;
 }
 
@@ -145,31 +141,31 @@ Government panel styling
 
 CreateGovPane {
     -fx-padding: 0;
-    -fx-spacing: 5;
+    -fx-spacing: 0.25em;
     -fx-border-color: -fx-main-dark transparent transparent transparent;
-    -fx-border-width: 5;
+    -fx-border-width: 0.25em;
 }
 
 CreateGovPane Label {
     -fx-underline: true;
     -fx-text-fill: -fx-main-dark;
-    -fx-font-size: 18;
+    -fx-font-size: 1em;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
 CreateGovPane GridPane {
-    -fx-vgap: 3;
-    -fx-hgap: 10;
+    -fx-vgap: 0.15em;
+    -fx-hgap: 0.5em;
 }
 
 CreateGovPane GridPane Label {
-    -fx-font-size: 14;
+    -fx-font-size: 0.8em;
     -fx-underline: false;
     -fx-font-family: "Times New Roman";
 }
 
 CreateGovPane HBox, CreateGovPane VBox {
-    -fx-spacing: 2;
+    -fx-spacing: 0.1em;
 }
 
 CreateGovPane ToggleButton {
@@ -179,7 +175,7 @@ CreateGovPane ToggleButton {
     -fx-min-height: 41;
 
     -fx-border-color: transparent;
-    -fx-border-width: 2;
+    -fx-border-width: 0.2em;
     -fx-background-color: transparent;
     -fx-graphic: url("../votes/ballot.cards(ja).png");
 }
@@ -189,7 +185,7 @@ CreateGovPane ToggleButton:selected {
 }
 
 CreateGovPane .choice-box {
-    -fx-pref-width: 100;
+    -fx-pref-width: 5em;
     -fx-background-color: -fx-main-dark;
     -fx-mark-color: -fx-main-light;
 }
@@ -197,7 +193,7 @@ CreateGovPane .choice-box {
 CreateGovPane .choice-box .label {
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 14;
+    -fx-font-size: 0.7em;
 }
 
 CreateGovPane .choice-box .context-menu {
@@ -215,16 +211,17 @@ CreateGovPane .choice-box .arrow-button .arrow {
 CreateGovPane .text-field {
     -fx-background-color: -fx-main-dark;
     -fx-border-color: -fx-main-white;
-    -fx-border-width: 2;
+    -fx-border-width: 0.1em;
     -fx-text-fill: -fx-main-light;
     -fx-font-weight: bold;
-    -fx-pref-width: 50;
+    -fx-pref-width: 4em;
+    -fx-font-size: 0.7em;
 }
 
 CreateGovPane .check-box {
     -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 14;
+    -fx-font-size: 0.7em;
 }
 
 CreateGovPane .check-box .box {
@@ -239,7 +236,7 @@ CreateGovPane .button {
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-text-fill: -fx-main-light;
     -fx-background-color: -fx-main-dark;
-    -fx-font-size: 14;
+    -fx-font-size: 0.7em;
 }
 
 /*
@@ -268,31 +265,31 @@ Top deck styling
  */
 
 TopDeckWindow {
-    -fx-border-width: 20;
+    -fx-border-width: 1em;
     -fx-border-color: -fx-main-dark transparent -fx-main-dark transparent;
-    -fx-border-insets: 130 0 130 0;
+    -fx-border-insets: 6.5em 0 6.5em 0;
 }
 
 TopDeckWindow, TopDeckWindow VBox, TopDeckWindow HBox {
-    -fx-spacing: 10;
+    -fx-spacing: 0.5em;
     -fx-alignment: center;
 }
 
 TopDeckWindow Label {
     -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 20;
+    -fx-font-size: 1em;
 }
 
 TopDeckWindow Button {
     -fx-background-color: -fx-main-dark;
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-font-size: 20;
+    -fx-font-size: 1em;
 }
 
 TopDeckWindow HBox {
-    -fx-padding: 5;
+    -fx-padding: 0.25em;
 }
 
 /*
@@ -300,23 +297,28 @@ PlayerView Styling
  */
 
 PartyView {
-    -fx-spacing: 10;
+    -fx-spacing: 0.5em;
     -fx-alignment: center;
+    -fx-padding: 0 0 0.25em 0.25em;
+}
+
+PartyView HBox {
+    -fx-spacing: 0.5em;
 }
 
 PlayerView {
     -fx-alignment: center;
-    -fx-spacing: 10;
+    -fx-spacing: 0.5em;
 }
 
 PlayerView Label {
     -fx-font-family: "Times New Roman";
-    -fx-font-size: 16;
+    -fx-font-size: 0.8em;
     -fx-text-fill: -fx-main-dark;
 }
 
 PlayerView .choice-box {
-    -fx-pref-width: 100;
+    -fx-pref-width: 6em;
     -fx-background-color: -fx-main-dark;
     -fx-mark-color: -fx-main-light;
 }
@@ -324,8 +326,8 @@ PlayerView .choice-box {
 PlayerView .choice-box .label {
     -fx-text-fill: -fx-main-light;
     -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-alignment: center;
-    -fx-font-size: 16;
+    -fx-font-size: 0.8em;
+    -fx-pref-width: 4.5em;
 }
 
 PlayerView .choice-box .context-menu {
@@ -351,24 +353,29 @@ GovView .tab-header-background {
 GovView .tab {
     -fx-background-color: derive(-fx-main-light, -20%);
     -fx-border-color: transparent;
-    -fx-border-width: 2;
-    -fx-background-insets: 0 2 -2 1;
+    -fx-border-width: 0.1em;
+    -fx-background-insets: 0 0.1em -0.1em 1;
 }
 
 GovView .tab:selected {
     -fx-background-color: -fx-main-light;
-    -fx-background-insets: 0 2 -4 1;
-    -fx-background-radius: 5;
+    -fx-background-insets: 0 0.1em -0.2em 0.05em;
+    -fx-background-radius: 0.25em;
     -fx-border-color: -fx-main-white -fx-main-white transparent -fx-main-white;
-    -fx-border-insets: 0 2 -4 1;
-    -fx-border-radius: 5;
-    -fx-border-width: 2;
+    -fx-border-insets: 0 0.1em -0.2em 0.05em;
+    -fx-border-radius: 0.25em;
+    -fx-border-width: 0.1em;
 }
 
 GovView .tab-label {
     -fx-text-fill: -fx-main-dark;
     -fx-font-family: "Eskapade Fraktur W04 Black";
-    -fx-font-size: 16;
+    -fx-font-size: 1em;
+}
+
+BoardPane {
+    -fx-min-width: 445;
+    -fx-min-height: 300;
 }
 
 GovView BoardPane HBox {
@@ -378,11 +385,11 @@ GovView BoardPane HBox {
 GovView BoardPane Button {
     -fx-background-color: -fx-main-dark;
     -fx-text-fill: -fx-main-light;
-    -fx-font-size: 16;
+    -fx-font-size: 0.8em;
     -fx-font-family: "Eskapade Fraktur W04 Black";
 }
 
 GovView BoardPane VBox {
-    -fx-spacing: 10;
+    -fx-spacing: 0.5em;
     -fx-alignment: center;
 }

@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import sh.shinterface.datacontainer.Gov;
 import sh.shinterface.datacontainer.Policy;
 import sh.shinterface.datacontainer.Role;
@@ -88,6 +89,7 @@ public class GameWindow extends SplitPane {
                 }
             }
         });
+        setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * 0.01);
         this.getStyleClass().addAll(role.getStyle(), "interface");
         this.getStylesheets().add("sh/shinterface/stylesheets/interface.css");
     }
