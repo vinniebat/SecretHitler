@@ -1,4 +1,4 @@
-package sh.shinterface.game.component;
+package sh.shinterface.screen;
 
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Orientation;
@@ -13,14 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
-import sh.shinterface.datacontainer.Gov;
-import sh.shinterface.datacontainer.Policy;
-import sh.shinterface.datacontainer.Role;
-import sh.shinterface.game.Game;
-import sh.shinterface.game.component.gamewindow.CreateGovPane;
-import sh.shinterface.game.component.gamewindow.GovView;
-import sh.shinterface.game.component.gamewindow.PartyView;
-import sh.shinterface.game.component.gamewindow.TopDeckWindow;
+import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.playable.Policy;
+import sh.shinterface.playable.Role;
+import sh.shinterface.view.CreateGovPane;
+import sh.shinterface.view.GovView;
+import sh.shinterface.view.PartyView;
+import sh.shinterface.view.TopDeckWindow;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package sh.shinterface.datacontainer;
+package sh.shinterface.playable;
 
 public record Deck(int allLib, int allFasc, int restLib, int restFasc) {
 

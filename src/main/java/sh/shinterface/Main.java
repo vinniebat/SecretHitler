@@ -11,9 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import sh.shinterface.config.ConfigScreen;
-import sh.shinterface.game.Game;
 import sh.shinterface.menu.StartMenu;
+import sh.shinterface.screen.ConfigScreen;
+import sh.shinterface.screen.Game;
 
 import java.io.IOException;
 import java.io.InputStream;

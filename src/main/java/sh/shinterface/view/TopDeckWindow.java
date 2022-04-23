@@ -1,15 +1,15 @@
-package sh.shinterface.game.component.gamewindow;
+package sh.shinterface.view;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sh.shinterface.datacontainer.Gov;
-import sh.shinterface.datacontainer.Policy;
-import sh.shinterface.datacontainer.Role;
-import sh.shinterface.datacontainer.TopDeck;
-import sh.shinterface.game.component.GameWindow;
+import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.playable.Policy;
+import sh.shinterface.playable.Role;
+import sh.shinterface.playable.gov.TopDeck;
+import sh.shinterface.screen.GameWindow;
 
 public class TopDeckWindow extends VBox {
 

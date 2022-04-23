@@ -1,4 +1,4 @@
-package sh.shinterface.datacontainer;
+package sh.shinterface.playable;
 
 /**
  * Available roles in the game

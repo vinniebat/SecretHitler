@@ -1,4 +1,4 @@
-package sh.shinterface.config;
+package sh.shinterface.screen;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -15,8 +15,11 @@ import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
-import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.Role;
+import sh.shinterface.model.PartyModel;
+import sh.shinterface.control.PlayerField;
+import sh.shinterface.control.PlayerRoleBox;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Role;
 
 import java.util.ArrayList;
 import java.util.List;

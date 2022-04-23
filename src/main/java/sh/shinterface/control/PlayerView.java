@@ -1,4 +1,4 @@
-package sh.shinterface.game.component.gamewindow;
+package sh.shinterface.control;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,9 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.Role;
-import sh.shinterface.game.Game;
+import sh.shinterface.view.PartyView;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Role;
+import sh.shinterface.screen.Game;
 import sh.shinterface.util.ImagePicker;
 
 public class PlayerView extends VBox {

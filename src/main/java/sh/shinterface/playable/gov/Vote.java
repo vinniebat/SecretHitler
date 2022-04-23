@@ -1,4 +1,4 @@
-package sh.shinterface.datacontainer;
+package sh.shinterface.playable.gov;
 
 import javafx.scene.paint.Color;
 
