@@ -1,0 +1,66 @@
+@font-face {
+    src: url("../Eskapade-Fraktur-W04-Black.ttf");
+}
+
+StartMenu {
+    -fx-main-dark: #004E6E;
+    -fx-main-light: #61C8D9;
+    -fx-main-white: white;
+
+    -fx-background-color: -fx-main-light;
+    -fx-font-size: 20;
+    -fx-alignment: top-center;
+    -fx-pref-height: 20em;
+}
+
+.start-menu {
+    -fx-border-image-source: url("../images/border/liberal_border.png");
+
+    -fx-border-image-slice: 79 40 77 40;
+    -fx-border-image-width: 79 40 77 40;
+    -fx-border-image-repeat: round round;
+    -fx-border-image-insets: 5;
+
+    -fx-padding: -37 0.25em -37 0.25em;
+}
+
+GridPane {
+    -fx-vgap: 1em;
+    -fx-hgap: 0.5em;
+    -fx-alignment: center-left;
+}
+
+.label {
+    -fx-text-fill: -fx-main-dark;
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 0.8em;
+}
+
+.title {
+    -fx-background-color: -fx-main-light;
+    -fx-text-fill: -fx-main-dark;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-font-size: 1.6em;
+    -fx-alignment: center;
+    -fx-min-height: 42;
+    -fx-padding: 0 0.25em 0 0.25em
+}
+
+.button {
+    -fx-background-color: -fx-main-dark;
+    -fx-text-fill: -fx-main-light;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-font-size: 0.8em;
+}
+
+.toggle-button {
+    -fx-font-size: 0.8em;
+    -fx-font-family: "Eskapade Fraktur W04 Black";
+    -fx-background-color: #990200;
+    -fx-text-fill: #E66443;
+}
+
+.toggle-button:selected {
+    -fx-background-color: green;
+    -fx-text-fill: lightgreen;
+}

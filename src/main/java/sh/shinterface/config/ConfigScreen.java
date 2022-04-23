@@ -120,29 +120,8 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
 
         this.getChildren().addAll(controlsBox, title);
         this.getStyleClass().addAll("liberal");
-        setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * 0.01);
-
-        ChangeListener<Boolean> fontSize = (o, oldB, newB) -> {
-            if (oldB == newB) return;
-            if (newB) {
-                setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getHeight() * 0.03);
-            } else {
-                setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * 0.01);
-            }
-        };
-        ChangeListener<Boolean> resize = (o, oldB, newB) -> {
-            if (!newB)
-                stage.sizeToScene();
-        };
-        stage.maximizedProperty().addListener(fontSize);
-        stage.maximizedProperty().addListener(resize);
-        stage.fullScreenProperty().addListener(fontSize);
-        stage.fullScreenProperty().addListener(resize);
-        this.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.F11) {
-                stage.setFullScreen(!stage.isFullScreen());
-            }
-        });
+        boolean maxed = stage.isFullScreen() || stage.isMaximized();
+        setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * ((maxed) ? 0.03 : 0.01));
 
         model.addListener(this);
         choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
