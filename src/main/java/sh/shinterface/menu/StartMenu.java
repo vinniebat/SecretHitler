@@ -20,6 +20,7 @@ public class StartMenu extends StackPane {
         Button newGame = new Button("New Game");
         newGame.setOnAction(Main::newGame);
         Button loadGame = new Button("Load Game");
+        loadGame.setOnAction(Main::loadGame);
         Button settings = new Button("Settings");
         ToggleButton switchButton = new ToggleButton("OFF");
         switchButton.textProperty().bind(Bindings.createStringBinding(() -> switchButton.isSelected() ? "ON" : "OFF", switchButton.selectedProperty()));
