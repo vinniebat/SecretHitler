@@ -1,4 +1,4 @@
-package sh.shinterface.game.component.gamewindow.tabpane;
+package sh.shinterface.view.tab;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -8,9 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import sh.shinterface.datacontainer.GovModel;
+import sh.shinterface.model.GovModel;
 import sh.shinterface.db.CreateTables;
-import sh.shinterface.game.Game;
+import sh.shinterface.screen.Game;
 
 public class BoardPane extends StackPane implements InvalidationListener {
 

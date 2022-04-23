@@ -1,9 +1,9 @@
-package sh.shinterface.config;
+package sh.shinterface.model;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.Role;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Role;
 
 import java.util.ArrayList;
 import java.util.List;

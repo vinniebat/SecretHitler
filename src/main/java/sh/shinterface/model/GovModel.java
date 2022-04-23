@@ -1,11 +1,14 @@
-package sh.shinterface.datacontainer;
+package sh.shinterface.model;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
-import sh.shinterface.game.Game;
-import sh.shinterface.game.component.gamewindow.GovView;
+import sh.shinterface.playable.Deck;
+import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.playable.Policy;
+import sh.shinterface.screen.Game;
+import sh.shinterface.view.GovView;
 
 import java.util.ArrayList;
 import java.util.List;

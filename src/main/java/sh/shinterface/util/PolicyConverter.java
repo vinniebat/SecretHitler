@@ -1,6 +1,6 @@
 package sh.shinterface.util;
 
-import sh.shinterface.datacontainer.Policy;
+import sh.shinterface.playable.Policy;
 
 import java.util.List;
 

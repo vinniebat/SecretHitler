@@ -1,15 +1,15 @@
-package sh.shinterface.game.component.gamewindow;
+package sh.shinterface.view;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
-import sh.shinterface.datacontainer.Gov;
-import sh.shinterface.datacontainer.GovModel;
-import sh.shinterface.game.Game;
-import sh.shinterface.game.component.gamewindow.tabpane.AssumptionPane;
-import sh.shinterface.game.component.gamewindow.tabpane.BoardPane;
+import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.model.GovModel;
+import sh.shinterface.view.tab.AssumptionPane;
+import sh.shinterface.view.tab.BoardPane;
+import sh.shinterface.screen.Game;
 
 public class GovView extends TabPane implements InvalidationListener {
 

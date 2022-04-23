@@ -1,4 +1,4 @@
-package sh.shinterface.game.component.gamewindow.tabpane;
+package sh.shinterface.view.tab;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -6,9 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sh.shinterface.datacontainer.Deck;
-import sh.shinterface.datacontainer.Gov;
-import sh.shinterface.datacontainer.GovModel;
+import sh.shinterface.playable.Deck;
+import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.model.GovModel;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

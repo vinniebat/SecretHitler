@@ -1,13 +1,13 @@
-package sh.shinterface.game.component.gamewindow.tabpane;
+package sh.shinterface.view.tab;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
-import sh.shinterface.datacontainer.Deck;
-import sh.shinterface.datacontainer.GovModel;
-import sh.shinterface.datacontainer.Policy;
+import sh.shinterface.playable.Deck;
+import sh.shinterface.model.GovModel;
+import sh.shinterface.playable.Policy;
 
 import static java.lang.Math.toIntExact;
 

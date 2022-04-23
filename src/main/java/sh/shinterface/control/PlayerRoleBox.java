@@ -1,4 +1,4 @@
-package sh.shinterface.config;
+package sh.shinterface.control;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -8,7 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import sh.shinterface.datacontainer.Player;
+import sh.shinterface.playable.Player;
+import sh.shinterface.model.PartyModel;
 
 import java.util.Optional;
 

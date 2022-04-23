@@ -1,7 +1,9 @@
-package sh.shinterface.datacontainer;
+package sh.shinterface.playable.gov;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Policy;
 
 import java.util.ArrayList;
 import java.util.List;

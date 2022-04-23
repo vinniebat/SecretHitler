@@ -1,7 +1,7 @@
 package sh.shinterface.util;
 
-import sh.shinterface.datacontainer.Player;
-import sh.shinterface.datacontainer.Role;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Role;
 
 import java.util.List;
 

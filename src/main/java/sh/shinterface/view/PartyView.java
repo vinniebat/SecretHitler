@@ -1,4 +1,4 @@
-package sh.shinterface.game.component.gamewindow;
+package sh.shinterface.view;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -6,9 +6,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import sh.shinterface.datacontainer.Gov;
-import sh.shinterface.datacontainer.Vote;
-import sh.shinterface.game.Game;
+import sh.shinterface.control.PlayerView;
+import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.playable.gov.Vote;
+import sh.shinterface.screen.Game;
 
 import java.util.ArrayList;
 import java.util.List;

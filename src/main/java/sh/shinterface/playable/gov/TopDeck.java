@@ -1,6 +1,8 @@
-package sh.shinterface.datacontainer;
+package sh.shinterface.playable.gov;
 
 import javafx.scene.layout.HBox;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Policy;
 import sh.shinterface.util.SpecialGovPlayers;
 
 import java.util.ArrayList;
