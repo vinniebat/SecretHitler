@@ -1,4 +1,4 @@
-package sh.shinterface.menu;
+package sh.shinterface.screen;
 
 import javafx.beans.binding.Bindings;
 import javafx.geometry.HPos;
