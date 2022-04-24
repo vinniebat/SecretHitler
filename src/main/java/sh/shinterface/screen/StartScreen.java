@@ -8,15 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.util.StringConverter;
 import sh.shinterface.Main;
 import sh.shinterface.Settings;
 
 import java.util.List;
 
-public class StartMenu extends StackPane {
+public class StartScreen extends StackPane {
 
-    public StartMenu() {
+    public StartScreen() {
         Button newGame = new Button("New Game");
         newGame.setOnAction(Main::newGame);
         Button loadGame = new Button("Load Game");

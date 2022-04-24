@@ -2,7 +2,7 @@
     src: url("../Eskapade-Fraktur-W04-Black.ttf");
 }
 
-StartMenu {
+StartScreen {
     -fx-main-dark: #004E6E;
     -fx-main-light: #61C8D9;
     -fx-main-white: white;

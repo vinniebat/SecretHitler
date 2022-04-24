@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import sh.shinterface.screen.StartMenu;
+import sh.shinterface.screen.StartScreen;
 import sh.shinterface.screen.ConfigScreen;
 import sh.shinterface.screen.Game;
 
@@ -49,7 +49,7 @@ public class Main extends Application {
         try {
             Settings.load();
             Main.stage = stage;
-            Scene scene = new Scene(new StartMenu());
+            Scene scene = new Scene(new StartScreen());
             stage.setScene(scene);
             scene.setOnKeyPressed(e -> {
                 if (e.getCode() == KeyCode.F11) {
@@ -62,7 +62,7 @@ public class Main extends Application {
             };
 
             ChangeListener<Boolean> fontSize = (o, oldB, newB) ->
-                    stage.getScene().getRoot().setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getHeight() * ((newB) ? 0.03 : 0.01));
+                    stage.getScene().getRoot().setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getHeight() * ((newB) ? 0.03 : 0.018));
             stage.maximizedProperty().addListener(fontSize);
             stage.fullScreenProperty().addListener(fontSize);
             stage.maximizedProperty().addListener(resize);
