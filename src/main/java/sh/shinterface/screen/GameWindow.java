@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -59,6 +60,13 @@ public class GameWindow extends SplitPane {
         }
 
         govTable.getColumns().setAll(columns);
+        govTable.setOnKeyTyped(e -> {
+            if (e.getCode() == KeyCode.UP) {
+                govTable.getSelectionModel().selectPrevious();
+            } else if (e.getCode() == KeyCode.DOWN) {
+                govTable.getSelectionModel().selectNext();
+            }
+        });
 
         topDeckWindow = new TopDeckWindow(govTable, role, this);
         topDeckWindow.setVisible(false);
