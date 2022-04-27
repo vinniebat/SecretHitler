@@ -5,6 +5,7 @@ public class Player {
     private final int id;
     private String name;
     private Role role;
+    private boolean turnLocked = false;
 
     public Player(int id, String name, Role role) {
         this.id = id;
@@ -42,5 +43,13 @@ public class Player {
 
     public boolean isUnknown() {
         return role == Role.UNKNOWN || role == Role.NONE;
+    }
+
+    public boolean isTurnLocked() {
+        return turnLocked;
+    }
+
+    public void setTurnLocked(boolean turnLocked) {
+        this.turnLocked = turnLocked;
     }
 }

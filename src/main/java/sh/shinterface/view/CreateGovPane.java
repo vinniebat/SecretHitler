@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sh.shinterface.playable.*;
+import sh.shinterface.playable.gov.Gov;
 import sh.shinterface.playable.gov.PlayerGov;
 import sh.shinterface.playable.gov.Vote;
 import sh.shinterface.screen.Game;
@@ -13,6 +14,7 @@ import sh.shinterface.screen.GameWindow;
 import sh.shinterface.util.PolicyConverter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,8 +32,10 @@ public class CreateGovPane extends VBox {
     private final CheckBox conf;
     private final List<ToggleButton> voteList = new ArrayList<>();
     private final GridPane govPlayers;
+    private final Game game;
 
-    public CreateGovPane(Game game, Role role, GameWindow gameWindow) {
+    public CreateGovPane(Game game, GameWindow gameWindow) {
+        this.game = game;
         govPlayers = new GridPane();
 
         Label title1 = new Label("Add new gov:");
@@ -49,18 +53,20 @@ public class CreateGovPane extends VBox {
 
         presidentChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> {
             ObservableList<Player> items = chancellorChoiceBox.getItems();
-            items.removeIf(player -> player.equals(newPlayer));
+            items.remove(newPlayer);
             if (oldPlayer != null) {
-                items.add(insertIndex(oldPlayer, items), oldPlayer);
+                items.add(oldPlayer);
             }
+            items.sort(Comparator.comparing(Player::getId));
         });
 
         chancellorChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> {
             ObservableList<Player> items = presidentChoiceBox.getItems();
-            items.removeIf(player -> player.equals(newPlayer));
+            items.remove(newPlayer);
             if (oldPlayer != null) {
-                items.add(insertIndex(oldPlayer, items), oldPlayer);
+                items.add(oldPlayer);
             }
+            items.sort(Comparator.comparing(Player::getId));
         });
 
 
@@ -133,6 +139,10 @@ public class CreateGovPane extends VBox {
                     if (!game.getGovTable().isVisible()) {
                         game.getGameWindow().toggleTopDeck();
                     }
+                    game.getPlayers().forEach(p -> p.setTurnLocked(false));
+                    if (game.getPlayers().size() > 5)
+                        president.setTurnLocked(true);
+                    chancellor.setTurnLocked(true);
                     resetPane();
                 }
             } else {
@@ -144,6 +154,10 @@ public class CreateGovPane extends VBox {
     private void resetPane() {
         presidentChoiceBox.setValue(null);
         chancellorChoiceBox.setValue(null);
+        presidentChoiceBox.getItems().setAll(game.getAvailablePresidents());
+        List<Player> chancellors = new ArrayList<>(game.getPlayers());
+        chancellors.removeIf(Player::isTurnLocked);
+        chancellorChoiceBox.getItems().setAll(chancellors);
         claim1.setPromptText("Claim of president");
         claim1.clear();
         claim2.setPromptText("Claim of chancellor");
@@ -211,14 +225,6 @@ public class CreateGovPane extends VBox {
             result.add(Policy.FASCIST);
         }
         return result;
-    }
-
-    private int insertIndex(Player player, List<Player> list) {
-        int i = 0;
-        while (i < list.size() && list.get(i).getId() <= player.getId()) {
-            i++;
-        }
-        return i;
     }
 
     public Button getTopDeckButton() {
