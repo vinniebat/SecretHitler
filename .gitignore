@@ -1,3 +1,6 @@
+# Property files
+*.properties
+
 # Compiled class file
 *.class
 
