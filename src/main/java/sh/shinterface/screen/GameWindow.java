@@ -1,11 +1,13 @@
 package sh.shinterface.screen;
 
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -28,7 +30,6 @@ public class GameWindow extends TitledScreen {
 
     private static final Map<String, String> TOGGLETOPDECKTEXT = Map.of("Top deck", "Cancel", "Cancel", "Top deck");
 
-    //TODO GovTable css for selection and scrollbar
     private final TableView<Gov> govTable;
     private final TopDeckWindow topDeckWindow;
     private final Button topDeckButton;
@@ -60,13 +61,20 @@ public class GameWindow extends TitledScreen {
         }
 
         govTable.getColumns().setAll(columns);
+        govTable.setOnKeyTyped(e -> {
+            if (e.getCode() == KeyCode.UP) {
+                govTable.getSelectionModel().selectPrevious();
+            } else if (e.getCode() == KeyCode.DOWN) {
+                govTable.getSelectionModel().selectNext();
+            }
+        });
 
         topDeckWindow = new TopDeckWindow(govTable, role, this);
         topDeckWindow.setVisible(false);
         StackPane stackPane = new StackPane(govTable, topDeckWindow);
         stackPane.getStyleClass().add("gov-stack");
 
-        createGovPane = new CreateGovPane(game, role, this);
+        createGovPane = new CreateGovPane(game, this);
         topDeckButton = createGovPane.getTopDeckButton();
         VBox leftSide = new VBox(stackPane, createGovPane);
         VBox.setVgrow(stackPane, Priority.ALWAYS);
@@ -75,7 +83,7 @@ public class GameWindow extends TitledScreen {
         PartyView partyView = new PartyView(game, govTable);
         GovView specifics = new GovView(game, govTable);
         govTable.getSelectionModel().selectedItemProperty().addListener(specifics);
-        SplitPane.setResizableWithParent(specifics, false);
+        SplitPane.setResizableWithParent(partyView, false);
         SplitPane rightSide = new SplitPane(partyView, specifics);
         rightSide.setOrientation(Orientation.VERTICAL);
         govTable.getSelectionModel().selectedItemProperty().addListener(partyView);
@@ -126,6 +134,14 @@ public class GameWindow extends TitledScreen {
                 setGraphic(hBox);
             }
         }
+    }
+
+    public int getLastId() {
+        ObservableList<Gov> govs = govTable.getItems();
+        if (govs.isEmpty()) {
+            return 0;
+        }
+        return govs.get(govs.size()-1).getPresident().getId();
     }
 
     public TableView<Gov> getGovTable() {
