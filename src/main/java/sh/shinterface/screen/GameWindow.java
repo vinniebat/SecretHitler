@@ -13,9 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
-import sh.shinterface.playable.gov.Gov;
 import sh.shinterface.playable.Policy;
 import sh.shinterface.playable.Role;
+import sh.shinterface.playable.gov.Gov;
 import sh.shinterface.view.CreateGovPane;
 import sh.shinterface.view.GovView;
 import sh.shinterface.view.PartyView;
@@ -24,7 +24,7 @@ import sh.shinterface.view.TopDeckWindow;
 import java.util.List;
 import java.util.Map;
 
-public class GameWindow extends SplitPane {
+public class GameWindow extends TitledScreen {
 
     private static final Map<String, String> TOGGLETOPDECKTEXT = Map.of("Top deck", "Cancel", "Cancel", "Top deck");
 
@@ -35,6 +35,7 @@ public class GameWindow extends SplitPane {
     private final CreateGovPane createGovPane;
 
     public GameWindow(Game game, Role role) {
+        super("INTERFACE");
         govTable = new TableView<>();
 
         govTable.setPlaceholder(new Label("No govs yet!"));
@@ -79,7 +80,9 @@ public class GameWindow extends SplitPane {
         rightSide.setOrientation(Orientation.VERTICAL);
         govTable.getSelectionModel().selectedItemProperty().addListener(partyView);
 
-        this.getItems().addAll(leftSide, rightSide);
+        SplitPane splitPane = new SplitPane(leftSide, rightSide);
+        splitPane.getStyleClass().add("interface");
+        getChildren().add(0, splitPane);
 
         govTable.getItems().addListener((ListChangeListener<Gov>) change -> {
             while (change.next()){
@@ -89,8 +92,8 @@ public class GameWindow extends SplitPane {
             }
         });
         setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * 0.01);
-        this.getStyleClass().addAll(role.getStyle(), "interface");
-        this.getStylesheets().add("sh/shinterface/stylesheets/interface.css");
+        this.getStyleClass().addAll(role.getStyle());
+        super.getStylesheets().add("sh/shinterface/stylesheets/interface.css");
     }
 
     private static class PolicyCell extends TextFieldTableCell<Gov, List<Policy>> {

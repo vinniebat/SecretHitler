@@ -7,15 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import sh.shinterface.Main;
 import sh.shinterface.Settings;
 
 import java.util.List;
 
-public class StartScreen extends StackPane {
+public class StartScreen extends TitledScreen {
 
     public StartScreen() {
+        super("SECRET HITLER");
         Button newGame = new Button("New Game");
         newGame.setOnAction(Main::newGame);
         Button loadGame = new Button("Load Game");
@@ -33,12 +33,10 @@ public class StartScreen extends StackPane {
             gridPane.addRow(i, buttons.get(i), new Label(descriptions.get(i)));
             GridPane.setHalignment(buttons.get(i), HPos.RIGHT);
         }
-        Label title = new Label("SECRET HITLER");
-        title.getStyleClass().add("title");
-        this.getChildren().addAll(gridPane, title);
+        this.getChildren().add(0, gridPane);
 
         gridPane.getStyleClass().add("start-menu");
-        this.getStylesheets().add("sh/shinterface/stylesheets/menu.css");
+        super.getStylesheets().add("sh/shinterface/stylesheets/menu.css");
     }
 
 }

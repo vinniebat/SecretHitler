@@ -6,35 +6,55 @@
     -fx-main-dark: #004E6E;
     -fx-main-light: #61C8D9;
     -fx-main-white: white;
+}
 
+.liberal .interface {
     -fx-border-image-source: url("../images/border/liberal_border.png");
 
-    -fx-border-image-slice: 78 40 77 40;
-    -fx-border-image-width: 78 40 77 40;
+    -fx-border-image-slice: 79 40 77 40;
+    -fx-border-image-width: 79 40 77 40;
     -fx-border-image-repeat: round round;
-    -fx-border-image-insets: 5;
 }
 
 .fascist {
     -fx-main-dark: #990200;
     -fx-main-light: #E66443;
     -fx-main-white: #FEFFAC;
+}
 
+.fascist .interface {
     -fx-border-image-source: url("../images/border/fascist_border.png");
 
-    -fx-border-image-slice: 78 40 77 40;
-    -fx-border-image-width: 78 40 77 40;
+    -fx-border-image-slice: 79 40 77 40;
+    -fx-border-image-width: 79 40 77 40;
     -fx-border-image-repeat: round round;
-    -fx-border-image-insets: 5;
+}
+
+GameWindow {
+    -fx-background-color: -fx-main-light;
+    -fx-padding: 5;
+
+    -fx-alignment: top-center;
+    -fx-font-size: 20;
 }
 
 .interface {
-    -fx-padding: -37 2 -37 2;
-    -fx-background-color: -fx-main-light;
+    -fx-padding: -36 4 -35 4;
+    -fx-background-color: transparent;
 
     -fx-pref-width: 60em;
     -fx-min-width: 41em;
 }
+
+.title {
+     -fx-background-color: -fx-main-light;
+     -fx-text-fill: -fx-main-dark;
+     -fx-font-family: "Eskapade Fraktur W04 Black";
+     -fx-font-size: 1.6em;
+     -fx-alignment: center;
+     -fx-min-height: 42;
+     -fx-padding: 0 0.25em 0 0.25em
+ }
 
 .split-pane {
     -fx-background-color: -fx-main-light;

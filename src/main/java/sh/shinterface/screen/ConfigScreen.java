@@ -2,7 +2,6 @@ package sh.shinterface.screen;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -10,14 +9,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import sh.shinterface.Main;
-import sh.shinterface.model.PartyModel;
 import sh.shinterface.control.PlayerField;
 import sh.shinterface.control.PlayerRoleBox;
+import sh.shinterface.model.PartyModel;
 import sh.shinterface.playable.Player;
 import sh.shinterface.playable.Role;
 
@@ -30,7 +31,7 @@ import java.util.Optional;
  * selecting the active player that represents the user and if the user is fascist,
  * selecting the players that all are fascist.
  */
-public class ConfigScreen extends StackPane implements InvalidationListener {
+public class ConfigScreen extends TitledScreen implements InvalidationListener {
 
     /**
      * Minimum amount of players
@@ -82,6 +83,7 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
      * @param stage Stage that displays the ConfigScreen
      */
     public ConfigScreen(Stage stage) {
+        super("NEW GAME");
         this.stage = stage;
 
         // INIT Controls
@@ -118,17 +120,14 @@ public class ConfigScreen extends StackPane implements InvalidationListener {
         controlsBox.getStyleClass().add("config-screen");
         // END CONTROLS
 
-        Label title = new Label("SECRET HITLER"); // Titel van het configuratiescherm
-        title.getStyleClass().add("title");
-
-        this.getChildren().addAll(controlsBox, title);
-        this.getStyleClass().addAll("liberal");
+        getChildren().add(0, controlsBox);
+        getStyleClass().addAll("liberal");
         boolean maxed = stage.isFullScreen() || stage.isMaximized();
         setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * ((maxed) ? 0.03 : 0.01));
 
         model.addListener(this);
         choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
-        getStylesheets().add("sh/shinterface/stylesheets/configscreen.css");
+        super.getStylesheets().add("sh/shinterface/stylesheets/configscreen.css");
     }
 
     @Override

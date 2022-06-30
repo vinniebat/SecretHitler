@@ -1,6 +1,8 @@
 package sh.shinterface.screen;
 
-import javafx.scene.layout.VBox;
+public class SettingsScreen extends TitledScreen {
 
-public class SettingsScreen extends VBox {
+    public SettingsScreen() {
+        super("SETTINGS");
+    }
 }
