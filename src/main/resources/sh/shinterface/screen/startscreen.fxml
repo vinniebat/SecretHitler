@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import sh.shinterface.screen.StartScreen?>
+<?import java.net.URL?>
+<fx:root type="sh.shinterface.screen.StartScreen" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml">
+    <GridPane styleClass="start-menu">
+        <Button text="New Game"  GridPane.columnIndex="0" GridPane.rowIndex="0" onAction="#newGame" GridPane.halignment="RIGHT"/>
+        <Button text="Load Game" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#loadGame" GridPane.halignment="RIGHT"/>
+        <Button text="Settings"   GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#settings" GridPane.halignment="RIGHT"/>
+        <ToggleButton text="ON"   GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#toggleStyleSwitch" GridPane.halignment="RIGHT" fx:id="switchButton"/>
+        <Label text="Start a new game" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Load a finished game" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Open Settings" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Liberal/Fascist color switch" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    </GridPane>
+    <stylesheets>
+        <URL value="@../stylesheets/menu.css"/>
+    </stylesheets>
+</fx:root>

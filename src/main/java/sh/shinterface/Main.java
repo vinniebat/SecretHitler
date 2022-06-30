@@ -85,7 +85,7 @@ public class Main extends Application {
             stage.sizeToScene();
     }
 
-    public static void loadGame(Event e) {
+    public static void loadGame() {
         //TODO: load a finished game
     }
 

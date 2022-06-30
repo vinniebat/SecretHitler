@@ -1,42 +1,54 @@
 package sh.shinterface.screen;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.geometry.HPos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.GridPane;
 import sh.shinterface.Main;
 import sh.shinterface.Settings;
 
-import java.util.List;
+import java.io.IOException;
 
 public class StartScreen extends TitledScreen {
 
+    @FXML
+    private ToggleButton switchButton;
+
     public StartScreen() {
         super("SECRET HITLER");
-        Button newGame = new Button("New Game");
-        newGame.setOnAction(Main::newGame);
-        Button loadGame = new Button("Load Game");
-        loadGame.setOnAction(Main::loadGame);
-        Button settings = new Button("Settings");
-        ToggleButton switchButton = new ToggleButton("OFF");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("startscreen.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException exception) {
+            // exception.printStackTrace();
+            System.err.println("Could not load configscreen.fxml");
+            Platform.exit();
+        }
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
         switchButton.textProperty().bind(Bindings.createStringBinding(() -> switchButton.isSelected() ? "ON" : "OFF", switchButton.selectedProperty()));
         switchButton.setSelected(Settings.styleSwitchEnabled());
-        switchButton.setOnAction(e -> Settings.setStyleSwitch(switchButton.isSelected()));
+    }
 
-        List<Node> buttons = List.of(newGame, loadGame, settings, switchButton);
-        List<String> descriptions = List.of("Start a new game", "Load a finished game", "Open Settings", "Liberal/Fascist color switch");
-        GridPane gridPane = new GridPane();
-        for (int i = 0; i < buttons.size(); i++) {
-            gridPane.addRow(i, buttons.get(i), new Label(descriptions.get(i)));
-            GridPane.setHalignment(buttons.get(i), HPos.RIGHT);
-        }
-        this.getChildren().add(0, gridPane);
+    public void newGame(ActionEvent event) {
+        Main.newGame();
+    }
 
-        gridPane.getStyleClass().add("start-menu");
-        super.getStylesheets().add("sh/shinterface/stylesheets/menu.css");
+    public void loadGame(ActionEvent event) {
+        Main.loadGame();
+    }
+
+    public void settings(ActionEvent event) {}
+
+    public void toggleStyleSwitch(ActionEvent event) {
+        Settings.setStyleSwitch(switchButton.isSelected());
     }
 
 }
