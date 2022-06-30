@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import sh.shinterface.playable.Role?>
+<?import sh.shinterface.screen.ConfigScreen?>
+<?import java.lang.*?>
+<?import java.net.URL?>
+<fx:root type="sh.shinterface.screen.ConfigScreen" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         styleClass="liberal">
+    <VBox styleClass="config-screen" >
+        <ChoiceBox onAction="#setPartySize">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Integer fx:value="5"/>
+                    <Integer fx:value="6"/>
+                    <Integer fx:value="7"/>
+                    <Integer fx:value="8"/>
+                    <Integer fx:value="9"/>
+                    <Integer fx:value="10"/>
+                </FXCollections>
+            </items>
+            <value>
+                <Integer fx:value="5"/>
+            </value>
+        </ChoiceBox>
+        <VBox VBox.vgrow="ALWAYS" fx:id="playerContainer"/>
+        <HBox>
+            <GridPane fx:id="fascistPane" styleClass="roles"/>
+        </HBox>
+        <HBox>
+            <HBox HBox.hgrow="ALWAYS" styleClass="role-box">
+                <Label text="Your role:"/>
+                <ChoiceBox fx:id="roleBox" onAction="#setActiveRole">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <Role fx:value="LIBERAL"/>
+                            <Role fx:value="FASCIST"/>
+                            <Role fx:value="HITLER"/>
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+            </HBox>
+            <Button fx:id="createGameButton" text="Create Game" onAction="#confirm"/>
+        </HBox>
+    </VBox>
+    <stylesheets>
+        <URL value="@../stylesheets/configscreen.css"/>
+    </stylesheets>
+</fx:root>

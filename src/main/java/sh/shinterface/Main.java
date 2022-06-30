@@ -26,10 +26,8 @@ public class Main extends Application {
 
     /**
      * Checks if the configuration input is valid and makes a new game if it is.
-     *
-     * @param e Unused
      */
-    public static void confirmSelection(Event e) {
+    public static void confirmSelection() {
         if (configScreen.isValid()) {
             //later factory
             stage.getScene().setRoot(new Game(configScreen.getPlayers(), configScreen.getActivePlayer()).getGameWindow());
@@ -81,10 +79,16 @@ public class Main extends Application {
     }
 
     public static void newGame(Event e) {
-        configScreen = new ConfigScreen(stage);
-        stage.getScene().setRoot(configScreen);
-        if (!stage.isFullScreen() && !stage.isMaximized())
-            stage.sizeToScene();
+        try {
+            configScreen = new ConfigScreen();
+            configScreen.setStage(stage);
+            stage.getScene().setRoot(configScreen);
+            if (!stage.isFullScreen() && !stage.isMaximized())
+                stage.sizeToScene();
+        } catch (IOException exception) {
+            System.err.println("Could not load configscreen.fxml");
+            Platform.exit();
+        }
     }
 
     public static void loadGame(Event e) {

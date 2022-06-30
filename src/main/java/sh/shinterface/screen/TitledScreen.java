@@ -5,9 +5,14 @@ import javafx.scene.layout.StackPane;
 
 public class TitledScreen extends StackPane {
 
+    protected final Label titleLabel;
+
     public TitledScreen(String title) {
-        Label titleLabel = new Label(title);
+        titleLabel = new Label(title);
         titleLabel.getStyleClass().add("title");
+    }
+
+    public void initialize() {
         getChildren().add(titleLabel);
     }
 

@@ -4,14 +4,14 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -22,6 +22,7 @@ import sh.shinterface.model.PartyModel;
 import sh.shinterface.playable.Player;
 import sh.shinterface.playable.Role;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,24 +35,12 @@ import java.util.Optional;
 public class ConfigScreen extends TitledScreen implements InvalidationListener {
 
     /**
-     * Minimum amount of players
-     */
-    private static final int MIN_PLAYERS = 5;
-
-    /**
-     * Max amount of players
-     */
-    private static final int MAX_PLAYERS = 10;
-
-    /**
      * Stage where the ConfigScreen is present
      */
-    private final Stage stage;
+    private Stage stage;
 
-    /**
-     * The PlayerFields that hold the input fields
-     */
-    private final ObservableList<Node> playerFields;
+    @FXML
+    private VBox playerContainer;
 
     /**
      * ToggleGroup for choosing the active player
@@ -61,73 +50,51 @@ public class ConfigScreen extends TitledScreen implements InvalidationListener {
     /**
      * Box that holds the role selection
      */
-    private final ChoiceBox<Role> roleBox = new ChoiceBox<>(
-            FXCollections.observableArrayList(Role.LIBERAL, Role.FASCIST, Role.HITLER)
-    );
+    @FXML
+    private ChoiceBox<Role> roleBox;
 
-    private final GridPane fascistPane = new GridPane();
+    @FXML
+    private GridPane fascistPane;
 
     /**
      * Button to create a game with the given players
      */
-    private final Button createGameButton = new Button("Create Game");
+    @FXML
+    private Button createGameButton;
 
     /**
      * Model that holds the party that is being selected
      */
     private final PartyModel model = new PartyModel();
 
-    /**
-     * Creates a new ConfigurationScreen that is shown on the given stage
-     *
-     * @param stage Stage that displays the ConfigScreen
-     */
-    public ConfigScreen(Stage stage) {
+
+    public ConfigScreen() throws IOException {
         super("NEW GAME");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("configscreen.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        loader.load();
+        model.addListener(this);
+    }
+
+    public void setStage(Stage stage) {
         this.stage = stage;
-
-        // INIT Controls
-
-        // INIT ChoiceBox to select the amount of players
-        ChoiceBox<Integer> choiceBox = new ChoiceBox<>(); // Selectie voor aantal spelers
-        // Add the options
-        for (int i = MIN_PLAYERS; i <= MAX_PLAYERS; i++) {
-            choiceBox.getItems().add(i);
-        }
-        choiceBox.setOnAction(e -> model.setPartySize(choiceBox.getValue()));
-        // END CHOICE BOX
-
-        // INIT Player fields
-        VBox playerContainer = new VBox();
-        playerFields = playerContainer.getChildren(); // Sla de fields op voor makkelijk aan te passen
-        VBox.setVgrow(playerContainer, Priority.ALWAYS);
-        //END PLAYER FIELDS
-
-        // INIT Role Selection
-        Label label = new Label("Your role:");
-        HBox hBox = new HBox(label, roleBox);
-        roleBox.setOnAction(e -> model.setActiveRole(roleBox.getValue()));
-        hBox.getStyleClass().add("role-box");
-        HBox.setHgrow(hBox, Priority.ALWAYS); // Fills window width
-        fascistPane.getStyleClass().add("roles");
-        // END ROLE SELECTION
-
-        // INIT Create Game Button
-        createGameButton.setOnAction(Main::confirmSelection);
-        // END BUTTON
-
-        VBox controlsBox = new VBox(choiceBox, playerContainer, new HBox(fascistPane), new HBox(hBox, createGameButton));
-        controlsBox.getStyleClass().add("config-screen");
-        // END CONTROLS
-
-        getChildren().add(0, controlsBox);
-        getStyleClass().addAll("liberal");
         boolean maxed = stage.isFullScreen() || stage.isMaximized();
         setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * ((maxed) ? 0.03 : 0.01));
+        model.setPartySize(5);
+    }
 
-        model.addListener(this);
-        choiceBox.setValue(MIN_PLAYERS); // Trigger het model met het minimum aantal spelers
-        super.getStylesheets().add("sh/shinterface/stylesheets/configscreen.css");
+    public void setPartySize(ActionEvent event) {
+        ChoiceBox<Integer> choiceBox = (ChoiceBox<Integer>) event.getSource();
+        model.setPartySize(choiceBox.getValue());
+    }
+
+    public void setActiveRole(ActionEvent event) {
+        model.setActiveRole(roleBox.getValue());
+    }
+
+    public void confirm(ActionEvent event) {
+        Main.confirmSelection();
     }
 
     @Override
@@ -145,6 +112,7 @@ public class ConfigScreen extends TitledScreen implements InvalidationListener {
      * Add/Remove PlayerFields according to the party size
      */
     private void setPlayerFields() {
+        ObservableList<Node> playerFields = playerContainer.getChildren();
         int size = model.getPartySize();
 
         if (size == playerFields.size())
@@ -228,7 +196,7 @@ public class ConfigScreen extends TitledScreen implements InvalidationListener {
      */
     public boolean isValid() {
         boolean valid = true;
-        for (Node node : playerFields) {
+        for (Node node : playerContainer.getChildren()) {
             valid &= ((PlayerField) node).isValid();
         }
         for (Node node : fascistPane.getChildren()) {
