@@ -1,8 +1,8 @@
 package sh.shinterface.screen;
 
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,12 +68,17 @@ public class ConfigScreen extends TitledScreen implements InvalidationListener {
     private final PartyModel model = new PartyModel();
 
 
-    public ConfigScreen() throws IOException {
+    public ConfigScreen() {
         super("NEW GAME");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("configscreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
-        loader.load();
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.err.println("Could not load configscreen.fxml");
+            Platform.exit();
+        }
         model.addListener(this);
     }
 

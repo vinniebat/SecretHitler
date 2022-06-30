@@ -3,7 +3,6 @@ package sh.shinterface;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -11,9 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import sh.shinterface.screen.StartScreen;
 import sh.shinterface.screen.ConfigScreen;
 import sh.shinterface.screen.Game;
+import sh.shinterface.screen.StartScreen;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,17 +77,12 @@ public class Main extends Application {
         }
     }
 
-    public static void newGame(Event e) {
-        try {
-            configScreen = new ConfigScreen();
-            configScreen.setStage(stage);
-            stage.getScene().setRoot(configScreen);
-            if (!stage.isFullScreen() && !stage.isMaximized())
-                stage.sizeToScene();
-        } catch (IOException exception) {
-            System.err.println("Could not load configscreen.fxml");
-            Platform.exit();
-        }
+    public static void newGame() {
+        configScreen = new ConfigScreen();
+        configScreen.setStage(stage);
+        stage.getScene().setRoot(configScreen);
+        if (!stage.isFullScreen() && !stage.isMaximized())
+            stage.sizeToScene();
     }
 
     public static void loadGame(Event e) {
