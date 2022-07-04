@@ -1,17 +1,18 @@
 package sh.shinterface.screen;
 
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.geometry.Orientation;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -23,75 +24,57 @@ import sh.shinterface.view.GovView;
 import sh.shinterface.view.PartyView;
 import sh.shinterface.view.TopDeckWindow;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class GameWindow extends TitledScreen {
 
-    private static final Map<String, String> TOGGLETOPDECKTEXT = Map.of("Top deck", "Cancel", "Cancel", "Top deck");
+    @FXML
+    private TableView<Gov> govTable;
+    @FXML
+    private TableColumn<Gov, List<Policy>> claimsColumn;
+    @FXML
+    private TableColumn<Gov, List<Policy>> assumptionsColumn;
+    @FXML
+    private TopDeckWindow topDeckWindow;
+    @FXML
+    private CreateGovPane createGovPane;
+    @FXML
+    private PartyView partyView;
+    @FXML
+    private GovView govView;
 
-    private final TableView<Gov> govTable;
-    private final TopDeckWindow topDeckWindow;
-    private final Button topDeckButton;
-    private final CreateGovPane createGovPane;
+    @FXML
+    private Game game;
 
-    public GameWindow(Game game, Role role) {
+    public GameWindow(Role role) {
         super("INTERFACE");
-        govTable = new TableView<>();
-
-        govTable.setPlaceholder(new Label("No govs yet!"));
-        govTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        TableColumn<Gov, String> president = new TableColumn<>("President");
-        TableColumn<Gov, String> chancellor = new TableColumn<>("Chancellor");
-        TableColumn<Gov, List<Policy>> claim = new TableColumn<>("Claim(s)");
-        TableColumn<Gov, List<Policy>> assumption = new TableColumn<>("Assumptions");
-
-        president.setCellValueFactory(new PropertyValueFactory<>("president"));
-        chancellor.setCellValueFactory(new PropertyValueFactory<>("chancellor"));
-        claim.setCellValueFactory(new PropertyValueFactory<>("claims"));
-        claim.setCellFactory(column -> new PolicyCell());
-        assumption.setCellValueFactory(new PropertyValueFactory<>("assumption"));
-        assumption.setCellFactory(column -> new PolicyCell());
-
-        List<TableColumn<Gov, ?>> columns = List.of(president, chancellor, claim, assumption);
-        for (TableColumn<Gov, ?> column : columns) {
-            column.setSortable(false);
-            column.setReorderable(false);
+        this.getStyleClass().addAll(role.getStyle());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameWindow.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.err.println("Could not load gameWindow.fxml");
+            Platform.exit();
         }
+    }
 
-        govTable.getColumns().setAll(columns);
-        govTable.setOnKeyTyped(e -> {
-            if (e.getCode() == KeyCode.UP) {
-                govTable.getSelectionModel().selectPrevious();
-            } else if (e.getCode() == KeyCode.DOWN) {
-                govTable.getSelectionModel().selectNext();
-            }
-        });
+    public void setGame(Game game) {
+        this.game = game;
+        createGovPane.setGame(game);
+        govView.setGame(game);
+        partyView.setGame(game);
+    }
 
-        topDeckWindow = new TopDeckWindow(govTable, role, this);
-        topDeckWindow.setVisible(false);
-        StackPane stackPane = new StackPane(govTable, topDeckWindow);
-        stackPane.getStyleClass().add("gov-stack");
+    public GameWindow() {
+        super("INTERFACE");
+        this.game = null;
+    }
 
-        createGovPane = new CreateGovPane(game, this);
-        topDeckButton = createGovPane.getTopDeckButton();
-        VBox leftSide = new VBox(stackPane, createGovPane);
-        VBox.setVgrow(stackPane, Priority.ALWAYS);
-        leftSide.getStyleClass().add("left");
-
-        PartyView partyView = new PartyView(game, govTable);
-        GovView specifics = new GovView(game, govTable);
-        govTable.getSelectionModel().selectedItemProperty().addListener(specifics);
-        SplitPane.setResizableWithParent(partyView, false);
-        SplitPane rightSide = new SplitPane(partyView, specifics);
-        rightSide.setOrientation(Orientation.VERTICAL);
-        govTable.getSelectionModel().selectedItemProperty().addListener(partyView);
-
-        SplitPane splitPane = new SplitPane(leftSide, rightSide);
-        splitPane.getStyleClass().add("interface");
-        getChildren().add(0, splitPane);
-
+    public void initialize() {
         govTable.getItems().addListener((ListChangeListener<Gov>) change -> {
             while (change.next()){
                 if (change.wasAdded()) {
@@ -100,8 +83,16 @@ public class GameWindow extends TitledScreen {
             }
         });
         setStyle("-fx-font-size: " + Screen.getPrimary().getBounds().getWidth() * 0.01);
-        this.getStyleClass().addAll(role.getStyle());
-        super.getStylesheets().add("sh/shinterface/stylesheets/interface.css");
+        claimsColumn.setCellFactory(tc -> new PolicyCell());
+        assumptionsColumn.setCellFactory(tc -> new PolicyCell());
+    }
+
+    public void navigateTable(KeyEvent event) {
+        if (event.getCode() == KeyCode.UP) {
+            govTable.getSelectionModel().selectPrevious();
+        } else if (event.getCode() == KeyCode.DOWN) {
+            govTable.getSelectionModel().selectNext();
+        }
     }
 
     private static class PolicyCell extends TextFieldTableCell<Gov, List<Policy>> {
@@ -134,6 +125,7 @@ public class GameWindow extends TitledScreen {
                 setGraphic(hBox);
             }
         }
+
     }
 
     public int getLastId() {
@@ -148,10 +140,12 @@ public class GameWindow extends TitledScreen {
         return govTable;
     }
 
+    public TopDeckWindow getTopDeckWindow() {
+        return topDeckWindow;
+    }
+
     public void toggleTopDeck() {
-        topDeckButton.setText(TOGGLETOPDECKTEXT.get(topDeckButton.getText()));
-        govTable.setVisible(!govTable.isVisible());
-        topDeckWindow.setVisible(!topDeckWindow.isVisible());
+        createGovPane.enableTopDeckButton();
     }
 
     public CreateGovPane getCreateGovPane() {

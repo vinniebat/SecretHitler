@@ -15,18 +15,23 @@ import java.util.List;
 
 public class GovModel implements InvalidationListener, Observable {
 
-    private final GovView govView;
-    private final Game game;
-    private final List<InvalidationListener> listeners;
+    private GovView govView;
+    private Game game;
+    private final List<InvalidationListener> listeners = new ArrayList<>();
 
     private int libPlayed;
     private int fascPlayed;
     private List<Policy> assumption;
 
+    public GovView getGovView() {
+        return govView;
+    }
 
-    public GovModel(Game game, GovView govView) {
-        listeners = new ArrayList<>();
+    public void setGovView(GovView govView) {
         this.govView = govView;
+    }
+
+    public void setGame(Game game) {
         this.game = game;
     }
 

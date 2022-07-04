@@ -1,113 +1,142 @@
 package sh.shinterface.view;
 
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sh.shinterface.playable.*;
-import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Policy;
 import sh.shinterface.playable.gov.PlayerGov;
 import sh.shinterface.playable.gov.Vote;
 import sh.shinterface.screen.Game;
 import sh.shinterface.screen.GameWindow;
 import sh.shinterface.util.PolicyConverter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CreateGovPane extends VBox {
 
     private static final List<Character> STRINGPOLICIES = List.of('R', 'B');
     private static final List<Character> LOWERSTRINGPOLICIES = List.of('r', 'b');
-    private final Button topDeckButton;
 
-    private final ChoiceBox<Player> presidentChoiceBox;
-    private final ChoiceBox<Player> chancellorChoiceBox;
-    private final TextField claim1;
-    private final TextField claim2;
-    private final CheckBox conf;
+    @FXML
+    private ChoiceBox<Player> presidentChoiceBox;
+    @FXML
+    private ChoiceBox<Player> chancellorChoiceBox;
+    @FXML
+    private TextField claim1;
+    @FXML
+    private TextField claim2;
+    @FXML
+    private CheckBox conf;
+
+    @FXML
+    private GridPane govPlayers;
+
+    private Game game;
+    @FXML
+    private GridPane votes;
+    @FXML
+    private ToggleButton topDeckButton;
+
+    private GameWindow gameWindow;
     private final List<ToggleButton> voteList = new ArrayList<>();
-    private final GridPane govPlayers;
-    private final Game game;
 
-    public CreateGovPane(Game game, GameWindow gameWindow) {
+    public CreateGovPane() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createGovPane.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            System.err.println("Could not load createGovPane.fxml");
+            Platform.exit();
+        }
+    }
+
+    public void setGame(Game game) {
         this.game = game;
-        govPlayers = new GridPane();
-
-        Label title1 = new Label("Add new gov:");
-
-        Label presLabel = new Label("President: ");
-        Label chancLabel = new Label("Chancellor: ");
-
-        presidentChoiceBox = new ChoiceBox<>();
-        chancellorChoiceBox = new ChoiceBox<>();
-        presidentChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> choiceBoxAction(newPlayer, 0));
-        chancellorChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> choiceBoxAction(newPlayer, 1));
         List<Player> players = game.getPlayers();
         presidentChoiceBox.getItems().setAll(players);
         chancellorChoiceBox.getItems().setAll(players);
-
-        presidentChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> {
-            ObservableList<Player> items = chancellorChoiceBox.getItems();
-            items.remove(newPlayer);
-            if (oldPlayer != null) {
-                items.add(oldPlayer);
-            }
-            items.sort(Comparator.comparing(Player::getId));
-        });
-
-        chancellorChoiceBox.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> {
-            ObservableList<Player> items = presidentChoiceBox.getItems();
-            items.remove(newPlayer);
-            if (oldPlayer != null) {
-                items.add(oldPlayer);
-            }
-            items.sort(Comparator.comparing(Player::getId));
-        });
-
-
-        claim1 = new TextField();
-        claim2 = new TextField();
-        claim1.setPromptText("Claim of president");
-        claim2.setPromptText("Claim of chancellor");
-        textFieldRestrict(claim1, 3);
-        textFieldRestrict(claim2, 2);
-
-        conf = new CheckBox("No conflict!");
-        conf.selectedProperty().addListener(obs -> checkBoxAction(conf));
-
-        govPlayers.addRow(0, presLabel, presidentChoiceBox, claim1);
-        govPlayers.addRow(1, chancLabel, chancellorChoiceBox, claim2);
-        govPlayers.add(new Label("Conflict?"), 0, 2);
-        govPlayers.add(conf, 1, 2, 2, 1);
-
-        Label title2 = new Label("Votes");
-
-        GridPane votes = new GridPane();
         for (int i = 0; i < players.size(); i++) {
             Label voteName = new Label(players.get(i).toString());
             ToggleButton jaNein = new ToggleButton();
+            jaNein.getStyleClass().add("voteButton");
             votes.addRow(i % 5, voteName, jaNein);
             voteList.add(jaNein);
         }
-
-        HBox buttons = new HBox();
-
-        Button createGov = new Button("Create gov");
-        createGov.setOnAction(e -> createGov(game));
-
-        topDeckButton = new Button("Top deck");
-        topDeckButton.setOnAction(e -> gameWindow.toggleTopDeck());
-
-        buttons.getChildren().addAll(createGov, topDeckButton);
-        this.getChildren().addAll(title1, govPlayers, title2, votes, buttons);
     }
 
-    private void createGov(Game game) {
+    public Game getGame() {
+        return game;
+    }
+
+    public GameWindow getGameWindow() {
+        return gameWindow;
+    }
+
+    public void setGameWindow(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
+        gameWindow.getTopDeckWindow().visibleProperty().bind(topDeckButton.selectedProperty());
+        gameWindow.getGovTable().visibleProperty().bind(topDeckButton.selectedProperty().not());
+    }
+
+    public void initialize() {
+        claim1.promptTextProperty().bind(
+                Bindings.createStringBinding(
+                        () -> "Claim of " + ((presidentChoiceBox.getValue() != null) ? presidentChoiceBox.getValue().getName() : "president"),
+                        presidentChoiceBox.valueProperty()
+                ));
+        claim2.promptTextProperty().bind(
+                Bindings.createStringBinding(
+                        () -> "Claim of " + ((chancellorChoiceBox.getValue() != null) ? chancellorChoiceBox.getValue().getName() : "chancellor"),
+                        chancellorChoiceBox.valueProperty()
+                ));
+        addChoiceBoxFilter(presidentChoiceBox, chancellorChoiceBox);
+        addChoiceBoxFilter(chancellorChoiceBox, presidentChoiceBox);
+        textFieldRestrict(claim1, 3);
+        textFieldRestrict(claim2, 2);
+        conf.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> (conf.isSelected()) ? "Conflict!" : "No conflict",
+                        conf.selectedProperty()
+                )
+        );
+        topDeckButton.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> (topDeckButton.isSelected()) ? "Cancel" : "Top deck",
+                        topDeckButton.selectedProperty()
+                )
+        );
+    }
+
+    private void addChoiceBoxFilter(ChoiceBox<Player> first, ChoiceBox<Player> other) {
+        first.valueProperty().addListener((observableValue, oldPlayer, newPlayer) -> {
+            ObservableList<Player> items = other.getItems();
+            items.remove(newPlayer);
+            if (oldPlayer != null) {
+                items.add(oldPlayer);
+            }
+            items.sort(Comparator.comparing(Player::getId));
+        });
+    }
+
+    public void enableTopDeckButton() {
+        topDeckButton.setSelected(false);
+    }
+
+    @FXML
+    private void createGov(ActionEvent event) {
         Player president = presidentChoiceBox.getValue();
         Player chancellor = chancellorChoiceBox.getValue();
         List<Policy> claim1 = PolicyConverter.fromString(this.claim1.getText());
@@ -158,29 +187,11 @@ public class CreateGovPane extends VBox {
         List<Player> chancellors = new ArrayList<>(game.getPlayers());
         chancellors.removeIf(Player::isTurnLocked);
         chancellorChoiceBox.getItems().setAll(chancellors);
-        claim1.setPromptText("Claim of president");
         claim1.clear();
-        claim2.setPromptText("Claim of chancellor");
         claim2.clear();
         conf.setSelected(false);
         for (ToggleButton button : voteList) {
             button.setSelected(false);
-        }
-    }
-
-    private void choiceBoxAction(Player player, int rij) {
-        if (player != null) {
-            TextField textField = (TextField) govPlayers.getChildren().get(3 * rij + 2);
-            String startText = Stream.of(textField.getPromptText().split(" ")).limit(2).collect(Collectors.joining(" "));
-            textField.setPromptText(startText + " " + player.getName());
-        }
-    }
-
-    private void checkBoxAction(CheckBox box) {
-        if (box.isSelected()) {
-            box.setText("Conflict!");
-        } else {
-            box.setText("No conflict");
         }
     }
 
@@ -227,7 +238,4 @@ public class CreateGovPane extends VBox {
         return result;
     }
 
-    public Button getTopDeckButton() {
-        return topDeckButton;
-    }
 }

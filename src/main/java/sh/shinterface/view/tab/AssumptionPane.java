@@ -13,11 +13,23 @@ import static java.lang.Math.toIntExact;
 
 public class AssumptionPane extends GridPane implements InvalidationListener {
 
-    private final GovModel govModel;
-    private final Tab tab;
+    private GovModel govModel;
+    private Tab tab;
 
-    public AssumptionPane(GovModel govModel, Tab tab) {
+    public GovModel getGovModel() {
+        return govModel;
+    }
+
+    public void setGovModel(GovModel govModel) {
         this.govModel = govModel;
+        govModel.addListener(this);
+    }
+
+    public Tab getTab() {
+        return tab;
+    }
+
+    public void setTab(Tab tab) {
         this.tab = tab;
     }
 

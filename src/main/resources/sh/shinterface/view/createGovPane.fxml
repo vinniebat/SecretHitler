@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import sh.shinterface.view.CreateGovPane?>
+<fx:root type="sh.shinterface.view.CreateGovPane" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml">
+    <Label text="Add new gov:"/>
+    <GridPane fx:id="govPlayers">
+        <Label     text="President: "                              GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ChoiceBox fx:id="presidentChoiceBox"                      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <TextField fx:id="claim1" promptText="Claim of president"  GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+
+        <Label     text="Chancellor: "                             GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ChoiceBox fx:id="chancellorChoiceBox"                     GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <TextField fx:id="claim2" promptText="Claim of chancellor" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+
+        <Label text="Conflict?"                                    GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+
+        <CheckBox fx:id="conf" text="No conflict!"                 GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                                                   GridPane.rowSpan="1"  GridPane.columnSpan="2"/>
+    </GridPane>
+    <Label text="Votes"/>
+    <GridPane fx:id="votes"/>
+    <HBox>
+        <Button text="Create gov" onAction="#createGov"/>
+        <ToggleButton text="Top deck" fx:id="topDeckButton" styleClass="topDeck"/>
+    </HBox>
+</fx:root>

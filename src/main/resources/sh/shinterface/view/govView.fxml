@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import sh.shinterface.model.GovModel?>
+<?import sh.shinterface.view.GovView?>
+<?import sh.shinterface.view.tab.AssumptionPane?>
+<?import sh.shinterface.view.tab.BoardPane?>
+<fx:root type="sh.shinterface.view.GovView" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml" fx:id="govView"
+         tabClosingPolicy="UNAVAILABLE">
+    <fx:define>
+        <GovModel govView="$govView" fx:id="govModel"/>
+    </fx:define>
+    <tabs>
+        <Tab text="Board" fx:id="board">
+            <BoardPane govModel="$govModel"/>
+        </Tab>
+        <Tab text="Claims and assumptions" fx:id="claimsAndAssumptions" disable="true">
+            <AssumptionPane govModel="$govModel" tab="$claimsAndAssumptions"/>
+        </Tab>
+    </tabs>
+</fx:root>

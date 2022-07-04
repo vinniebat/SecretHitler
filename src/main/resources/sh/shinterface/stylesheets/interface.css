@@ -188,7 +188,7 @@ CreateGovPane HBox, CreateGovPane VBox {
     -fx-spacing: 0.1em;
 }
 
-CreateGovPane ToggleButton {
+CreateGovPane ToggleButton.voteButton {
     -fx-max-width: 58;
     -fx-max-height: 41;
     -fx-min-width: 54;
@@ -200,7 +200,7 @@ CreateGovPane ToggleButton {
     -fx-graphic: url("../votes/ballot.cards(ja).png");
 }
 
-CreateGovPane ToggleButton:selected {
+CreateGovPane ToggleButton.voteButton:selected {
     -fx-graphic: url("../votes/ballot.cards(nein).png");
 }
 
@@ -252,7 +252,7 @@ CreateGovPane .check-box:selected .mark {
     -fx-background-color: -fx-main-light;
 }
 
-CreateGovPane .button {
+CreateGovPane .button, CreateGovPane .topDeck {
     -fx-font-family: "Eskapade Fraktur W04 Black";
     -fx-text-fill: -fx-main-light;
     -fx-background-color: -fx-main-dark;

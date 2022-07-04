@@ -18,14 +18,14 @@ public class StartScreen extends TitledScreen {
 
     public StartScreen() {
         super("SECRET HITLER");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("startscreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("startScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
         } catch (IOException exception) {
             // exception.printStackTrace();
-            System.err.println("Could not load configscreen.fxml");
+            System.err.println("Could not load startScreen.fxml");
             Platform.exit();
         }
     }

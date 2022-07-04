@@ -1,5 +1,9 @@
 package sh.shinterface.view;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -11,21 +15,49 @@ import sh.shinterface.playable.Role;
 import sh.shinterface.playable.gov.TopDeck;
 import sh.shinterface.screen.GameWindow;
 
+import java.io.IOException;
+
 public class TopDeckWindow extends VBox {
 
-    public TopDeckWindow(TableView<Gov> tableView, Role role, GameWindow gameWindow) {
+    private TableView<Gov> tableView;
 
-        Button lib = new Button("Liberal");
-        Button fasc = new Button("Fascist");
-        lib.setOnAction(e -> buttonAction(tableView, Policy.LIBERAL, gameWindow));
-        fasc.setOnAction(e -> buttonAction(tableView, Policy.FASCIST, gameWindow));
+    private GameWindow gameWindow;
 
-        HBox buttons = new HBox(lib, fasc);
-        this.getChildren().addAll(new Label("Topdeck policy:"), buttons);
+    public TopDeckWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("topDeckWindow.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException exception) {
+            System.err.println("Could not load topDeckWindow.fxml");
+            Platform.exit();
+        }
     }
 
-    private void buttonAction(TableView<Gov> tableView, Policy policy, GameWindow gameWindow) {
-        tableView.getItems().add(new TopDeck(policy));
+    public void topDeckLiberal(ActionEvent event) {
+        tableView.getItems().add(new TopDeck(Policy.LIBERAL));
         gameWindow.toggleTopDeck();
+    }
+
+    public void topDeckFascist(ActionEvent event) {
+        tableView.getItems().add(new TopDeck(Policy.FASCIST));
+        gameWindow.toggleTopDeck();
+    }
+
+    public TableView<Gov> getTableView() {
+        return tableView;
+    }
+
+    public void setTableView(TableView<Gov> tableView) {
+        this.tableView = tableView;
+    }
+
+    public GameWindow getGameWindow() {
+        return gameWindow;
+    }
+
+    public void setGameWindow(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
     }
 }

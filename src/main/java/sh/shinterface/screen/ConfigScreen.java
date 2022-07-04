@@ -70,13 +70,13 @@ public class ConfigScreen extends TitledScreen implements InvalidationListener {
 
     public ConfigScreen() {
         super("NEW GAME");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("configscreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("configScreen.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
             loader.load();
         } catch (IOException ex) {
-            System.err.println("Could not load configscreen.fxml");
+            System.err.println("Could not load configScreen.fxml");
             Platform.exit();
         }
         model.addListener(this);

@@ -1,7 +1,10 @@
 package sh.shinterface.view;
 
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
@@ -11,36 +14,47 @@ import sh.shinterface.view.tab.AssumptionPane;
 import sh.shinterface.view.tab.BoardPane;
 import sh.shinterface.screen.Game;
 
+import java.io.IOException;
+
 public class GovView extends TabPane implements InvalidationListener {
 
-    private final GovModel govModel;
-    private final Tab board;
-    private final Tab claimsAndAssumptions;
+    @FXML
+    private GovModel govModel;
 
-    public GovView(Game game, TableView<Gov> tableView) {
-        board = new Tab("Board");
-        claimsAndAssumptions = new Tab("Claims and assumptions");
-        claimsAndAssumptions.setDisable(true);
+    @FXML
+    private Tab board;
+    @FXML
+    private Tab claimsAndAssumptions;
+    private Game game;
 
-        govModel = new GovModel(game, this);
-        tableView.getSelectionModel().selectedItemProperty().addListener(govModel);
+    public GovView() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("govView.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.err.println("Could not load govView.fxml");
+            Platform.exit();
+        }
+    }
 
-        BoardPane boardPane = new BoardPane(govModel, game);
-        board.setContent(boardPane);
-        AssumptionPane assumptionPane = new AssumptionPane(govModel, claimsAndAssumptions);
-        claimsAndAssumptions.setContent(assumptionPane);
+    public void setGame(Game game) {
+        this.game = game;
+        govModel.setGame(game);
+        ((BoardPane) board.getContent()).setGame(game);
+        game.getGovTable().getSelectionModel().selectedItemProperty().addListener(govModel);
+    }
 
-        this.getTabs().addAll(board, claimsAndAssumptions);
-        this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
-        govModel.addListener(boardPane);
-        govModel.addListener(assumptionPane);
+    public Game getGame() {
+        return game;
     }
 
     @Override
     public void invalidated(Observable observable) {
         if (govModel.getTable().getSelectionModel().getSelectedItem().getClaim1().size() < 3){
-            claimsAndAssumptions.setDisable(govModel.getTable().getSelectionModel().getSelectedItem().getClaim1().size() < 3);
+            claimsAndAssumptions.setDisable(true);
             this.getSelectionModel().select(board);
         }
     }

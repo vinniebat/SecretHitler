@@ -10,8 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Role;
 import sh.shinterface.screen.ConfigScreen;
 import sh.shinterface.screen.Game;
+import sh.shinterface.screen.GameWindow;
 import sh.shinterface.screen.StartScreen;
 
 import java.io.IOException;
@@ -29,7 +32,12 @@ public class Main extends Application {
     public static void confirmSelection() {
         if (configScreen.isValid()) {
             //later factory
-            stage.getScene().setRoot(new Game(configScreen.getPlayers(), configScreen.getActivePlayer()).getGameWindow());
+            Game game = new Game(configScreen.getPlayers());
+            Player activePlayer = configScreen.getActivePlayer();
+            Role role = (activePlayer == null) ? Role.UNKNOWN : activePlayer.getRole();
+            GameWindow gameWindow = new GameWindow(role);
+            game.setGameWindow(gameWindow);
+            stage.getScene().setRoot(gameWindow);
             if (!stage.isMaximized() && !stage.isFullScreen()) {
                 stage.sizeToScene();
                 stage.centerOnScreen();

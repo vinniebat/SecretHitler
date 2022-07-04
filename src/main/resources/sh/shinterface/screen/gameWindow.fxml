@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import sh.shinterface.screen.*?>
+<?import sh.shinterface.view.CreateGovPane?>
+<?import sh.shinterface.view.TopDeckWindow?>
+<?import sh.shinterface.view.PartyView?>
+<?import sh.shinterface.view.GovView?>
+<?import java.net.URL?>
+<fx:root type="sh.shinterface.screen.GameWindow" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:id="window">
+    <SplitPane styleClass="interface">
+        <VBox styleClass="left">
+            <StackPane VBox.vgrow="ALWAYS" styleClass="gov-stack">
+                <TableView fx:id="govTable" onKeyTyped="#navigateTable">
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                    <placeholder>
+                        <Label text="No govs yet!"/>
+                    </placeholder>
+                    <columns>
+                        <TableColumn text="President" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="president"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Chancellor" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="chancellor"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="claimsColumn" text="Claim(s)" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="claims"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="assumptionsColumn" text="Assumptions" sortable="false" reorderable="false">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="assumption"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                <TopDeckWindow fx:id="topDeckWindow" gameWindow="$window" tableView="$govTable" visible="false"/>
+            </StackPane>
+            <CreateGovPane fx:id="createGovPane" gameWindow="$window"/>
+        </VBox>
+        <SplitPane orientation="VERTICAL">
+            <PartyView fx:id="partyView" tableView="$govTable" SplitPane.resizableWithParent="false"/>
+            <GovView fx:id="govView"/>
+        </SplitPane>
+    </SplitPane>
+    <stylesheets>
+        <URL value="@../stylesheets/interface.css"/>
+    </stylesheets>
+</fx:root>

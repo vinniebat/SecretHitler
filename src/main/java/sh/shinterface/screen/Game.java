@@ -13,17 +13,14 @@ import java.util.List;
 public class Game {
 
     private final List<Player> players;
-    private final GameWindow gameWindow;
+    private GameWindow gameWindow;
 
-    public Game(List<Player> players, Player activePlayer) {
+    public Game(List<Player> players) {
         this.players = players;
         int i = 0;
         while (i < players.size() && players.get(i).getRole() == Role.UNKNOWN) {
             i++;
         }
-        Role role = (activePlayer == null) ? Role.UNKNOWN : activePlayer.getRole();
-        gameWindow = new GameWindow(this, role);
-        VBox.setVgrow(gameWindow, Priority.ALWAYS);
     }
 
     public List<Player> getPlayers() {
@@ -46,6 +43,11 @@ public class Game {
 
     public GameWindow getGameWindow() {
         return gameWindow;
+    }
+
+    public void setGameWindow(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
+        gameWindow.setGame(this);
     }
 
     public void end() {
