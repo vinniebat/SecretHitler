@@ -3,14 +3,14 @@ package sh.shinterface.db;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-import sh.shinterface.playable.gov.Gov;
-import sh.shinterface.playable.Player;
-import sh.shinterface.playable.Policy;
-import sh.shinterface.playable.gov.Vote;
 import sh.shinterface.db.datatypes.GameDB;
 import sh.shinterface.db.datatypes.GovDB;
 import sh.shinterface.db.datatypes.PlayerDB;
 import sh.shinterface.db.datatypes.VoteDB;
+import sh.shinterface.playable.Player;
+import sh.shinterface.playable.Policy;
+import sh.shinterface.playable.gov.Gov;
+import sh.shinterface.playable.gov.Vote;
 import sh.shinterface.screen.Game;
 import sh.shinterface.util.SpecialGovPlayers;
 

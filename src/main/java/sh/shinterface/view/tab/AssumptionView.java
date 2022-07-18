@@ -6,9 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import sh.shinterface.model.GovModel;
 import sh.shinterface.playable.Deck;
 import sh.shinterface.playable.gov.Gov;
-import sh.shinterface.model.GovModel;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

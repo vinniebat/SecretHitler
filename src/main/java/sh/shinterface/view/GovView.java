@@ -7,12 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
-import sh.shinterface.playable.gov.Gov;
 import sh.shinterface.model.GovModel;
-import sh.shinterface.view.tab.AssumptionPane;
-import sh.shinterface.view.tab.BoardPane;
 import sh.shinterface.screen.Game;
+import sh.shinterface.view.tab.BoardPane;
 
 import java.io.IOException;
 

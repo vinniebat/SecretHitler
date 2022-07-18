@@ -1,11 +1,9 @@
 package sh.shinterface.screen;
 
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import sh.shinterface.playable.gov.Gov;
 import sh.shinterface.playable.Player;
 import sh.shinterface.playable.Role;
+import sh.shinterface.playable.gov.Gov;
 
 import java.util.ArrayList;
 import java.util.List;

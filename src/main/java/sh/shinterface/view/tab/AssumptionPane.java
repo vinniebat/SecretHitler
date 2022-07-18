@@ -5,8 +5,8 @@ import javafx.beans.Observable;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
-import sh.shinterface.playable.Deck;
 import sh.shinterface.model.GovModel;
+import sh.shinterface.playable.Deck;
 import sh.shinterface.playable.Policy;
 
 import static java.lang.Math.toIntExact;

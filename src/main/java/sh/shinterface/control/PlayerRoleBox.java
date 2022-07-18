@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import sh.shinterface.playable.Player;
 import sh.shinterface.model.PartyModel;
+import sh.shinterface.playable.Player;
 
 import java.util.Optional;
 

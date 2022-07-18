@@ -10,11 +10,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import sh.shinterface.view.PartyView;
 import sh.shinterface.playable.Player;
 import sh.shinterface.playable.Role;
 import sh.shinterface.screen.Game;
 import sh.shinterface.util.ImagePicker;
+import sh.shinterface.view.PartyView;
 
 public class PlayerView extends VBox {
 

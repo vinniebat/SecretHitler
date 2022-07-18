@@ -9,11 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import sh.shinterface.model.GovModel;
 import sh.shinterface.db.CreateTables;
+import sh.shinterface.model.GovModel;
 import sh.shinterface.screen.Game;
 
 import java.io.IOException;

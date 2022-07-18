@@ -4,11 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import sh.shinterface.screen.*?>
+<?import sh.shinterface.screen.GameWindow?>
 <?import sh.shinterface.view.CreateGovPane?>
-<?import sh.shinterface.view.TopDeckWindow?>
-<?import sh.shinterface.view.PartyView?>
 <?import sh.shinterface.view.GovView?>
+<?import sh.shinterface.view.PartyView?>
+<?import sh.shinterface.view.TopDeckWindow?>
 <?import java.net.URL?>
 <fx:root type="sh.shinterface.screen.GameWindow" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"

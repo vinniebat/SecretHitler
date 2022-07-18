@@ -7,8 +7,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import sh.shinterface.playable.Player;
 import sh.shinterface.model.PartyModel;
+import sh.shinterface.playable.Player;
 
 /**
  * Component that contains the player label and the TextField to input the player name

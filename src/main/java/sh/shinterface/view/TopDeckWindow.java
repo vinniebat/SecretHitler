@@ -2,16 +2,11 @@ package sh.shinterface.view;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sh.shinterface.playable.gov.Gov;
 import sh.shinterface.playable.Policy;
-import sh.shinterface.playable.Role;
+import sh.shinterface.playable.gov.Gov;
 import sh.shinterface.playable.gov.TopDeck;
 import sh.shinterface.screen.GameWindow;
 
