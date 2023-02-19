@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import sh.shinterface.control.PlayerField?>
+<fx:root type="sh.shinterface.control.PlayerField" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml">
+    <Label fx:id="idLabel"/>
+    <TextField fx:id="nameField" promptText="Enter player name" onMouseClicked="#reset" HBox.hgrow="ALWAYS"/>
+    <ToggleButton fx:id="button" text="ME!" onAction="#setActivePlayer"/>
+</fx:root>

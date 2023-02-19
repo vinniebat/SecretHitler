@@ -135,7 +135,7 @@ public class ConfigScreen extends TitledScreen implements InvalidationListener {
             activePlayerGroup.getToggles().retainAll(new ArrayList<>(activePlayerGroup.getToggles().subList(0, size)));
         }
         for (Node node : playerFields) {
-            ((PlayerField) node).reset();
+            ((PlayerField) node).reset(null);
         }
     }
 

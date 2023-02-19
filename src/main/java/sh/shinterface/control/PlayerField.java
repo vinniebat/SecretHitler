@@ -1,14 +1,19 @@
 package sh.shinterface.control;
 
+import javafx.application.Platform;
 import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import sh.shinterface.model.PartyModel;
 import sh.shinterface.playable.Player;
+
+import java.io.IOException;
 
 /**
  * Component that contains the player label and the TextField to input the player name
@@ -18,12 +23,14 @@ public class PlayerField extends HBox {
     /**
      * TextField used to input the player name
      */
-    private final TextField nameField = new TextField("TEST");
+    @FXML
+    private TextField nameField;
 
     /**
      * Button to indicate the active player
      */
-    private final ToggleButton button = new ToggleButton("ME!");
+    @FXML
+    private ToggleButton button;
 
     /**
      * party from which the player comes
@@ -35,6 +42,18 @@ public class PlayerField extends HBox {
      */
     private final Player player;
 
+    @FXML
+    private Label idLabel;
+
+    public void initialize() {
+        nameField.setText(player.getName());
+        nameField.textProperty().addListener(e -> setName());
+        int playerId = player.getId();
+        String idString = (playerId < 10) ? "0" + playerId : "" + playerId;
+        idLabel.setText("Player " + idString + ":");
+    }
+
+
     /**
      * Makes a new PlayerField backed by the given player
      *
@@ -42,6 +61,23 @@ public class PlayerField extends HBox {
      * @param group  Group to which the button is added
      * @param model  Party from which the player comes
      */
+    public PlayerField(Player player, ToggleGroup group, PartyModel model) {
+        this.player = player;
+        this.model = model;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("playerField.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.err.println("Could not load playerField.fxml");
+            Platform.exit();
+        }
+        button.setToggleGroup(group);
+    }
+
+    /*
     public PlayerField(Player player, ToggleGroup group, PartyModel model) {
         this.player = player;
         this.model = model;
@@ -60,6 +96,7 @@ public class PlayerField extends HBox {
         );
         HBox.setHgrow(nameField, Priority.ALWAYS);
     }
+     */
 
     /**
      * Sets the active player as the player that this field represents
@@ -99,7 +136,7 @@ public class PlayerField extends HBox {
     /**
      * Clear the name field and remove the error appearance
      */
-    public void reset() {
+    public void reset(MouseEvent event) {
         getStyleClass().removeAll("empty-field"); // Reset de error
     }
 
